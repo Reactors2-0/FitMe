@@ -1,11 +1,17 @@
 const {
     getProducts,
+    getProduct,
     createProduct,
+    updateProduct,
+    deleteProduct,
 } = require("../controller/product");
+
+// TODO : Invoked middleware for product.
 
 const Product = require("../models/Product");
 const advanceResults = require("../middleware/advanceResults");
 
+const reviewRouter = require("./review");
 
 const router = require("express").Router();
 
@@ -18,14 +24,16 @@ router
         }),
         getProducts
     )
+    // TODO : Invoked middleware for authorasation to create product
     .post(createProduct);
+router.use("/:productId/reviews", reviewRouter);
 
-//router.use("/:productId/reviews", reviewRouter);
+// TODO : add permission to product router
 
-// router
-//     .route("/:productId")
-//     .get(getProduct)
-//     .put(protect, permission("admin"), updateProduct)
-//     .delete(protect, permission("admin"), deleteProduct);
+ router
+    .route("/:productId")
+    .get(getProduct)
+    .put(updateProduct)
+    .delete(deleteProduct);
 
 module.exports = router;

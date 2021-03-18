@@ -11,7 +11,8 @@ const router = require("express").Router({ mergeParams: true });
 
 //Invoked middleware
 const advanceResults = require("../middleware/advanceResults");
-const { protect } = require("../middleware/auth");
+//TODO : Invoked middleware for review
+//const { protect } = require("../middleware/auth");
 
 //Review model
 const Review = require("../models/Review");
@@ -26,12 +27,13 @@ router
         getReviews
     )
     .post(protect, createReview);
+// TODO : add permission to review router
 
 router
     .route("/:id")
     .get(getReview)
-    .put(protect, updateReview)
-    .delete(protect, deleteReview);
-router.route("/updateRating/:id").put(protect, updateRating);
+    .put(updateReview)
+    .delete(deleteReview);
+router.route("/updateRating/:id").put(updateRating);
 
 module.exports = router;
