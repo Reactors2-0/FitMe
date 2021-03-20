@@ -6,7 +6,7 @@
   "author": "Reactors",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=production node app.js",
+    "start": "nodemon app.js",
     "dev": "node app",
     "heroku-postbuild": "YARN_PRODUCTION=false cd client && yarn install"
   },
@@ -25,5 +25,8 @@
   },
   "engines": {
     "node": "10.x"
+  },
+  "devDependencies": {
+    "node-env-run": "^4.0.2"
   }
 }

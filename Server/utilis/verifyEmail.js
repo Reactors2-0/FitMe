@@ -1,7 +1,7 @@
-import { setApiKey, send } from "@sendgrid/mail";
+const sgMail = require("@sendgrid/mail");
 
 const verifyEmail = async (options) => {
-    setApiKey(process.env.SEND_GRID_KEY);
+    sgMail.setApiKey(process.env.SEND_GRID_KEY);
 
     const message = {
         from: `${process.env.FROM_NAME} <${process.env.FROM_EMAIL}>`,
@@ -17,6 +17,6 @@ const verifyEmail = async (options) => {
             options.code +
             " </h3></div><p>If this request is not made by you kindly ignore this mail.</p><p>Regards, <strong>Sajid Ansari(Owner)</strong></p>",
     };
-    await send(message);
+    await sgMail.send(message);
 };
-export default verifyEmail;
+module.exports = verifyEmail;

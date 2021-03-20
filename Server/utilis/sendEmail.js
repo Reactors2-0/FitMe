@@ -1,7 +1,7 @@
-import { setApiKey, send } from "@sendgrid/mail";
+const sgMail = require("@sendgrid/mail");
 
 const sendEmail = async (options) => {
-    setApiKey(process.env.SEND_GRID_KEY);
+    sgMail.setApiKey(process.env.SEND_GRID_KEY);
 
     const message = {
         from: `${process.env.FROM_NAME} <${process.env.FROM_EMAIL}>`,
@@ -10,6 +10,6 @@ const sendEmail = async (options) => {
         text: options.message,
         html: `<a href=${options.url}><button>Click Here</button></a>`,
     };
-    await send(message);
+    await sgMail.send(message);
 };
-export default sendEmail;
+module.exports = sendEmail;

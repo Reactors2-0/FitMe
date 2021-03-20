@@ -1,9 +1,9 @@
-import { verify } from "jsonwebtoken";
-import createError from "./createError";
+const jwt = require("jsonwebtoken");
+const createError = require("./createError");
 
 const verifyToken = (token, secret) => {
     try {
-        return verify(token, secret);
+        return jwt.verify(token, secret);
     } catch (error) {
         if (error.name === "TokenExpiredError")
             throw createError(401, "Token is expired. Please Login");
@@ -12,4 +12,4 @@ const verifyToken = (token, secret) => {
     }
 };
 
-export default verifyToken;
+module.exports = verifyToken;

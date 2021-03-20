@@ -1,7 +1,7 @@
-import createError from "../utilis/createError";
-import verifyToken from "../utilis/jwt";
-import asyncHandler from "../middleware/async";
-import { findById } from "../models/User";
+const createError = require("../utilis/createError");
+const verifyToken = require("../utilis/jwt");
+const asyncHandler = require("../middleware/async");
+const User = require("../models/User");
 
 const protect = asyncHandler(async (req, res, next) => {
     const authorization = req.headers["authorization"];
@@ -13,7 +13,7 @@ const protect = asyncHandler(async (req, res, next) => {
 
     const decodeToken = verifyToken(token, process.env.JWT_SECRET);
 
-    req.user = await findById(decodeToken._id);
+    req.user = await User.findById(decodeToken._id);
 
     next();
 });
@@ -27,4 +27,4 @@ const permission = (role) => (req, res, next) => {
 
     next();
 };
-export default { protect, permission };
+module.exports = { protect, permission };
