@@ -1,0 +1,9 @@
+.HomeBox{
+    position: absolute;
+    width: 1440px;
+    height: 1166px;
+    left: 0px;
+    top: 0px;
+
+    background: #7E69BA;
+}

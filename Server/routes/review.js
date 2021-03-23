@@ -26,7 +26,7 @@ router
         }),
         getReviews
     )
-    .post(protect, createReview);
+    .post(createReview);
 // TODO : add permission to review router
 
 router

@@ -14,12 +14,20 @@ const getProducts = asyncHandler(async (req,res,next)=>{
             {};
 
         const searchProduct = await Product.find(searchItem);
-
+console.log(searchProduct)
         res.status(200).send({
             status: "success",
             data: { results : searchProduct , count: searchProduct.length }
         })
+    }else{
+        const products = await Product.find();
+
+        res.status(200).send({
+            status: "success",
+                    data: { results : products , count: products.length }
+        })
     }
+
 });
 
 const getProduct =asyncHandler(async (req,res,next)=>{
@@ -27,6 +35,7 @@ const getProduct =asyncHandler(async (req,res,next)=>{
         path : "Review",
         select: "title text"
     })
+    console.log(product);
     if(!product)
         throw createError(404,`Product with id ${req.params.productId} not found`);
 
@@ -45,7 +54,7 @@ const createProduct = asyncHandler(async (req,res,next)=>{
     //TODO : check file size
 
     //TODO : Store img in cloud
-
+    // TODO : XML element accesse *
     const product = await Product.create({
         ...req.body,
         productImage : "add photo in cloud !"
