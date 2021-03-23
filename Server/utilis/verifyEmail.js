@@ -11,11 +11,11 @@ const verifyEmail = async (options) => {
             "<div style =" +
             "width:100%; height:100%;  " +
             "><h1 style=" +
-            "font-weight:500>Hey, " +
+            "font-weight:300>Hey, " +
             options.name +
-            "<br>Welcome to ShopPonit</h1><h1>Thanks for Signing up on our app</h1><h3>Your Code for verification is : " +
+            "<br>Welcome to FitMe</h1><h1>Thanks for Signing up on our app</h1><h3>Your Code for verification is : " +
             options.code +
-            " </h3></div><p>If this request is not made by you kindly ignore this mail.</p><p>Regards, <strong>Sajid Ansari(Owner)</strong></p>",
+            " </h3></div><p>If this request is not made by you kindly ignore this mail.</p><p>Regards, <strong>Reactors Team/strong></p>",
     };
     await sgMail.send(message);
 };
