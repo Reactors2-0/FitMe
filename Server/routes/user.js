@@ -6,7 +6,7 @@ const {
     deleteUser,
 } = require("../controller/user");
 
-//Invoked middleware.
+// middleware
 const advanceResults = require("../middleware/advanceResults");
 const { protect, permission } = require("../middleware/auth");
 
