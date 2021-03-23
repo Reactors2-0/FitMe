@@ -2,15 +2,6 @@ import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
 
 import {
-  listProducts,
-  Product,
-  // productReview,
-  // createReview,
-  // deleteProduct,
-  // createProduct,
-  // EditProduct,
-} from "./reducers/productReducers";
-import {
   userLogin,
   userRegister,
   userList,
@@ -20,6 +11,19 @@ import {
   forgotPassword,
   resetPassword,
 } from "./reducers/userReducers";
+import {
+    listProducts,
+    Product,
+    // productReview,
+    // createReview,
+    // deleteProduct,
+    // createProduct,
+    // EditProduct,
+} from "./reducers/productReducers";
+
+
+
+
 
 
 const rootReducer = combineReducers({
@@ -40,11 +44,14 @@ const userInfoFromStorage = localStorage.getItem("userInfo")
     : null;
 
 const initialState = {
-
+  cart: {
+    cartItems: {},
+    shippingAddress: {},
+    paymentMethod: {},
+  },
   userLogin: { userInfo: userInfoFromStorage },
 };
 
 const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
-
 
 export default store;

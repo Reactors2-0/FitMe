@@ -59,7 +59,7 @@ export default class Header extends React.Component {
                     <Navbar type="light" expand="lg">
                         <NavbarToggler onClick={this.toggleNavbar} />
 
-                        <div className="col-8 " >
+                        <div className="col-5" >
                             <Collapse open={this.state.collapseOpen} navbar>
                                 <Nav navbar>
                                     <NavItem>

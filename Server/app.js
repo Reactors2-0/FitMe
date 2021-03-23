@@ -1,6 +1,4 @@
 const express = require("express");
-const connectDb = require("./config/db");
-const colors = require("colors");
 const dotenv = require("dotenv");
 const colors = require("colors");
 const path = require("path");
@@ -13,20 +11,45 @@ const app = express();
 dotenv.config({ path: ".env" });
 
 connectDb();
+app.use(cors());
 
+const productRouter = require("./routes/product");
+const reviewRouter = require("./routes/review");
+
+//rouets
+const authRouter = require("./routes/auth");
+const userRouter = require("./routes/user");
 
 app.use("/api/product", productRouter);
 app.use("/api/review", reviewRouter);
 app.use(express.json());
 
+app.use(
+    fileUpload({
+        useTempFiles: true,
+    })
+);
 
-// app.use(cors());
+
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/user", userRouter);
 
 
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "/client/build")));
 
+    app.get("*", (req, res) =>
+        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+    );
+} else {
+    app.get("/", (req, res) => {
+        res.send("API is running....");
+    });
+}
+
+app.use(unknownEndpoints);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 

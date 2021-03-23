@@ -1,9 +1,10 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import Header from "./components/Header/index";
-import Footer from "./components/Footer/Footer";
-import Home from "./pages/Home";
+import Header from "./components/frontoffice/Header/Header";
+import FooterPage from "./components/Footer/FooterPage";
+import Home from "./pages/frontoffice/Home/Home";
+
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import Register from "./pages/Register";
@@ -41,7 +42,7 @@ function App() {
           </Switch>
         </Container>
       </main>
-      <Footer />
+      <FooterPage />
     </BrowserRouter>
   );
 }
