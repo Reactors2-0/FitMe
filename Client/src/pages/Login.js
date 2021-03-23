@@ -53,14 +53,17 @@ const Login = ({ location, history }) => {
         />
       )}
       <FormContainer>
-        <h1>Sign In</h1>
+        <h1>Hello There!</h1>
+        <p style={{ fontWeight: 'bold', color: 'black' }}>Please sign in or create account to continue</p>
+        <h3>Sign In</h3>
 
         <Form onSubmit={submitHandler}>
+          <p>Email</p>
           <TextField
             variant="outlined"
             type="email"
             margin="normal"
-            placeholder="ex:- JohnDoe@gmail.com"
+            placeholder="ex: brayek@gmail.com"
             required
             fullWidth
             id="email"
@@ -71,7 +74,7 @@ const Login = ({ location, history }) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-
+          <p>Password</p>
           <TextField
             variant="outlined"
             margin="normal"
@@ -86,7 +89,6 @@ const Login = ({ location, history }) => {
             autoComplete="current-password"
             onChange={(e) => setPassword(e.target.value)}
           />
-
           <Button
             type="submit"
             variant="contained"

@@ -10,7 +10,7 @@ const Logout = () => {
     dispatch(userAction.Logout());
   }, [dispatch]);
 
-  return <Redirect to="/" />;
+  return <Redirect to="/login" />;
 };
 
 export default Logout;

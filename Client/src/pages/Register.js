@@ -59,7 +59,7 @@ const Register = ({ location, history }) => {
 
   return (
     <FormContainer>
-      <h1>Sign Up</h1>
+      <h1>CREATE ACCOUNT</h1>
       {error && (
         <ErrorMessage
           header="Auth Error"

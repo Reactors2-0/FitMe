@@ -7,8 +7,9 @@ h3 {
 }
 
 h1 {
-  font-size: 1.8rem;
-  padding: 1rem 0;
+  font-size: 1.5rem;
+
+
 }
 
 h2 {
@@ -108,7 +109,6 @@ h2 {
   margin: 0 auto;
 }
 
-.bg-dark {
+.head {
   background-color: #7E69BA !important;
-
 }

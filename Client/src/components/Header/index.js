@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
+      <Navbar className="head" variant="dark" collapseOnSelect>
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>FitMe</Navbar.Brand>
@@ -34,7 +34,7 @@ const Header = () => {
               ) : (
                 <LinkContainer to="/login">
                   <Nav.Link>
-                    <i className="fas fa-user"></i> Sign In
+                    <i className="fas fa-user signinic"></i> Sign In
                   </Nav.Link>
                 </LinkContainer>
               )}
