@@ -34,7 +34,12 @@ const Login = ({ location, history }) => {
 
   useEffect(() => {
     if (userInfo) {
-      history.push(redirect);
+      if(userInfo.role === "admin")
+        history.push(redirect + "dashboard/admin");
+      else if (userInfo.role === "seller")
+        history.push(redirect + "dashboard/seller")
+      else 
+        history.push(redirect)  
     }
   }, [dispatch, userInfo, redirect, history]);
 

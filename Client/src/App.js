@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Container } from "react-bootstrap";
-
+import { useDispatch, useSelector } from "react-redux";
 import Header from "@Components/frontoffice/Header/Header";
 import FooterPage from "@Components/Footer/FooterPage";
 import LoadingGif from '@Assets/Fidget-spinner.gif'
@@ -20,7 +20,9 @@ const EmailVerification = lazy(() => import('@FrontOfficePages/LoginRegister/Ema
 const BrandSignup = lazy(() => import('@FrontOfficePages/BrandSignup/BrandSignup'));
 const AdminBrandsList = lazy(() => import('@BackOfficePages/AdminBrandsList/AdminBrandsList'));
 function App() {
-  const isBackOfficePage = window.location.pathname.startsWith('/admin');
+  const isBackOfficePage = window.location.pathname.startsWith('/dashboard');
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   return (
     <BrowserRouter>
       { !isBackOfficePage ? (<Header />) : (<></>)}
