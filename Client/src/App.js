@@ -1,26 +1,39 @@
-import React from "react";
+import React , { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Container } from "react-bootstrap";
+
 import Header from "@Components/frontoffice/Header/Header";
 import FooterPage from "@Components/Footer/FooterPage";
-import Home from "@FrontOffice/Home/Home";
+const Home = lazy(() => import('@FrontOffice/Home/Home'));
 
-import Login from "@FrontOffice/LoginRegister/Login";
-import Logout from "@FrontOffice/LoginRegister/Logout";
-import Register from "@FrontOffice/LoginRegister/Register";
-import ForgotPassword from "@FrontOffice/LoginRegister/ForgotPassword";
-import ResetPassword from "@FrontOffice/LoginRegister/ResetPassword";
-import EmailVerification from "@FrontOffice/LoginRegister/EmailVerification";
+const AdminRoute = lazy(() => import('@Routes/AdminRoute'));
+
+
+const Login = lazy(() => import('@FrontOffice/LoginRegister/Login'));
+const Logout =  lazy(() => import('@FrontOffice/LoginRegister/Logout'));
+const Register = lazy(() => import('@FrontOffice/LoginRegister/Register'));
+const ForgotPassword =  lazy(() => import('@FrontOffice/LoginRegister/ForgotPassword'));
+const ResetPassword = lazy(() => import('@FrontOffice/LoginRegister/ResetPassword'));
+const EmailVerification = lazy(() => import('@FrontOffice/LoginRegister/EmailVerification'));
 // * Chihab's imports
-import BrandSignup from "@FrontOffice/BrandSignup/BrandSignup";
-
+const BrandSignup = lazy(() => import('@FrontOffice/BrandSignup/BrandSignup'));
+const AdminBrandsList = lazy(() => import('@BackOffice/AdminBrandsList/AdminBrandsList'));
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <main className="py-3">
         <Container>
+        <Suspense fallback={<div>Loading...</div>}>
           <Switch>
+            // * Chihab's routes
+            <Route exact={true} path="/brandSignup" component={BrandSignup} />
+            <AdminRoute
+              exact={true}
+              path="/admin/brandList"
+              component={AdminBrandsList}
+            />
+            // * End Chihab's routes
             <Route exact={true} path="/" component={Home} />
             <Route exact={true} path="/login" component={Login} />
             <Route
@@ -41,6 +54,7 @@ function App() {
             />
             <Route exact={true} path="/logout" component={Logout} />
           </Switch>
+          </Suspense>
         </Container>
       </main>
       <FooterPage />

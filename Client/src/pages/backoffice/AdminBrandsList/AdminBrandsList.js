@@ -1,31 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { LinkContainer } from "react-router-bootstrap";
-import {
-  Table,
-  Button,
-  Row,
-  Col
-} from "react-bootstrap";
+import {Table,Button,Row,Col} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import ErrorMessage from "../components/Message/errorMessage";
-import SuccessMessage from "../components/Message/successMessage";
-import TableLoader from "../components/Loader/TableLoader";
+import ErrorMessage from "@Components/Message/errorMessage";
+import SuccessMessage from "@Components/Message/successMessage";
+import TableLoader from "@Components/Loader/TableLoader";
+import {Button as MaterialButton,makeStyles,} from "@material-ui/core/";
 import {
-  Button as MaterialButton,makeStyles,
-} from "@material-ui/core/";
-import {
-  listProductsForAdmin,
-  deleteProduct
-} from "../../../actions/productAction";
-import * as productConstants from "../constants/productConstants";
+  listBrandsForAdmin,
+  deleteBrand
+} from "@Actions/brandAction";
+import * as brandConstants from "@Constants/brandConstants";
 import { confirmAlert } from "react-confirm-alert"; 
 import "react-confirm-alert/src/react-confirm-alert.css";
 
 const AdminBrandsList = () => {
   const dispatch = useDispatch();
 
-  const productList = useSelector((state) => state.productList);
-  const { loading, products, count, error, success } = productList;
+  const brandList = useSelector((state) => state.brandList);
+  const { loading, brands, count, error, success } = brandList;
 
   const deleteProductData = useSelector((state) => state.deleteProduct);
   const { success: deleteSuccess, error: deleteFail } = deleteProductData;
@@ -49,7 +42,7 @@ const AdminBrandsList = () => {
         return (
           <div className="custom-ui">
             <h1 className="font-weight-bold text-white">Are you sure?</h1>
-            <p>You want to delete this product?</p>
+            <p>You want to delete this brand?</p>
             <MaterialButton
               variant="contained"
               color="primary"
@@ -79,14 +72,14 @@ const AdminBrandsList = () => {
         <SuccessMessage
           header="Done"
           message="Product Deleted Successfully"
-          reset={productConstants.DELETE_PRODUCT_RESET}
+          reset={brandConstants.DELETE_BRAND_RESET}
         />
       )}
       {deleteFail && (
         <ErrorMessage
           header="Something went wrong"
           message={deleteFail}
-          reset={productConstants.DELETE_PRODUCT_RESET}
+          reset={brandConstants.DELETE_BRAND_RESET}
         />
       )}
       <Row>
@@ -112,15 +105,15 @@ const AdminBrandsList = () => {
               </tr>
             </thead>
             <tbody>
-              {products.map((product) => (
-                <tr key={product._id}>
-                  <td>{product.name}</td>
-                  <td>${product.price}</td>
-                  <td>{product.category}</td>
-                  <td>{product.brand}</td>
+              {brands.map((brand) => (
+                <tr key={brand._id}>
+                  <td>{brand.name}</td>
+                  <td>${brand.price}</td>
+                  <td>{brand.category}</td>
+                  <td>{brand.brand}</td>
                   <td>No</td>
                   <td>
-                    <LinkContainer to={`/admin/product/${product._id}/edit`}>
+                    <LinkContainer to={`/admin/brand/${brand._id}/edit`}>
                       <Button variant="light" className="btn-sm">
                         <i className="fas fa-edit"></i>
                       </Button>
@@ -128,7 +121,7 @@ const AdminBrandsList = () => {
                     <Button
                       variant="danger"
                       className="btn-sm"
-                      onClick={(e) => deleteHandler(product._id, e)}
+                      onClick={(e) => deleteHandler(brand._id, e)}
                     >
                       <i className="fas fa-trash"></i>
                     </Button>
