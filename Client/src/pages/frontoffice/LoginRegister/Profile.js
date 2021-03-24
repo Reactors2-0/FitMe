@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { Table, Button, Row, Col, ListGroup, Card } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import ErrorMessage from "../components/Message/errorMessage";
+import ErrorMessage from "../../../components/Message/errorMessage";
 //import { Button as MeterialButton } from "@material-ui/core/";
-import { authOrder } from "../actions/orderAction";
-import TableLoader from "../components/Loader/TableLoader";
-import Print from "../components/Print/Print";
+import { authOrder } from "../../../actions/orderAction";
+import TableLoader from "../../../components/Loader/TableLoader";
+import Print from "../../../components/Print/Print";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -95,75 +95,75 @@ const Profile = () => {
 
             orders.length > 0
               ? {
-                  layout: {
-                    hLineWidth: function () {
-                      return 0;
-                    },
-                    vLineWidth: function () {
-                      return 0;
-                    },
-                    paddingBottom: function () {
-                      return 5;
-                    },
+                layout: {
+                  hLineWidth: function () {
+                    return 0;
                   },
-                  table: {
-                    headerRows: 1,
-                    body: [
-                      [
-                        {
-                          text: "S.No",
-                          bold: true,
-                          fillColor: "#2B2B52",
-                          color: "white",
-                        },
-                        {
-                          text: "ID",
-                          bold: true,
-                          fillColor: "#2B2B52",
-                          color: "white",
-                        },
-                        {
-                          text: "DATE",
-                          bold: true,
-                          fillColor: "#2B2B52",
-                          color: "white",
-                        },
-                        {
-                          text: "TOTAL PRICE",
-                          bold: true,
-                          fillColor: "#2B2B52",
-                          color: "white",
-                        },
-                        {
-                          text: "PAID",
-                          bold: true,
-                          fillColor: "#2B2B52",
-                          color: "white",
-                        },
-                        {
-                          text: "DELIVERED",
-                          bold: true,
-                          fillColor: "#2B2B52",
-                          color: "white",
-                        },
-                      ],
-
-                      ...orders.map((o, i) => [
-                        i + 1,
-                        o._id,
-                        o.createdAt.substring(0, 10),
-                        o.totalPrice,
-                        o.isPaid ? o.paidAt.substring(0, 10) : "Not paid",
-                        o.isDelivered
-                          ? o.deliveredAt.substring(0, 10)
-                          : "Not paid",
-                      ]),
+                  vLineWidth: function () {
+                    return 0;
+                  },
+                  paddingBottom: function () {
+                    return 5;
+                  },
+                },
+                table: {
+                  headerRows: 1,
+                  body: [
+                    [
+                      {
+                        text: "S.No",
+                        bold: true,
+                        fillColor: "#2B2B52",
+                        color: "white",
+                      },
+                      {
+                        text: "ID",
+                        bold: true,
+                        fillColor: "#2B2B52",
+                        color: "white",
+                      },
+                      {
+                        text: "DATE",
+                        bold: true,
+                        fillColor: "#2B2B52",
+                        color: "white",
+                      },
+                      {
+                        text: "TOTAL PRICE",
+                        bold: true,
+                        fillColor: "#2B2B52",
+                        color: "white",
+                      },
+                      {
+                        text: "PAID",
+                        bold: true,
+                        fillColor: "#2B2B52",
+                        color: "white",
+                      },
+                      {
+                        text: "DELIVERED",
+                        bold: true,
+                        fillColor: "#2B2B52",
+                        color: "white",
+                      },
                     ],
-                  },
 
-                  fontSize: 10,
-                  alignment: "center",
-                }
+                    ...orders.map((o, i) => [
+                      i + 1,
+                      o._id,
+                      o.createdAt.substring(0, 10),
+                      o.totalPrice,
+                      o.isPaid ? o.paidAt.substring(0, 10) : "Not paid",
+                      o.isDelivered
+                        ? o.deliveredAt.substring(0, 10)
+                        : "Not paid",
+                    ]),
+                  ],
+                },
+
+                fontSize: 10,
+                alignment: "center",
+              }
               : null,
           ],
           styles: {

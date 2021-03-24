@@ -5,12 +5,12 @@ import Header from "./components/frontoffice/Header/Header";
 import FooterPage from "./components/Footer/FooterPage";
 import Home from "./pages/frontoffice/Home/Home";
 
-import Login from "./pages/Login";
-import Logout from "./pages/Logout";
-import Register from "./pages/Register";
-import ForgotPassword from "./pages/ForgotPassword";
-import ResetPassword from "./pages/ResetPassword";
-import EmailVerification from "./pages/EmailVerification";
+import Login from "./pages/frontoffice/LoginRegister/Login";
+import Logout from "./pages/frontoffice/LoginRegister/Logout";
+import Register from "./pages/frontoffice/LoginRegister/Register";
+import ForgotPassword from "./pages/frontoffice/LoginRegister/ForgotPassword";
+import ResetPassword from "./pages/frontoffice/LoginRegister/ResetPassword";
+import EmailVerification from "./pages/frontoffice/LoginRegister/EmailVerification";
 
 function App() {
   return (
