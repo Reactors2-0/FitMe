@@ -20,9 +20,10 @@ const EmailVerification = lazy(() => import('@FrontOfficePages/LoginRegister/Ema
 const BrandSignup = lazy(() => import('@FrontOfficePages/BrandSignup/BrandSignup'));
 const AdminBrandsList = lazy(() => import('@BackOfficePages/AdminBrandsList/AdminBrandsList'));
 function App() {
+  const isBackOfficePage = window.location.pathname.startsWith('/admin');
   return (
     <BrowserRouter>
-      { !window.location.pathname.startsWith('/admin') ? (<Header />) : (<></>)}
+      { !isBackOfficePage ? (<Header />) : (<></>)}
       <main className="py-3">
         <Container>
           <Suspense fallback={<img src={LoadingGif} alt="loading..." />}>
@@ -42,7 +43,7 @@ function App() {
           </Suspense>
         </Container>
       </main>
-      { !window.location.pathname.startsWith('/admin') ? (<FooterPage />) : (<></>)}
+      { !isBackOfficePage ? (<FooterPage />) : (<></>)}
     </BrowserRouter>
   );
 }
