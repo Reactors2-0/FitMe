@@ -27,4 +27,13 @@ const permission = (role) => (req, res, next) => {
 
     next();
 };
-module.exports = { protect, permission };
+const permissions = (roles) => (req,res,next) =>{
+    if (roles.indexOf(req.user.role) === -1 )
+    throw createError(
+      401,
+      `User role ${req.user.role} is not allowed to access this resource`
+    );
+    next();
+  };
+
+module.exports = { protect, permission, permissions };

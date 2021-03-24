@@ -7,6 +7,7 @@ const fileUpload = require("express-fileupload");
 const { unknownEndpoints, errorHandler } = require("./middleware/error");
 const connectDb = require("./config/db");
 const app = express();
+const expressListRoutes = require('express-list-routes');
 
 dotenv.config({ path: ".env" });
 
@@ -19,7 +20,9 @@ const reviewRouter = require("./routes/review");
 //rouets
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
-
+// ! Chihab's routes
+const brandRouter = require("./routes/brand");
+app.use("/api/v1/brand", brandRouter);
 app.use("/api/product", productRouter);
 app.use("/api/review", reviewRouter);
 app.use(express.json());
@@ -59,7 +62,8 @@ const server = app.listen(
         `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
     )
 );
-
+// * Display all routes 
+expressListRoutes(app);
 //Handle unhandle promise rejection
 
 process.on("unhandledRejection", (err, promise) => {
