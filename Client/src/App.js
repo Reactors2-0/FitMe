@@ -9,7 +9,7 @@ import LoadingGif from '@Assets/Fidget-spinner.gif'
 const Home = lazy(() => import('@FrontOfficePages/Home/Home'));
 const AdminRoute = lazy(() => import('@Routes/AdminRoute'));
 
-
+/** Moetaz Brayek Imports */
 const Login = lazy(() => import('@FrontOfficePages/LoginRegister/Login'));
 const Logout = lazy(() => import('@FrontOfficePages/LoginRegister/Logout'));
 const Register = lazy(() => import('@FrontOfficePages/LoginRegister/Register'));
@@ -31,10 +31,10 @@ function App() {
           <Suspense fallback={<img src={LoadingGif} alt="loading..." />}>
             <Switch>
               // * Chihab's routes
-              <Route exact={true} path="/brandSignup" component={BrandSignup} />
+            <Route exact={true} path="/brandSignup" component={BrandSignup} />
               <AdminRoute exact={true} path="/admin/brandList" component={AdminBrandsList} />
-              // * End Chihab's routes
-              <Route exact={true} path="/" component={Home} />
+            // * End Chihab's routes
+            <Route exact={true} path="/" component={Home} />
               <Route exact={true} path="/login" component={Login} />
               <Route exact={true} path="/forgotPasssword" component={ForgotPassword} />
               <Route exact={true} path="/resetPassword" component={ResetPassword} />
