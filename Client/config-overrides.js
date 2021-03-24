@@ -21,8 +21,8 @@ const {
     // add an alias for "ag-grid-react" imports
     addWebpackAlias({
       ['@Components']: path.resolve(__dirname, './src/components'),
-      ['@FrontOffice']: path.resolve(__dirname, './src/pages/frontoffice'),
-      ['@BackOffice']: path.resolve(__dirname, './src/pages/backoffice'),
+      ['@FrontOfficePages']: path.resolve(__dirname, './src/pages/frontoffice'),
+      ['@BackOfficePages']: path.resolve(__dirname, './src/pages/backoffice'),
       ['@Actions']: path.resolve(__dirname, './src/actions'),
       ['@Constants']: path.resolve(__dirname, './src/constants'),
       ['@Reducers']: path.resolve(__dirname, './src/reducers'),

@@ -6,19 +6,19 @@ import Header from "@Components/frontoffice/Header/Header";
 import FooterPage from "@Components/Footer/FooterPage";
 import LoadingGif from '@Assets/Fidget-spinner.gif'
 
-const Home = lazy(() => import('@FrontOffice/Home/Home'));
+const Home = lazy(() => import('@FrontOfficePages/Home/Home'));
 const AdminRoute = lazy(() => import('@Routes/AdminRoute'));
 
 
-const Login = lazy(() => import('@FrontOffice/LoginRegister/Login'));
-const Logout =  lazy(() => import('@FrontOffice/LoginRegister/Logout'));
-const Register = lazy(() => import('@FrontOffice/LoginRegister/Register'));
-const ForgotPassword =  lazy(() => import('@FrontOffice/LoginRegister/ForgotPassword'));
-const ResetPassword = lazy(() => import('@FrontOffice/LoginRegister/ResetPassword'));
-const EmailVerification = lazy(() => import('@FrontOffice/LoginRegister/EmailVerification'));
+const Login = lazy(() => import('@FrontOfficePages/LoginRegister/Login'));
+const Logout =  lazy(() => import('@FrontOfficePages/LoginRegister/Logout'));
+const Register = lazy(() => import('@FrontOfficePages/LoginRegister/Register'));
+const ForgotPassword =  lazy(() => import('@FrontOfficePages/LoginRegister/ForgotPassword'));
+const ResetPassword = lazy(() => import('@FrontOfficePages/LoginRegister/ResetPassword'));
+const EmailVerification = lazy(() => import('@FrontOfficePages/LoginRegister/EmailVerification'));
 // * Chihab's imports
-const BrandSignup = lazy(() => import('@FrontOffice/BrandSignup/BrandSignup'));
-const AdminBrandsList = lazy(() => import('@BackOffice/AdminBrandsList/AdminBrandsList'));
+const BrandSignup = lazy(() => import('@FrontOfficePages/BrandSignup/BrandSignup'));
+const AdminBrandsList = lazy(() => import('@BackOfficePages/AdminBrandsList/AdminBrandsList'));
 function App() {
   return (
     <BrowserRouter>
@@ -29,11 +29,7 @@ function App() {
           <Switch>
             // * Chihab's routes
             <Route exact={true} path="/brandSignup" component={BrandSignup} />
-            <AdminRoute
-              exact={true}
-              path="/admin/brandList"
-              component={AdminBrandsList}
-            />
+            <AdminRoute exact={true} path="/admin/brandList" component={AdminBrandsList}/>
             // * End Chihab's routes
             <Route exact={true} path="/" component={Home} />
             <Route exact={true} path="/login" component={Login} />
