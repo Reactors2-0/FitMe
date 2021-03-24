@@ -26,7 +26,8 @@ const {
       ['@Actions']: path.resolve(__dirname, './src/actions'),
       ['@Constants']: path.resolve(__dirname, './src/constants'),
       ['@Reducers']: path.resolve(__dirname, './src/reducers'),
-      ['@Routes']: path.resolve(__dirname, './src/routes')
+      ['@Routes']: path.resolve(__dirname, './src/routes'),
+      ['@Assets']: path.resolve(__dirname, './src/assets')
     }),
     // adjust the underlying workbox
     adjustWorkbox(wb =>

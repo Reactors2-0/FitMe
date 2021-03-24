@@ -4,8 +4,9 @@ import { Container } from "react-bootstrap";
 
 import Header from "@Components/frontoffice/Header/Header";
 import FooterPage from "@Components/Footer/FooterPage";
-const Home = lazy(() => import('@FrontOffice/Home/Home'));
+import LoadingGif from '@Assets/Fidget-spinner.gif'
 
+const Home = lazy(() => import('@FrontOffice/Home/Home'));
 const AdminRoute = lazy(() => import('@Routes/AdminRoute'));
 
 
@@ -24,7 +25,7 @@ function App() {
       <Header />
       <main className="py-3">
         <Container>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<img src={LoadingGif} alt="loading..." />}>
           <Switch>
             // * Chihab's routes
             <Route exact={true} path="/brandSignup" component={BrandSignup} />
@@ -36,22 +37,10 @@ function App() {
             // * End Chihab's routes
             <Route exact={true} path="/" component={Home} />
             <Route exact={true} path="/login" component={Login} />
-            <Route
-              exact={true}
-              path="/forgotPasssword"
-              component={ForgotPassword}
-            />
-            <Route
-              exact={true}
-              path="/resetPassword"
-              component={ResetPassword}
-            />
+            <Route exact={true} path="/forgotPasssword" component={ForgotPassword}/>
+            <Route exact={true} path="/resetPassword" component={ResetPassword}/>
             <Route exact={true} path="/register" component={Register} />
-            <Route
-              exact={true}
-              path="/EmailVerification"
-              component={EmailVerification}
-            />
+            <Route exact={true} path="/EmailVerification" component={EmailVerification}/>
             <Route exact={true} path="/logout" component={Logout} />
           </Switch>
           </Suspense>
