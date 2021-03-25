@@ -8,7 +8,7 @@ const sendEmail = async (options) => {
         to: options.email,
         subject: options.subject,
         text: options.message,
-        html: `<a href=${options.url}><button>Click Here</button></a>`,
+        html: `Rest Password Link : <a href=${options.url}>Click Here </a> <br> Regards FitMe Team`,
     };
     await sgMail.send(message);
 };
