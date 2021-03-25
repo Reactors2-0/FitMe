@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import Header from "@Components/frontoffice/Header/Header";
 import FooterPage from "@Components/Footer/FooterPage";
 import LoadingGif from '@Assets/Fidget-spinner.gif'
-
+import Headers from "./pages/backoffice/VerticalLayout/Header"
 const Home = lazy(() => import('@FrontOfficePages/Home/Home'));
 const AdminRoute = lazy(() => import('@Routes/AdminRoute'));
 
@@ -22,7 +22,7 @@ function App() {
   const isBackOfficePage = window.location.pathname.startsWith('/dashboard');
   return (
     <BrowserRouter>
-      { !isBackOfficePage ? (<Header />) : (<></>)}
+      { !isBackOfficePage ? (<Headers />) : (<></>)}
       <main className="py-3">
         <Container>
           <Suspense fallback={<img src={LoadingGif} alt="loading..." />}>
