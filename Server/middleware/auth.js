@@ -22,18 +22,18 @@ const permission = (role) => (req, res, next) => {
     if (role !== req.user.role)
         throw createError(
             401,
-            `User role ${req.user.role} is not allowed to access this resource`
+            `User role ${req.user.role} is not allowed to access Here`
         );
 
     next();
 };
-const permissions = (roles) => (req,res,next) =>{
-    if (roles.indexOf(req.user.role) === -1 )
-    throw createError(
-      401,
-      `User role ${req.user.role} is not allowed to access this resource`
-    );
+const permissions = (roles) => (req, res, next) => {
+    if (roles.indexOf(req.user.role) === -1)
+        throw createError(
+            401,
+            `User role ${req.user.role} is not allowed to access Here`
+        );
     next();
-  };
+};
 
 module.exports = { protect, permission, permissions };

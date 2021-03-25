@@ -8,18 +8,22 @@ const { unknownEndpoints, errorHandler } = require("./middleware/error");
 const connectDb = require("./config/db");
 const app = express();
 const expressListRoutes = require('express-list-routes');
-
+// env file add it to .gitignore never push it 
 dotenv.config({ path: ".env" });
 
 connectDb();
 app.use(cors());
-
+//! Mouhamed Routes
 const productRouter = require("./routes/product");
 const reviewRouter = require("./routes/review");
 
-//rouets
+//! Moetaz Routes
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/user", userRouter);
+
+
 // ! Chihab's routes
 const brandRouter = require("./routes/brand");
 app.use("/api/v1/brand", brandRouter);
@@ -35,10 +39,9 @@ app.use(
 
 
 
-app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/user", userRouter);
 
 
+// check after upload and remove extrat code 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "/client/build")));
 
