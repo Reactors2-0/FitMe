@@ -1,10 +1,10 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import Header from "@Components/frontoffice/Header/Header";
+import Headers from "@Components/frontoffice/Header/Header";
 import FooterPage from "@Components/Footer/FooterPage";
 import LoadingGif from '@Assets/Fidget-spinner.gif'
-import Headers from "./pages/backoffice/VerticalLayout/Header"
+//import Headers from "./pages/backoffice/VerticalLayout/Header"
 const Home = lazy(() => import('@FrontOfficePages/Home/Home'));
 const AdminRoute = lazy(() => import('@Routes/AdminRoute'));
 
@@ -31,6 +31,8 @@ function App() {
             <Route exact={true} path="/brandSignup" component={BrandSignup} />
               <AdminRoute exact={true} path="/admin/brandList" component={AdminBrandsList} />
             // * End Chihab's routes
+
+            //* brayek routes
             <Route exact={true} path="/" component={Home} />
               <Route exact={true} path="/login" component={Login} />
               <Route exact={true} path="/forgotPasssword" component={ForgotPassword} />
@@ -38,6 +40,7 @@ function App() {
               <Route exact={true} path="/register" component={Register} />
               <Route exact={true} path="/EmailVerification" component={EmailVerification} />
               <Route exact={true} path="/logout" component={Logout} />
+               // * End Brayek routes
             </Switch>
           </Suspense>
         </Container>

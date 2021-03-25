@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Form, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import ErrorMessage from "../../../components/Message/errorMessage";
-import FormContainer from "../../../components/FormContainer/FormContainer";
+import ErrorMessage from "@Components/Message/errorMessage";
+import FormContainer from "@Components/FormContainer/FormContainer";
 import {
   TextField,
   Button,
   CircularProgress,
   makeStyles,
 } from "@material-ui/core/";
-import * as userAction from "../../../actions/userAction";
-import * as userConstants from "../../../constants/userConstants";
+import * as userAction from "@Actions/userAction";
+import * as userConstants from "@Constants/userConstants";
 
 const useStyles = makeStyles((theme) => ({
   prgressColor: {
@@ -34,12 +34,12 @@ const Login = ({ location, history }) => {
 
   useEffect(() => {
     if (userInfo) {
-      if(userInfo.role === "admin")
+      if (userInfo.role === "admin")
         history.push(redirect + "dashboard/admin");
       else if (userInfo.role === "seller")
         history.push(redirect + "dashboard/seller")
-      else 
-        history.push(redirect)  
+      else
+        history.push(redirect)
     }
   }, [dispatch, userInfo, redirect, history]);
 
