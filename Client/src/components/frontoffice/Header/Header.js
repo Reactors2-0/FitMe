@@ -106,6 +106,11 @@ const Header = () => {
                                             <NavDropdown.Item>profile</NavDropdown.Item>
 
                                         </LinkContainer>
+                                        {/* cyrine part*/}
+                                        <LinkContainer to="/order">
+                                            <NavDropdown.Item>order</NavDropdown.Item>
+
+                                        </LinkContainer>
 
                                         <LinkContainer to="/logout">
                                             <NavDropdown.Item>logout</NavDropdown.Item>
