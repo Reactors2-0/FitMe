@@ -34,11 +34,8 @@ const Header = () => {
     const { userInfo } = userAuthData;
 
 
-
-
-
     return (
-        <div className="container-fluid mx-4">
+        <div className="container-fluid">
             <div className="row">
                 <Navbar type="light" expand="lg">
                     <NavbarToggler />
@@ -66,28 +63,17 @@ const Header = () => {
                                         Wardrobe
                                         </NavLink>
                                 </NavItem>
-                                {/*<Dropdown*/}
-                                {/*    open={this.state.dropdownOpen}*/}
-                                {/*    toggle={this.toggleDropdown}*/}
-                                {/*>*/}
-                                {/*    <DropdownToggle nav caret>*/}
-                                {/*        Dropdown*/}
-                                {/*    </DropdownToggle>*/}
-                                {/*    <DropdownMenu>*/}
-                                {/*        <DropdownItem>Action</DropdownItem>*/}
-                                {/*        <DropdownItem>Another action</DropdownItem>*/}
-                                {/*        <DropdownItem>Something else here</DropdownItem>*/}
-                                {/*    </DropdownMenu>*/}
-                                {/*</Dropdown>*/}
+                        
                             </Nav>
                         </Collapse>
 
                     </div>
-                    <div className="d-flex col-7 justify-content-center" >
+                    <div className="d-flex col-3 ml-5" >
                         <img src={FitMeLogo} width={65} />
                     </div>
-                    <div className="col-7">
-                        <Nav navbar className="ml-auto" style={{ display: "flex", alignItems: "center", justifyContent: "space-around" }}>
+                    <div className="col-3 d-flex justify-content-between">
+                    <div>
+                    <Nav navbar style={{ display: "flex", alignItems: "center" }}>
                             <InputGroup size="sm" seamless style={{ width: 200 }} >
                                 <InputGroupAddon type="prepend">
                                     <InputGroupText>
@@ -96,12 +82,21 @@ const Header = () => {
                                 </InputGroupAddon>
                                 <FormInput className="border-1" placeholder="Search..." />
                             </InputGroup>
-                            <div className="d-flex justify-content-between" style={{ width: 100 }}>
+                            </Nav>
+                    </div>
+                            
+                           
                                 {/*Dear Mohamed And Chiheb when someone Update this Msg Me Thanks <3 */}
 
                                 {userInfo ? (
-
-                                    <NavDropdown title={userInfo.name} id="username">
+                                    <div className="d-flex justify-content-around ">
+                                    <div className="d-flex justify-content-between mt-2 ml-3" style={{width : 100}}>
+                                        <FontAwesomeIcon icon={faUserAlt} />
+                                        <FontAwesomeIcon icon={faShoppingCart} />
+                                        <FontAwesomeIcon icon={faHeart} />
+                                    </div>
+                                    <div >
+                                    <NavDropdown title={userInfo.name} id="username" className="ml-4 mb-2">
                                         <LinkContainer to="/profile">
                                             <NavDropdown.Item>profile</NavDropdown.Item>
 
@@ -118,6 +113,8 @@ const Header = () => {
                                         </LinkContainer>
 
                                     </NavDropdown>
+                                    </div>
+                                    </div>
                                 ) : (
                                     <NavLink acitve href="/login">
                                         <NavLink>
@@ -129,9 +126,6 @@ const Header = () => {
                                 )}
 
 
-                            </div>
-
-                        </Nav>
 
                     </div>
                 </Navbar>

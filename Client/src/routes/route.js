@@ -1,7 +1,7 @@
 import React,{lazy} from "react"
 import PropTypes from 'prop-types'
 import { Route, Redirect } from "react-router-dom"
-import Header from "@Components/frontoffice/Header/Header";
+import Header from "@FrontOfficeComponents/Header/Header";
 
 import FooterPage from "@Components/Footer/FooterPage";
 const DashboardHeader = lazy(() => import('@BackOfficeComponents/VerticalLayout/Header'));
