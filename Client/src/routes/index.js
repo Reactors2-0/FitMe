@@ -37,8 +37,8 @@ import EChart from "../backoffice/pages/Charts/EChart"
 import SparklineChart from "../backoffice/pages/Charts/SparklineChart"
 import ToastUIChart from "../backoffice/pages/Charts/ToastUIChart"
 import ChartsKnob from "../backoffice/pages/Charts/charts-knob"
-import ('../frontoffice/pages/Home/Home');
-import ('@Routes/AdminRoute');
+import('../frontoffice/pages/Home/Home');
+import('@Routes/AdminRoute');
 
 /** Moetaz Brayek Imports */
 import Login from '../frontoffice/pages/LoginRegister/Login';
@@ -86,17 +86,18 @@ const authProtectedBackRoutes = [
 
 
     // this route should be at the end of all other routes
-     { path: "*", exact: true, component: () => <Redirect to = "/dashboard" / > },
+    { path: "*", exact: true, component: () => <Redirect to="/dashboard" /> },
 ]
 
 const publicFrontRoutes = [
     { path: "/", component: Home },
-
+    // Moetaz Paths
     { path: "/logout", component: Logout },
     { path: "/login", component: Login },
-    { path: "/forgot-password", component: ForgotPassword },
+    { path: "/ForgotPasssword", component: ForgotPassword },
     { path: "/register", component: Register },
-
+    { path: "/EmailVerification", component: EmailVerification },
+    { path: "/resetPassword", component: ResetPassword },
 
     // Authentication Inner
     { path: "/auth-lock-screen", component: LockScreen },
