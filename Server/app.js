@@ -13,11 +13,11 @@ dotenv.config({ path: ".env" });
 
 connectDb();
 app.use(cors());
-
+//! Moetaz Routes
 const productRouter = require("./routes/product");
 const reviewRouter = require("./routes/review");
 
-//rouets
+//! Moetaz Routes
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 // ! Chihab's routes

@@ -10,8 +10,8 @@ import {
   CircularProgress,
   makeStyles,
 } from "@material-ui/core/";
-import * as userAction from "../../../actions/userAction";
-import * as userConstants from "../../../constants/userConstants";
+import * as userAction from "@Actions/userAction";
+import * as userConstants from "@Constants/userConstants";
 
 const useStyles = makeStyles((theme) => ({
   prgressColor: {
@@ -34,12 +34,12 @@ const Login = ({ location, history }) => {
 
   useEffect(() => {
     if (userInfo) {
-      if(userInfo.role === "admin")
+      if (userInfo.role === "admin")
         history.push(redirect + "dashboard/admin");
       else if (userInfo.role === "seller")
         history.push(redirect + "dashboard/seller")
-      else 
-        history.push(redirect)  
+      else
+        history.push(redirect)
     }
   }, [dispatch, userInfo, redirect, history]);
 

@@ -9,8 +9,8 @@ import {
   CircularProgress,
   makeStyles,
 } from "@material-ui/core/";
-import * as userAction from "../../../actions/userAction";
-import * as userConstants from "../../../constants/userConstants";
+import * as userAction from "@Actions/userAction";
+import * as userConstants from "@Constants/userConstants";
 
 const useStyles = makeStyles((theme) => ({
   prgressColor: {

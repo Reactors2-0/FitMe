@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Container } from "react-bootstrap";
-import Header from "@Components/frontoffice/Header/Header";
+import Headers from "@Components/frontoffice/Header/Header";
 import FooterPage from "@Components/Footer/FooterPage";
 import Loader from "@FrontOfficeComponents/Loader/HomeLoader"
 
