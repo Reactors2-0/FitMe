@@ -14,7 +14,7 @@ const AdminRoute = ({ component: Component, ...rest }) => {
         !userInfo ? (
           <Redirect to="/login" />
         ) : userInfo.role !== "admin" ? (
-          <Redirect to="/dashboard/admin" />
+          <Redirect to="/dashboard" />
         ) : (
           <Component {...props} />
         )
