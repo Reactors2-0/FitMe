@@ -24,9 +24,7 @@ class EcommerceCustomers extends Component {
   }
 
   componentDidMount() {
-    const { customers, onGetCustomers } = this.props
-    onGetCustomers()
-    this.setState({ customers })
+
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -146,8 +144,7 @@ class EcommerceCustomers extends Component {
 }
 
 EcommerceCustomers.propTypes = {
-  customers: PropTypes.array,
-  onGetCustomers: PropTypes.func,
+
 }
 
 const mapStateToProps = ({ ecommerce }) => ({
@@ -155,7 +152,6 @@ const mapStateToProps = ({ ecommerce }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onGetCustomers: () => dispatch(getCustomers()),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(EcommerceCustomers)
+export default EcommerceCustomers

@@ -73,7 +73,7 @@ class SidebarContent extends Component {
     if (parent) {
       parent.classList.add("mm-active")
       const parent2 = parent.parentElement
-a
+
       if (parent2) {
         parent2.classList.add("mm-show") // ul tag
 

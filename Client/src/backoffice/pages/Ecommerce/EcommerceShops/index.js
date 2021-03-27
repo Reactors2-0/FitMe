@@ -14,10 +14,7 @@ import CardShop from "./CardShop"
 
 
 class EcommerceShops extends Component {
-  componentDidMount() {
-    const { onGetShops } = this.props
-    onGetShops()
-  }
+
 
   render() {
     const { shops } = this.props
@@ -63,7 +60,6 @@ const mapStateToProps = ({ ecommerce }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onGetShops: () => dispatch(getShops()),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(EcommerceShops)
+export default EcommerceShops

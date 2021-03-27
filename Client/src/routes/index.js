@@ -37,8 +37,6 @@ import EChart from "../backoffice/pages/Charts/EChart"
 import SparklineChart from "../backoffice/pages/Charts/SparklineChart"
 import ToastUIChart from "../backoffice/pages/Charts/ToastUIChart"
 import ChartsKnob from "../backoffice/pages/Charts/charts-knob"
-import('../frontoffice/pages/Home/Home');
-import('@Routes/AdminRoute');
 
 /** Moetaz Brayek Imports */
 import Login from '../frontoffice/pages/LoginRegister/Login';
@@ -52,6 +50,8 @@ import BrandSignup from '../frontoffice/pages/BrandSignup/BrandSignup';
 
 import Home from "../frontoffice/pages/Home/Home";
 
+import('../frontoffice/pages/Home/Home');
+import('@Routes/AdminRoute');
 
 
 const authProtectedBackRoutes = [

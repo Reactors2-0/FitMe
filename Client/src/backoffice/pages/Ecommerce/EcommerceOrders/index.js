@@ -28,9 +28,7 @@ class EcommerceOrders extends Component {
   }
 
   componentDidMount() {
-    const { orders, onGetOrders } = this.props
-    onGetOrders()
-    this.setState({ orders })
+
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -161,8 +159,7 @@ class EcommerceOrders extends Component {
 }
 
 EcommerceOrders.propTypes = {
-  orders: PropTypes.array,
-  onGetOrders: PropTypes.func,
+
 }
 
 const mapStateToProps = state => ({
@@ -170,10 +167,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onGetOrders: () => dispatch(getOrders()),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(EcommerceOrders))
+export default EcommerceOrders

@@ -65,12 +65,7 @@ class Chat extends Component {
   }
 
   componentDidMount() {
-    const { onGetChats, onGetGroups, onGetContacts, onGetMessages } = this.props
-    const { currentRoomId } = this.state
-    onGetChats()
-    onGetGroups()
-    onGetContacts()
-    onGetMessages(currentRoomId)
+
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -116,9 +111,7 @@ class Chat extends Component {
 
   //Use For Chat Box
   userChatOpen = (id, name, status, roomId) => {
-    const { onGetMessages } = this.props
-    this.setState({ Chat_Box_Username: name, currentRoomId: roomId })
-    onGetMessages(roomId)
+
   }
 
   addMessage = (roomId, sender) => {
@@ -702,15 +695,7 @@ class Chat extends Component {
 }
 
 Chat.propTypes = {
-  chats: PropTypes.array,
-  groups: PropTypes.array,
-  contacts: PropTypes.array,
-  messages: PropTypes.array,
-  onGetChats: PropTypes.func,
-  onGetGroups: PropTypes.func,
-  onGetContacts: PropTypes.func,
-  onGetMessages: PropTypes.func,
-  onAddMessage: PropTypes.func,
+
 }
 
 const mapStateToProps = ({ chat }) => ({
@@ -721,11 +706,7 @@ const mapStateToProps = ({ chat }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onGetChats: () => dispatch(getChats()),
-  onGetGroups: () => dispatch(getGroups()),
-  onGetContacts: () => dispatch(getContacts()),
-  onGetMessages: roomId => dispatch(getMessages(roomId)),
-  onAddMessage: roomId => dispatch(addMessage(roomId)),
+
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Chat)
+export default Chat

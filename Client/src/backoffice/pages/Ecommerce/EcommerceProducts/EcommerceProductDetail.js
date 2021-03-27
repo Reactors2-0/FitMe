@@ -30,7 +30,6 @@ import { productImages } from "@BackOfficeAssets/images/product/"
 import Breadcrumbs from "@BackOfficeComponents/Common/Breadcrumb";
 
 //Import actions
-//import { getProductDetail } from "../../../store/e-commerce/actions"
 import RecentProducts from "./RecentProducts"
 import Reviews from "./Reviews"
 
@@ -46,13 +45,7 @@ class EcommerceProductDetail extends Component {
   }
 
   componentDidMount() {
-    const {
-      match: { params },
-      onGetProductDetail,
-    } = this.props
-    if (params && params.id) {
-      onGetProductDetail(params.id)
-    }
+
   }
 
   toggleTab(tab) {
@@ -360,9 +353,7 @@ class EcommerceProductDetail extends Component {
 }
 
 EcommerceProductDetail.propTypes = {
-  product: PropTypes.object,
-  match: PropTypes.object,
-  onGetProductDetail: PropTypes.func,
+
 }
 
 const mapStateToProps = ({ ecommerce }) => ({
@@ -370,10 +361,6 @@ const mapStateToProps = ({ ecommerce }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onGetProductDetail: id => dispatch(getProductDetail(id)),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EcommerceProductDetail)
+export default EcommerceProductDetail

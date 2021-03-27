@@ -62,10 +62,7 @@ class EcommerceProducts extends Component {
   }
 
   componentDidMount() {
-    const { products, onGetProducts } = this.props
-    this.setState({ products })
-    onGetProducts()
-    this.setState({ discountData })
+
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -110,47 +107,26 @@ class EcommerceProducts extends Component {
   }
 
   onFilterProducts = (value, checked) => {
-    const {
-      filters: { discount },
-    } = this.state
-    let filteredProducts = productsData
-    if (!!checked && parseInt(value) === 0) {
-      filteredProducts = productsData.filter(product => product.offer < 10)
-    } else if (discount.length > 0) {
-      filteredProducts = productsData.filter(
-        product => product.offer >= Math.min(...discount)
-      )
-    }
-    this.setState({ products: filteredProducts })
+
   }
 
   onUpdate = (render, handle, value) => {
-    this.setState({
-      products: productsData.filter(
-        product => product.newPrice >= value[0] && product.newPrice <= value[1]
-      ),
-    })
+
   }
 
   /*
   on change rating checkbox method
   */
   onChangeRating = value => {
-    this.setState({
-      products: productsData.filter(product => product.rating >= value),
-    })
+
   }
 
   onSelectRating = value => {
-    this.setState({
-      products: productsData.filter(product => product.rating === value),
-    })
+
   }
 
   onUncheckMark = () => {
-    this.setState({
-      products: productsData,
-    })
+
     // setProductList(productsData)
   }
 
@@ -470,8 +446,6 @@ const mapStateToProps = state => ({
   products: state.ecommerce.products,
 })
 
-const mapDispatchToProps = dispatch => ({
-  onGetProducts: () => dispatch(getProducts()),
-})
+
 
 export default EcommerceProducts;
