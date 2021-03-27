@@ -1,5 +1,5 @@
-const createError = require("../utilis/createError");
-const verifyToken = require("../utilis/jwt");
+const createError = require("../helpers/createError");
+const verifyToken = require("../helpers/jwt");
 const asyncHandler = require("../middleware/async");
 const User = require("../models/User");
 

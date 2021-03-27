@@ -16,7 +16,12 @@ h2 {
   font-size: 1.4rem;
   padding: 0.5rem 0;
 }
+.formLoginRegister{
+      background-color: #fff;
+    border-radius: 30px;
+    padding: 0 20px;
 
+}
 .rating span {
   margin: 0.1rem;
 }
