@@ -65,7 +65,12 @@ class Chat extends Component {
   }
 
   componentDidMount() {
-
+    const { onGetChats, onGetGroups, onGetContacts, onGetMessages } = this.props
+    const { currentRoomId } = this.state
+    onGetChats()
+    onGetGroups()
+    onGetContacts()
+    onGetMessages(currentRoomId)
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -111,7 +116,9 @@ class Chat extends Component {
 
   //Use For Chat Box
   userChatOpen = (id, name, status, roomId) => {
-
+    const { onGetMessages } = this.props
+    this.setState({ Chat_Box_Username: name, currentRoomId: roomId })
+    onGetMessages(roomId)
   }
 
   addMessage = (roomId, sender) => {

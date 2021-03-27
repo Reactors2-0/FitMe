@@ -14,7 +14,10 @@ import CardShop from "./CardShop"
 
 
 class EcommerceShops extends Component {
-
+  componentDidMount() {
+    const { onGetShops } = this.props
+    onGetShops()
+  }
 
   render() {
     const { shops } = this.props

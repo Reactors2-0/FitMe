@@ -37,6 +37,8 @@ import EChart from "../backoffice/pages/Charts/EChart"
 import SparklineChart from "../backoffice/pages/Charts/SparklineChart"
 import ToastUIChart from "../backoffice/pages/Charts/ToastUIChart"
 import ChartsKnob from "../backoffice/pages/Charts/charts-knob"
+import('../frontoffice/pages/Home/Home');
+import('@Routes/AdminRoute');
 
 /** Moetaz Brayek Imports */
 import Login from '../frontoffice/pages/LoginRegister/Login';
@@ -45,13 +47,12 @@ import Register from '../frontoffice/pages/LoginRegister/Register';
 import ForgotPassword from '../frontoffice/pages/LoginRegister/ForgotPassword';
 import ResetPassword from '../frontoffice/pages/LoginRegister/ResetPassword';
 import EmailVerification from '../frontoffice/pages/LoginRegister/EmailVerification';
+
 // * Chihab's imports
 import BrandSignup from '../frontoffice/pages/BrandSignup/BrandSignup';
 
 import Home from "../frontoffice/pages/Home/Home";
 
-import('../frontoffice/pages/Home/Home');
-import('@Routes/AdminRoute');
 
 
 const authProtectedBackRoutes = [
@@ -85,7 +86,7 @@ const authProtectedBackRoutes = [
     { path: "/charts-knob", component: ChartsKnob },
 
 
-    // this route should be at the end of all other routes
+    // this route should be at the end of all other routes thanx ma men is matter of priroty 0 or 1 chmod a+x
     { path: "*", exact: true, component: () => <Redirect to="/dashboard" /> },
 ]
 
@@ -109,6 +110,7 @@ const publicFrontRoutes = [
 
 ]
 const authProtectedFrontRoutes = [
+
 
 ]
 export { authProtectedFrontRoutes, publicFrontRoutes, authProtectedBackRoutes }

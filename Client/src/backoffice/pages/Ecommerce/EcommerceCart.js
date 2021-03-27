@@ -33,7 +33,12 @@ class EcommerceCart extends Component {
   }
 
   componentDidMount() {
-
+    const {
+      cartData: { products },
+      onGetCartData,
+    } = this.props
+    onGetCartData()
+    this.setState({ productList: products })
   }
 
   componentDidUpdate(prevProps) {
@@ -304,13 +309,15 @@ class EcommerceCart extends Component {
 }
 
 EcommerceCart.propTypes = {
+  cartData: PropTypes.any,
+  onGetCartData: PropTypes.func,
 }
 
 const mapStateToProps = state => ({
-  cartData: state.ecommerce.cartData,
 })
 
 const mapDispatchToProps = dispatch => ({
+
 })
 
 export default EcommerceCart
