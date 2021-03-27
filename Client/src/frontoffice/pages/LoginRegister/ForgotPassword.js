@@ -54,7 +54,7 @@ const ForgotPassword = () => {
       )}
       <FormContainer>
         <h1>Forgot Password</h1>
-        <Form className="formLoginRegister">
+        <Form>
           <TextField
             variant="outlined"
             type="email"

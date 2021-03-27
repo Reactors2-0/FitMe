@@ -30,7 +30,7 @@ router.use("/:productId/reviews", reviewRouter);
 
 // TODO : add permission to product router
 
-router
+ router
     .route("/:productId")
     .get(getProduct)
     .put(updateProduct)

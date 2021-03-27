@@ -1,8 +1,8 @@
 const crypto = require("crypto");
-const createError = require("../helpers/createError");
+const createError = require("../utilis/createError");
 const asyncHandler = require("../middleware/async");
-const verifyEmail = require("../helpers/verifyEmail");
-const sendEmail = require("../helpers/sendEmail");
+const verifyEmail = require("../utilis/verifyEmail");
+const sendEmail = require("../utilis/sendEmail");
 const cron = require("node-cron");
 const User = require("../models/User");
 

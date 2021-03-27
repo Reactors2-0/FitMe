@@ -45,7 +45,6 @@ import Register from '../frontoffice/pages/LoginRegister/Register';
 import ForgotPassword from '../frontoffice/pages/LoginRegister/ForgotPassword';
 import ResetPassword from '../frontoffice/pages/LoginRegister/ResetPassword';
 import EmailVerification from '../frontoffice/pages/LoginRegister/EmailVerification';
-
 // * Chihab's imports
 import BrandSignup from '../frontoffice/pages/BrandSignup/BrandSignup';
 
@@ -86,7 +85,7 @@ const authProtectedBackRoutes = [
     { path: "/charts-knob", component: ChartsKnob },
 
 
-    // this route should be at the end of all other routes thanx ma men is matter of priroty 0 or 1 chmod a+x
+    // this route should be at the end of all other routes
     { path: "*", exact: true, component: () => <Redirect to="/dashboard" /> },
 ]
 
@@ -110,7 +109,6 @@ const publicFrontRoutes = [
 
 ]
 const authProtectedFrontRoutes = [
-
 
 ]
 export { authProtectedFrontRoutes, publicFrontRoutes, authProtectedBackRoutes }

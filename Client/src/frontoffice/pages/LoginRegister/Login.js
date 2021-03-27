@@ -62,7 +62,7 @@ const Login = ({ location, history }) => {
         <p style={{ fontWeight: 'bold', color: 'black' }}>Please sign in or create account to continue</p>
         <h3>Sign In</h3>
 
-        <Form onSubmit={submitHandler} className="formLoginRegister">
+        <Form onSubmit={submitHandler}>
           <p>Email</p>
           <TextField
             variant="outlined"

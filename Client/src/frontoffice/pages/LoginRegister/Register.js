@@ -77,7 +77,7 @@ const Register = ({ location, history }) => {
           reset={userConstants.USER_REGISTER_RESET}
         />
       )}
-      <Form onSubmit={handleSubmit} className="formLoginRegister">
+      <Form onSubmit={handleSubmit}>
         <TextField
           variant="outlined"
           type="text"
