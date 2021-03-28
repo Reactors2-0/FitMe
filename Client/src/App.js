@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import FooterPage from "@Components/Footer/FooterPage";
 import Loader from "@FrontOfficeComponents/Loader/HomeLoader"
 
-import { authProtectedFrontRoutes, publicFrontRoutes ,authProtectedBackRoutes } from "./routes/"
+import { publicFrontRoutes ,authProtectedBackRoutes } from "./routes/index"
 import AppRoute from "./routes/route"
 import VerticalLayout from "@BackOfficeComponents/VerticalLayout/"
 
@@ -36,33 +36,22 @@ function App() {
               />
          
             ))}
+
             {authProtectedBackRoutes.map((route, idx) => (
-              <>
+
               <AppRoute
                 path={route.path}
                 layout={Layout}
                 component={route.component}
                 key={idx}
-                isAuthProtected={true}
+                isAuthProtected={false}
                 isFront={false}
 
                 exact
               />
-              </>
-            ))}
-            {/* {authProtectedFrontRoutes.map((route, idx) => (
-                <>
-              <AppRoute
-                path={route.path}
-                layout={NonAuthLayout}
-                component={route.component}
-                key={idx}
-                isFront={true}
 
-                isAuthProtected={true}
-              />
-              </>
-            ))} */}
+            ))}
+
 
         
           

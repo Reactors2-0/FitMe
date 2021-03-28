@@ -170,10 +170,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onGetOrders: () => dispatch(getOrders()),
+
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(EcommerceOrders))
+export default EcommerceOrders

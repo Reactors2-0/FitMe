@@ -19,10 +19,9 @@
 }
 
 /* SearchBox */
-
 form {
-  background-color: #fff;
-  border-radius: 100px;
+  background-color: #fff  !important;
+  border-radius: 90px;
   padding: 0 20px;
 }
 

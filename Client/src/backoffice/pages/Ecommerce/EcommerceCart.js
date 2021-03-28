@@ -23,7 +23,6 @@ import Breadcrumbs from "../../components/Common/Breadcrumb"
 
 //Import Product Images
 import images from "../../assets/images"
-//import { getCartData } from "../../store/actions"
 
 class EcommerceCart extends Component {
   constructor(props) {
@@ -315,11 +314,10 @@ EcommerceCart.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  cartData: state.ecommerce.cartData,
 })
 
 const mapDispatchToProps = dispatch => ({
-  onGetCartData: () => dispatch(getCartData()),
+
 })
 
 export default EcommerceCart

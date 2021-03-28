@@ -73,7 +73,7 @@ class SidebarContent extends Component {
     if (parent) {
       parent.classList.add("mm-active")
       const parent2 = parent.parentElement
-a
+
       if (parent2) {
         parent2.classList.add("mm-show") // ul tag
 
@@ -108,7 +108,7 @@ a
             <ul className="metismenu list-unstyled" id="side-menu">
               <li className="menu-title">Dashbord</li>
               <li>
-                <Link to="/dashboard" className="waves-effect">
+                <Link to="/dashboard/admin" className="waves-effect">
                   <i className="bx bx-home-circle" />
                   <span className="badge rounded-pill bg-info float-end">
                     04
@@ -118,9 +118,33 @@ a
               </li>
               <li className="menu-title">Apps</li>
               <li>
-                <Link to="/chat" className=" waves-effect">
-                  <i className="bx bx-chat" />
-                  <span>Chat</span>
+                <Link to="/dashboard/admin/Repondre" className=" waves-effect">
+                  <i className="bx bx-envelope"></i>
+                  <span>Contact</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/dashboard/admin/userlist" className=" waves-effect">
+                  <i className="bx bx-user-circle" />
+                  <span>Users</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/dashboard/admin/Products" className=" waves-effect">
+                  <i className="bx bx-store" />
+                  <span>Products</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/dashboard/admin/Order" className=" waves-effect">
+                  <i className="bx bx-file" />
+                  <span>Orders</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/dashboard/admin/Brand" className=" waves-effect">
+                  <i className="bx bxs-user-detail" />
+                  <span>Brand</span>
                 </Link>
               </li>
               <li>
@@ -140,6 +164,7 @@ a
                     </Link>
                   </li>
                   <li>
+
                     <Link to="/ecommerce-orders">Orders</Link>
                   </li>
                   <li>
