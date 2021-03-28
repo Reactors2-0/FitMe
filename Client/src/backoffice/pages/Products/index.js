@@ -59,11 +59,9 @@ class EcommerceCustomers extends Component {
     return (
       <React.Fragment>
         <div className="page-content">
-        <MetaTags>
-            <title>Customers | Skote - Responsive Bootstrap 5 Admin Dashboard</title>
-          </MetaTags>
+
           <Container fluid>
-            <Breadcrumbs title="Ecommerce" breadcrumbItem="Customers" />
+            <Breadcrumbs title="Dashborad" breadcrumbItem="Products" />
             <Row>
               <Col xs="12">
                 <Card>

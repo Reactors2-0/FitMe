@@ -1,8 +1,17 @@
 import React from "react"
 import {Redirect, Route} from "react-router-dom"
+/** SADEK Imports */
+import Dashboard from "../backoffice/pages/Dashboard/index"
+import ContactAdmin from "../backoffice/pages/Contact/ContactList"
+import  userlists from "../backoffice/pages/User/UserList"
+import OrderAdmin from "../backoffice/pages/Order/Order"
+import ProductsList from "../backoffice/pages/Products/index"
+import BrandList from "../backoffice/pages/Brand/BrandtList"
+
+/** SADEK Imports END*/
 
 // Pages Component
-import Chat from "../backoffice/pages/Chat/Chat"
+//import Chat from "../backoffice/pages/Chat/Chat"
 
 
 // User profile
@@ -12,7 +21,7 @@ import UserProfile from "../backoffice/pages/Authentication/UserProfile"
 import EcommerceProducts from "../backoffice/pages/Ecommerce/EcommerceProducts/index"
 import EcommerceProductDetail from "../backoffice/pages/Ecommerce/EcommerceProducts/EcommerceProductDetail"
 import EcommerceOrders from "../backoffice/pages/Ecommerce/EcommerceOrders/index"
-import EcommerceCustomers from "../backoffice/pages/Ecommerce/EcommerceCustomers/index"
+//import EcommerceCustomers from "../backoffice/pages/Ecommerce/EcommerceCustomers/index"
 import EcommerceCart from "../backoffice/pages/Ecommerce/EcommerceCart"
 import EcommerceCheckout from "../backoffice/pages/Ecommerce/EcommerceCheckout"
 import EcommerceShops from "../backoffice/pages/Ecommerce/EcommerceShops/index"
@@ -27,8 +36,6 @@ import TwostepVerification from "../backoffice/pages/AuthenticationInner/auth-tw
 import TwostepVerification2 from "../backoffice/pages/AuthenticationInner/auth-two-step-verification-2"
 
 // Dashboard
-import Dashboard from "../backoffice/pages/Dashboard/index"
-import  userlists from "../backoffice/pages/User/UserList"
 
 // Charts
 import ChartApex from "../backoffice/pages/Charts/Apexcharts"
@@ -57,12 +64,19 @@ import('../frontoffice/pages/Home/Home');
 import('@Routes/AdminRoute');
 
 const authProtectedBackRoutes = [
-    { path:"/dashboard/admin/userlist", component :userlists},
     { path: "/dashboard/admin", component: Dashboard },
+    { path:"/dashboard/admin/userlist", component :userlists},
+
+    { path: "/dashboard/admin/Repondre", component: ContactAdmin },
+
+    { path: "/dashboard/admin/Products", component: ProductsList },
+
+    { path: "/dashboard/admin/Order", component: OrderAdmin },
+    { path: "/dashboard/admin/Brand", component: BrandList },
+
     //profile
     { path: "/profile", component: UserProfile },
     //chat
-    //{ path: "/chat", component: Chat },
 
     //Ecommerce
     // { path: "/ecommerce-products/:id", component: EcommerceProducts },
@@ -70,7 +84,7 @@ const authProtectedBackRoutes = [
     //{ path: "/ecommerce-product-detail/:id", component: EcommerceProductDetail },
 
     { path: "/ecommerce-orders", component: EcommerceOrders },
-    //{ path: "/ecommerce-customers", component: EcommerceCustomers },
+//    { path: "/ecommerce-customers", component: EcommerceCustomers },
     { path: "/ecommerce-cart", component: EcommerceCart },
     { path: "/ecommerce-checkout", component: EcommerceCheckout },
     //{ path: "/ecommerce-shops", component: EcommerceShops },

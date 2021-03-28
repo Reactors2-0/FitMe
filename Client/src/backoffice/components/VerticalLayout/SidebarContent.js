@@ -118,21 +118,33 @@ class SidebarContent extends Component {
               </li>
               <li className="menu-title">Apps</li>
               <li>
-                <Link to="/chat" className=" waves-effect">
-                  <i className="bx bx-mail-send" />
+                <Link to="/dashboard/admin/Repondre" className=" waves-effect">
+                  <i className="bx bx-envelope"></i>
                   <span>Contact</span>
                 </Link>
               </li>
               <li>
                 <Link to="/dashboard/admin/userlist" className=" waves-effect">
-                  <i className="bx bx-user-pin" />
+                  <i className="bx bx-user-circle" />
                   <span>Users</span>
                 </Link>
               </li>
               <li>
-                <Link to="/admin/userlist" className=" waves-effect">
-                  <i className="bx bxl-product-hunt" />
+                <Link to="/dashboard/admin/Products" className=" waves-effect">
+                  <i className="bx bx-store" />
                   <span>Products</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/dashboard/admin/Order" className=" waves-effect">
+                  <i className="bx bx-file" />
+                  <span>Orders</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/dashboard/admin/Brand" className=" waves-effect">
+                  <i className="bx bxs-user-detail" />
+                  <span>Brand</span>
                 </Link>
               </li>
               <li>

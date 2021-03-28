@@ -6,8 +6,10 @@ import Message from "../User/Message";
 import { userList, userDelete } from "../../../actions/userAction";
 
 import Loader from "../User/Loader";
-import {Badge, Card, CardBody, CardTitle} from "reactstrap";
+import {Badge, Card, CardBody, CardTitle, Container} from "reactstrap";
 import {Link} from "react-router-dom";
+import MetaTags from "react-meta-tags";
+import Breadcrumbs from "../../components/Common/Breadcrumb";
 
 
 const UserList = ({ history }) => {
@@ -28,13 +30,21 @@ const UserList = ({ history }) => {
   }, [dispatch, history, successDelete, userInfo]);
 
   const deleteHandler = (id) => {
-    if (window.confirm("Are you sure.?")) {
+
+    if (window.confirm("Are you sure.? ")) {
       dispatch(userDelete(id));
     }
   };
 
   return (
-    <>
+      <React.Fragment>
+        <div className="page-content">
+
+          <Container fluid>
+            <Breadcrumbs title="Dashborad" breadcrumbItem="UserList" />
+
+
+            <>
 
       {loading ? (
         <Loader />
@@ -67,7 +77,9 @@ const UserList = ({ history }) => {
         <th className="align-middle">Email</th>
         <th className="align-middle">Role</th>
         <th className="align-middle">Verify</th>
-        <th className="align-middle">Delete</th>
+            <th className="align-middle">status</th>
+
+            <th className="align-middle">Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -150,6 +162,15 @@ const UserList = ({ history }) => {
 False              </Badge>
           )}
         </td>
+            <td>
+
+                <Button
+                    className="btn-sm"
+                    onClick={() => deleteHandler(user._id)}
+                >
+                    <i className="fas fa-check"></i>
+                </Button>
+            </td>
         <td>
 
           <Button
@@ -169,6 +190,9 @@ False              </Badge>
         </Card>
       )}
     </>
+          </Container>
+        </div>
+      </React.Fragment>
   );
 };
 
