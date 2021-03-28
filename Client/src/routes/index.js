@@ -1,5 +1,5 @@
 import React from "react"
-import { Redirect } from "react-router-dom"
+import {Redirect, Route} from "react-router-dom"
 
 // Pages Component
 import Chat from "../backoffice/pages/Chat/Chat"
@@ -28,6 +28,7 @@ import TwostepVerification2 from "../backoffice/pages/AuthenticationInner/auth-t
 
 // Dashboard
 import Dashboard from "../backoffice/pages/Dashboard/index"
+import  userlists from "../backoffice/pages/User/UserList"
 
 // Charts
 import ChartApex from "../backoffice/pages/Charts/Apexcharts"
@@ -56,11 +57,10 @@ import('../frontoffice/pages/Home/Home');
 import('@Routes/AdminRoute');
 
 const authProtectedBackRoutes = [
+    { path:"/dashboard/admin/userlist", component :userlists},
     { path: "/dashboard/admin", component: Dashboard },
-
     //profile
     { path: "/profile", component: UserProfile },
-
     //chat
     //{ path: "/chat", component: Chat },
 
@@ -69,7 +69,7 @@ const authProtectedBackRoutes = [
     { path: "/ecommerce-products", component: EcommerceProducts },
     //{ path: "/ecommerce-product-detail/:id", component: EcommerceProductDetail },
 
-    //{ path: "/ecommerce-orders", component: EcommerceOrders },
+    { path: "/ecommerce-orders", component: EcommerceOrders },
     //{ path: "/ecommerce-customers", component: EcommerceCustomers },
     { path: "/ecommerce-cart", component: EcommerceCart },
     { path: "/ecommerce-checkout", component: EcommerceCheckout },
@@ -85,12 +85,10 @@ const authProtectedBackRoutes = [
     { path: "/tui-charts", component: ToastUIChart },
     { path: "/charts-knob", component: ChartsKnob },
 
-
-    // this route should be at the end of all other routes thanx ma men is matter of priroty 0 or 1 chmod a+x
-    { path: "*", exact: true, component: () => <Redirect to="/dashboard" /> },
 ]
 
 const publicFrontRoutes = [
+
     { path: "/", component: Home },
     // Moetaz Paths
     { path: "/logout", component: Logout },

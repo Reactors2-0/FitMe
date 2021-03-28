@@ -7,6 +7,7 @@ import {
   DropdownItem,
 } from "reactstrap"
 import { withRouter, Link } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux";
 
 //i18n
 // import { withTranslation } from "react-i18next"
@@ -16,6 +17,7 @@ import user1 from "../../../assets/images/users/avatar-1.jpg"
 
 class ProfileMenu extends Component {
   constructor(props) {
+
     super(props)
     this.state = {
       menu: false,
@@ -77,15 +79,7 @@ class ProfileMenu extends Component {
               <i className="bx bx-wallet font-size-16 align-middle me-1"/>
               {/* {this.props.t("My Wallet")} */}
             </DropdownItem>
-            <DropdownItem tag="a" href="#">
-              <span className="badge badge-success float-end mt-1">5</span>
-              <i className="bx bx-wrench font-size-17 align-middle me-1"/>
-              {/* {this.props.t("Settings")} */}
-            </DropdownItem>
-            <DropdownItem tag="a" href="auth-lock-screen">
-              <i className="bx bx-lock-open font-size-16 align-middle me-1"/>
-              Lockscreen
-            </DropdownItem>
+
             <div className="dropdown-divider"/>
             <Link to="/logout" className="dropdown-item">
               <i className="bx bx-power-off font-size-16 align-middle me-1 text-danger"/>

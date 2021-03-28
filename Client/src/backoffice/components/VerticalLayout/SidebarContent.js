@@ -108,7 +108,7 @@ class SidebarContent extends Component {
             <ul className="metismenu list-unstyled" id="side-menu">
               <li className="menu-title">Dashbord</li>
               <li>
-                <Link to="/dashboard" className="waves-effect">
+                <Link to="/dashboard/admin" className="waves-effect">
                   <i className="bx bx-home-circle" />
                   <span className="badge rounded-pill bg-info float-end">
                     04
@@ -119,8 +119,20 @@ class SidebarContent extends Component {
               <li className="menu-title">Apps</li>
               <li>
                 <Link to="/chat" className=" waves-effect">
-                  <i className="bx bx-chat" />
-                  <span>Chat</span>
+                  <i className="bx bx-mail-send" />
+                  <span>Contact</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/dashboard/admin/userlist" className=" waves-effect">
+                  <i className="bx bx-user-pin" />
+                  <span>Users</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/admin/userlist" className=" waves-effect">
+                  <i className="bx bxl-product-hunt" />
+                  <span>Products</span>
                 </Link>
               </li>
               <li>
@@ -140,6 +152,7 @@ class SidebarContent extends Component {
                     </Link>
                   </li>
                   <li>
+
                     <Link to="/ecommerce-orders">Orders</Link>
                   </li>
                   <li>

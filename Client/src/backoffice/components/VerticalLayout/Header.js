@@ -91,7 +91,7 @@ class Header extends Component {
                     <img src={logo} alt="" height="22" />
                   </span>
                   <span className="logo-lg">
-                    <img src={logoDark} alt="" height="60" />
+                    <img src={logoDark} alt="" height="70" />
                   </span>
                 </Link>
 
