@@ -8,11 +8,11 @@ import {
   cardTitle,
   grayColor,
   roseColor
-} from "assets/jss/material-kit-pro-react.js";
+} from "../../material-kit-pro-react.js";
 
-import tooltipsStyle from "assets/jss/material-kit-pro-react/tooltipsStyle.js";
-import imagesStyles from "assets/jss/material-kit-pro-react/imagesStyles.js";
-import customSelectStyle from "assets/jss/material-kit-pro-react/customSelectStyle.js";
+import tooltipsStyle from "../tooltipsStyle.js";
+import imagesStyles from "../imagesStyles.js";
+import customSelectStyle from "../customSelectStyle.js";
 
 const productStyle = {
   mlAuto,
@@ -62,7 +62,7 @@ const productStyle = {
       margin: "30px 0px",
       overflow: "hidden",
       width: "100%",
-      height: "auto",
+      height: "400px",
       textAlign: "center"
     },
     "& .image-gallery-thumbnails > .image-gallery-thumbnails-container .image-gallery-thumbnail": {

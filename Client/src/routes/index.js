@@ -50,8 +50,11 @@ import EmailVerification from '../frontoffice/pages/LoginRegister/EmailVerificat
 // * Chihab's imports
 import BrandSignup from '../frontoffice/pages/BrandSignup/BrandSignup';
 
-import Home from "../frontoffice/pages/Home/Home";
 
+// * Med Imports *
+
+import Home from "../frontoffice/pages/Home/Home";
+import ProductPageu from "../frontoffice/pages/ProductDetails/ProductPage";
 
 
 const authProtectedBackRoutes = [
@@ -86,7 +89,7 @@ const authProtectedBackRoutes = [
 
 
     // this route should be at the end of all other routes
-     { path: "*", exact: true, component: () => <Redirect to = "/dashboard" / > },
+     { path: "*", exact: true, component: () => <Redirect to = "/dashboard" /> },
 ]
 
 const publicFrontRoutes = [
@@ -105,6 +108,9 @@ const publicFrontRoutes = [
     { path: "/page-confirm-mail-2", component: ConfirmMail2 },
     { path: "/auth-two-step-verification", component: TwostepVerification },
     { path: "/auth-two-step-verification-2", component: TwostepVerification2 },
+
+    //Product path
+    { path: "/product/:id", component: ProductPageu },
 
 ]
 const authProtectedFrontRoutes = [
