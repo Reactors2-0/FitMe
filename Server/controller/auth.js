@@ -62,13 +62,14 @@ const RegisterUser = asyncHandler(async (req, res, next) => {
         throw createError(500, "Verification email cound't be sent");
     }
 
-    // sendTokenResponse(newUser, 200, res);
 });
 
 const login = asyncHandler(async (req, res, next) => {
+    // form Moetaz To Sadek actif to block the user login
     const user = await User.findOne({
         email: req.body.email,
         verify: true,
+        actif: true,
     }).select("+password");
     if (!user) throw createError(401, `Email doesn't match`);
 
