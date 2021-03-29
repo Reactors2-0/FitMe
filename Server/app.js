@@ -16,6 +16,7 @@ app.use(cors());
 //! Moetaz Routes
 const productRouter = require("./routes/product");
 const reviewRouter = require("./routes/review");
+const orderRouter = require("./routes/order");
 
 //! Moetaz Routes
 const authRouter = require("./routes/auth");
@@ -25,6 +26,8 @@ const brandRouter = require("./routes/brand");
 app.use("/api/brands", brandRouter);
 app.use("/api/product", productRouter);
 app.use("/api/review", reviewRouter);
+app.use("/api/v1/order", orderRouter);
+
 app.use(express.json());
 
 app.use(
