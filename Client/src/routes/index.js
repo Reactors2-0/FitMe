@@ -1,8 +1,17 @@
 import React from "react"
-import { Redirect } from "react-router-dom"
+import {Redirect, Route} from "react-router-dom"
+/** SADEK Imports */
+import Dashboard from "../backoffice/pages/Dashboard/index"
+import ContactAdmin from "../backoffice/pages/Contact/ContactList"
+import  userlists from "../backoffice/pages/User/UserList"
+import OrderAdmin from "../backoffice/pages/Order/Order"
+import ProductsList from "../backoffice/pages/Products/index"
+import BrandList from "../backoffice/pages/Brand/BrandtList"
+
+/** SADEK Imports END*/
 
 // Pages Component
-import Chat from "../backoffice/pages/Chat/Chat"
+//import Chat from "../backoffice/pages/Chat/Chat"
 
 
 // User profile
@@ -12,7 +21,7 @@ import UserProfile from "../backoffice/pages/Authentication/UserProfile"
 import EcommerceProducts from "../backoffice/pages/Ecommerce/EcommerceProducts/index"
 import EcommerceProductDetail from "../backoffice/pages/Ecommerce/EcommerceProducts/EcommerceProductDetail"
 import EcommerceOrders from "../backoffice/pages/Ecommerce/EcommerceOrders/index"
-import EcommerceCustomers from "../backoffice/pages/Ecommerce/EcommerceCustomers/index"
+//import EcommerceCustomers from "../backoffice/pages/Ecommerce/EcommerceCustomers/index"
 import EcommerceCart from "../backoffice/pages/Ecommerce/EcommerceCart"
 import EcommerceCheckout from "../backoffice/pages/Ecommerce/EcommerceCheckout"
 import EcommerceShops from "../backoffice/pages/Ecommerce/EcommerceShops/index"
@@ -27,7 +36,6 @@ import TwostepVerification from "../backoffice/pages/AuthenticationInner/auth-tw
 import TwostepVerification2 from "../backoffice/pages/AuthenticationInner/auth-two-step-verification-2"
 
 // Dashboard
-import Dashboard from "../backoffice/pages/Dashboard/index"
 
 // Charts
 import ChartApex from "../backoffice/pages/Charts/Apexcharts"
@@ -37,8 +45,7 @@ import EChart from "../backoffice/pages/Charts/EChart"
 import SparklineChart from "../backoffice/pages/Charts/SparklineChart"
 import ToastUIChart from "../backoffice/pages/Charts/ToastUIChart"
 import ChartsKnob from "../backoffice/pages/Charts/charts-knob"
-import ('../frontoffice/pages/Home/Home');
-import ('@Routes/AdminRoute');
+
 
 /** Moetaz Brayek Imports */
 import Login from '../frontoffice/pages/LoginRegister/Login';
@@ -47,28 +54,41 @@ import Register from '../frontoffice/pages/LoginRegister/Register';
 import ForgotPassword from '../frontoffice/pages/LoginRegister/ForgotPassword';
 import ResetPassword from '../frontoffice/pages/LoginRegister/ResetPassword';
 import EmailVerification from '../frontoffice/pages/LoginRegister/EmailVerification';
+
 // * Chihab's imports
 import BrandSignup from '../frontoffice/pages/BrandSignup/BrandSignup';
 
+
+// * Med Imports *
+
 import Home from "../frontoffice/pages/Home/Home";
+import ProductPageu from "../frontoffice/pages/ProductDetails/ProductPage";
 
-
+import('../frontoffice/pages/Home/Home');
+import('@Routes/AdminRoute');
 
 const authProtectedBackRoutes = [
-    { path: "/dashboard", component: Dashboard },
+    { path: "/dashboard/admin", component: Dashboard },
+    { path:"/dashboard/admin/userlist", component :userlists},
+
+    { path: "/dashboard/admin/Repondre", component: ContactAdmin },
+
+    { path: "/dashboard/admin/Products", component: ProductsList },
+
+    { path: "/dashboard/admin/Order", component: OrderAdmin },
+    { path: "/dashboard/admin/Brand", component: BrandList },
+
     //profile
     { path: "/profile", component: UserProfile },
-
     //chat
-    //{ path: "/chat", component: Chat },
 
     //Ecommerce
     // { path: "/ecommerce-products/:id", component: EcommerceProducts },
     { path: "/ecommerce-products", component: EcommerceProducts },
     //{ path: "/ecommerce-product-detail/:id", component: EcommerceProductDetail },
 
-    //{ path: "/ecommerce-orders", component: EcommerceOrders },
-    //{ path: "/ecommerce-customers", component: EcommerceCustomers },
+    { path: "/ecommerce-orders", component: EcommerceOrders },
+//    { path: "/ecommerce-customers", component: EcommerceCustomers },
     { path: "/ecommerce-cart", component: EcommerceCart },
     { path: "/ecommerce-checkout", component: EcommerceCheckout },
     //{ path: "/ecommerce-shops", component: EcommerceShops },
@@ -85,17 +105,20 @@ const authProtectedBackRoutes = [
 
     { path: "/brandSignup", component: BrandSignup },
     // this route should be at the end of all other routes
-     { path: "*", exact: true, component: () => <Redirect to = "/dashboard" / > },
+     { path: "*", exact: true, component: () => <Redirect to = "/dashboard" /> },
+
 ]
 
 const publicFrontRoutes = [
-    { path: "/", component: Home },
 
+    { path: "/", component: Home },
+    // Moetaz Paths
     { path: "/logout", component: Logout },
     { path: "/login", component: Login },
-    { path: "/forgot-password", component: ForgotPassword },
+    { path: "/ForgotPasssword", component: ForgotPassword },
     { path: "/register", component: Register },
-
+    { path: "/EmailVerification", component: EmailVerification },
+    { path: "/resetPassword", component: ResetPassword },
 
     // Authentication Inner
     { path: "/auth-lock-screen", component: LockScreen },
@@ -104,9 +127,13 @@ const publicFrontRoutes = [
     { path: "/page-confirm-mail-2", component: ConfirmMail2 },
     { path: "/auth-two-step-verification", component: TwostepVerification },
     { path: "/auth-two-step-verification-2", component: TwostepVerification2 },
-    
+
+    //Product path
+    { path: "/product/:id", component: ProductPageu },
+
 ]
 const authProtectedFrontRoutes = [
+
 
 ]
 export { authProtectedFrontRoutes, publicFrontRoutes, authProtectedBackRoutes }

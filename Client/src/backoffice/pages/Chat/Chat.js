@@ -65,12 +65,8 @@ class Chat extends Component {
   }
 
   componentDidMount() {
-    const { onGetChats, onGetGroups, onGetContacts, onGetMessages } = this.props
-    const { currentRoomId } = this.state
-    onGetChats()
-    onGetGroups()
-    onGetContacts()
-    onGetMessages(currentRoomId)
+
+
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -274,65 +270,7 @@ class Chat extends Component {
                               <h5 className="font-size-14 mb-3">Recent</h5>
                               <ul className="list-unstyled chat-list">
                                 <PerfectScrollbar style={{ height: "410px"}}>
-                                  {chats.map(chat => (
-                                    <li
-                                      key={chat.id + chat.status}
-                                      className={
-                                        currentRoomId === chat.roomId
-                                          ? "active"
-                                          : ""
-                                      }
-                                    >
-                                      <Link
-                                        to="#"
-                                        onClick={() => {
-                                          this.userChatOpen(
-                                            chat.id,
-                                            chat.name,
-                                            chat.status,
-                                            chat.roomId
-                                          )
-                                        }}
-                                      >
-                                        <Media>
-                                          <div className="align-self-center me-3">
-                                            <i
-                                              className={
-                                                chat.status === "online"
-                                                  ? "mdi mdi-circle text-success font-size-10"
-                                                  : chat.status ===
-                                                    "intermediate"
-                                                  ? "mdi mdi-circle text-warning font-size-10"
-                                                  : "mdi mdi-circle font-size-10"
-                                              }
-                                            />
-                                          </div>
-                                          <div className="align-self-center me-3">
-                                            <img
-                                              src={images[chat.image]}
-                                              className="rounded-circle avatar-xs"
-                                              alt=""
-                                            />
-                                          </div>
 
-                                          <Media
-                                            className="overflow-hidden"
-                                            body
-                                          >
-                                            <h5 className="text-truncate font-size-14 mb-1">
-                                              {chat.name}
-                                            </h5>
-                                            <p className="text-truncate mb-0">
-                                              {chat.description}
-                                            </p>
-                                          </Media>
-                                          <div className="font-size-11">
-                                            {chat.time}
-                                          </div>
-                                        </Media>
-                                      </Link>
-                                    </li>
-                                  ))}
                                 </PerfectScrollbar>
                               </ul>
                             </div>
@@ -702,15 +640,7 @@ class Chat extends Component {
 }
 
 Chat.propTypes = {
-  chats: PropTypes.array,
-  groups: PropTypes.array,
-  contacts: PropTypes.array,
-  messages: PropTypes.array,
-  onGetChats: PropTypes.func,
-  onGetGroups: PropTypes.func,
-  onGetContacts: PropTypes.func,
-  onGetMessages: PropTypes.func,
-  onAddMessage: PropTypes.func,
+
 }
 
 const mapStateToProps = ({ chat }) => ({
@@ -721,11 +651,7 @@ const mapStateToProps = ({ chat }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onGetChats: () => dispatch(getChats()),
-  onGetGroups: () => dispatch(getGroups()),
-  onGetContacts: () => dispatch(getContacts()),
-  onGetMessages: roomId => dispatch(getMessages(roomId)),
-  onAddMessage: roomId => dispatch(addMessage(roomId)),
+
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Chat)
+export default Chat

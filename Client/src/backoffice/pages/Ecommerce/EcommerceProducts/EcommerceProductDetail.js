@@ -370,10 +370,6 @@ const mapStateToProps = ({ ecommerce }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onGetProductDetail: id => dispatch(getProductDetail(id)),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EcommerceProductDetail)
+export default EcommerceProductDetail

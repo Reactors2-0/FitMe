@@ -32,6 +32,7 @@ const rootReducer = combineReducers({
   userLogin: userLogin,
   userRegister: userRegister,
   userList: userList,
+  userListBack: userList,
   userDeleteDetails: userDelete,
   userUpdateDetails: userUpdate,
   userDetails: getUser,

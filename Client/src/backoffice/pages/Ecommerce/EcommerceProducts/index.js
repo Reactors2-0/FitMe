@@ -62,10 +62,7 @@ class EcommerceProducts extends Component {
   }
 
   componentDidMount() {
-    const { products, onGetProducts } = this.props
-    this.setState({ products })
-    onGetProducts()
-    this.setState({ discountData })
+
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -110,48 +107,26 @@ class EcommerceProducts extends Component {
   }
 
   onFilterProducts = (value, checked) => {
-    const {
-      filters: { discount },
-    } = this.state
-    let filteredProducts = productsData
-    if (!!checked && parseInt(value) === 0) {
-      filteredProducts = productsData.filter(product => product.offer < 10)
-    } else if (discount.length > 0) {
-      filteredProducts = productsData.filter(
-        product => product.offer >= Math.min(...discount)
-      )
-    }
-    this.setState({ products: filteredProducts })
+
   }
 
   onUpdate = (render, handle, value) => {
-    this.setState({
-      products: productsData.filter(
-        product => product.newPrice >= value[0] && product.newPrice <= value[1]
-      ),
-    })
+
   }
 
   /*
   on change rating checkbox method
   */
   onChangeRating = value => {
-    this.setState({
-      products: productsData.filter(product => product.rating >= value),
-    })
+
   }
 
   onSelectRating = value => {
-    this.setState({
-      products: productsData.filter(product => product.rating === value),
-    })
+
   }
 
   onUncheckMark = () => {
-    this.setState({
-      products: productsData,
-    })
-    // setProductList(productsData)
+
   }
 
   handlePageClick = page => {
@@ -160,7 +135,6 @@ class EcommerceProducts extends Component {
 
   render() {
     const { history } = this.props
-    const { discountData, products, page, totalPage } = this.state
     return (
       <React.Fragment>
         <div className="page-content">
@@ -204,23 +178,7 @@ class EcommerceProducts extends Component {
 
                     <div className="mt-4 pt-3">
                       <h5 className="font-size-14 mb-3">Discount</h5>
-                      {discountData.map((discount, i) => (
-                        <div
-                          className="form-check mt-2"
-                          key={i}
-                        >
-                          <Input
-                            type="checkbox"
-                            value={discount.value}
-                            className="form-check-input"
-                            id={i}
-                            onChange={this.onSelectDiscount}
-                          />{" "}
-                          <Label className="form-check-label" htmlFor={i}>
-                            {discount.label}
-                          </Label>
-                        </div>
-                      ))}
+
                     </div>
 
                     <div className="mt-4 pt-3">
@@ -361,94 +319,15 @@ class EcommerceProducts extends Component {
                   </Col>
                 </Row>
                 <Row>
-                  {!isEmpty(products) &&
-                    products.map((product, key) => (
-                      <Col xl="4" sm="6" key={"_col_" + key}>
-                        <Card onClick={() =>
-                              history.push(
-                                `/ecommerce-product-detail/${product.id}`
-                              )
-                            }>
-                          <CardBody>
-                              <Link to="#">
-                              <div className="product-img position-relative">
-                                {product.isOffer ? (
-                                  <div className="avatar-sm product-ribbon">
-                                    <span className="avatar-title rounded-circle  bg-primary">
-                                      {`-${product.offer}%`}
-                                    </span>
-                                  </div>
-                                ) : null}
 
-                                <img
-                                  src={productImages[product.image]}
-                                  alt=""
-                                  className="img-fluid mx-auto d-block"
-                                />
-                              </div>
-                              </Link>
-                              
-                              <div className="mt-4 text-center">
-                                <h5 className="mb-3 text-truncate">
-                                  <Link
-                                    to={"/ecommerce-product-detail/" + product.id}
-                                    className="text-dark"
-                                  >
-                                    {product.name}{" "}
-                                  </Link>
-                                </h5>
-                                <div className="text-muted mb-3">
-                                  <StarRatings
-                                    rating={product.rating}
-                                    starRatedColor="#F1B44C"
-                                    starEmptyColor="#2D363F"
-                                    numberOfStars={5}
-                                    name="rating"
-                                    starDimension="14px"
-                                    starSpacing="3px"
-                                  />
-                                </div>
-                                <h5 className="my-0">
-                                  <span className="text-muted me-2">
-                                    <del>${product.oldPrice}</del>
-                                  </span>{" "}
-                                  <b>${product.newPrice}</b>
-                                </h5>
-                              </div>
-                            
-                          </CardBody>
-                        </Card>
-                      </Col>
-                    ))}
                 </Row>
 
                 <Row>
                   <Col lg="12">
                     <Pagination className="pagination pagination-rounded justify-content-center mt-3 mb-4 pb-1 pagination-b-0">
-                      <PaginationItem disabled={page === 1}>
-                        <PaginationLink
-                          previous
-                          href="#"
-                          onClick={() => this.handlePageClick(page - 1)}
-                        />
-                      </PaginationItem>
-                      {map(Array(totalPage), (item, i) => (
-                        <PaginationItem active={i + 1 === page} key={i}>
-                          <PaginationLink
-                            onClick={() => this.handlePageClick(i + 1)}
-                            href="#"
-                          >
-                            {i + 1}
-                          </PaginationLink>
-                        </PaginationItem>
-                      ))}
-                      <PaginationItem disabled={page === totalPage}>
-                        <PaginationLink
-                          next
-                          href="#"
-                          onClick={() => this.handlePageClick(page + 1)}
-                        />
-                      </PaginationItem>
+
+
+
                     </Pagination>
                   </Col>
                 </Row>
@@ -471,7 +350,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onGetProducts: () => dispatch(getProducts()),
 })
 
 export default EcommerceProducts;

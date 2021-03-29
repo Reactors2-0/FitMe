@@ -26,17 +26,17 @@ export const listProducts = (state= {products : []} , action)=>{
 
 export const Product  = (state = {product: {}} , action)=>{
     switch (action.type){
-        case productConstants.PRODUCTLIST_FETCH_START:
+        case productConstants.PRODUCT_FETCH_START:
             return {
                 loading : true,
                 product : {}
             }
-        case productConstants.PRODUCTLIST_FETCH_SUCCESS:
+        case productConstants.PRODUCT_FETCH_SUCCESS:
             return {
                 product: action.payload,
                 success: true
             }
-        case productConstants.PRODUCTLIST_FETCH_ERROR:
+        case productConstants.PRODUCT_FETCH_FAIL:
             return {
                 error : action.payload
             }

@@ -26,6 +26,7 @@ import {
     FormInput,
     Collapse
 } from "shards-react";
+import {Button} from "bootstrap";
 
 const Header = () => {
     const userAuthData = useSelector((state) => state.userLogin);
@@ -46,24 +47,24 @@ const Header = () => {
                                 <NavItem>
                                     <NavLink acitve href="/">
                                         Home
-                                        </NavLink>
+                                    </NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink active href="#">
                                         Clothes
-                                        </NavLink>
+                                    </NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink active href="#">
                                         Collections
-                                        </NavLink>
+                                    </NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink active href="#">
                                         Wardrobe
-                                        </NavLink>
+                                    </NavLink>
                                 </NavItem>
-                        
+
                             </Nav>
                         </Collapse>
 
@@ -71,36 +72,33 @@ const Header = () => {
                     <div className="d-flex col-3 ml-5" >
                         <img src={FitMeLogo} width={65} />
                     </div>
-                    <div className="col-3 d-flex justify-content-between">
-                    <div>
-                    <Nav navbar style={{ display: "flex", alignItems: "center" }}>
-                            <InputGroup size="sm" seamless style={{ width: 200 }} >
-                                <InputGroupAddon type="prepend">
-                                    <InputGroupText>
-                                        <FontAwesomeIcon icon={faSearch} />
-                                    </InputGroupText>
-                                </InputGroupAddon>
-                                <FormInput className="border-1" placeholder="Search..." />
-                            </InputGroup>
+                    <div className="col-3 d-flex justify-content-around ml-5">
+                        <div>
+                            <Nav navbar className="d-flex mt-3">
+                                <InputGroup size="sm"  style={{ width: 200 }} >
+                                    <InputGroupAddon type="prepend">
+                                        <InputGroupText>
+                                            <FontAwesomeIcon icon={faSearch} />
+                                        </InputGroupText>
+                                    </InputGroupAddon>
+                                    <FormInput className="border-1" placeholder="Search..." />
+                                </InputGroup>
                             </Nav>
-                    </div>
-                            
-                           
-                                {/*Dear Mohamed And Chiheb when someone Update this Msg Me Thanks <3 */}
+                        </div>
 
-                                {userInfo ? (
-                                    <div className="d-flex justify-content-around ">
-                                    <div className="d-flex justify-content-between mt-2 ml-3" style={{width : 100}}>
-                                        <FontAwesomeIcon icon={faUserAlt} />
-                                        <FontAwesomeIcon icon={faShoppingCart} />
-                                        <FontAwesomeIcon icon={faHeart} />
-                                    </div>
-                                    <div >
-                                    <NavDropdown title={userInfo.name} id="username" className="ml-4 mb-2">
-                                        <LinkContainer to="/profile">
-                                            <NavDropdown.Item>profile</NavDropdown.Item>
 
-                                        </LinkContainer>
+                        {/*Dear Mohamed And Chiheb when someone Update this Msg Me Thanks <3 */}
+
+                        {userInfo ? (
+                            <div className="d-flex justify-content-around mt-3">
+                                <div className="d-flex justify-content-between mt-2 ml-3" style={{width : 100}}>
+                                    <FontAwesomeIcon icon={faUserAlt} />
+                                    <FontAwesomeIcon icon={faShoppingCart} />
+                                    <FontAwesomeIcon icon={faHeart} />
+                                </div>
+                                <div >
+                                    <NavDropdown title={userInfo.name} id="username" className="ml-4 ">
+
                                         {/* cyrine part*/}
                                         <LinkContainer to="/order">
                                             <NavDropdown.Item>order</NavDropdown.Item>
@@ -113,17 +111,18 @@ const Header = () => {
                                         </LinkContainer>
 
                                     </NavDropdown>
-                                    </div>
-                                    </div>
-                                ) : (
-                                    <NavLink acitve href="/login">
-                                        <NavLink>
-                                            <FontAwesomeIcon icon={faUserAlt} />
+                                </div>
+                            </div>
+                        ) : (
 
-                                        </NavLink>
-                                    </NavLink>
 
-                                )}
+                            <NavLink  href="/login">
+                                <NavLink>
+                                    <button type="button" className="btn btn-outline-info">Connect</button>
+                                </NavLink>
+                            </NavLink>
+
+                        )}
 
 
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Row, Col } from "react-bootstrap";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
