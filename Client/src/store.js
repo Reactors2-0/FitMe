@@ -11,10 +11,6 @@ import {
   forgotPassword,
   resetPassword,
 } from "./reducers/userReducers";
-
-import {
-Repondre
-} from "./reducers/AdminReducers";
 import {
     listProducts,
     Product,
@@ -49,12 +45,10 @@ const rootReducer = combineReducers({
   userLogin: userLogin,
   userRegister: userRegister,
   userList: userList,
-  userListBack: userList,
   userDeleteDetails: userDelete,
   userUpdateDetails: userUpdate,
   userDetails: getUser,
   forgotPasswordDetails: forgotPassword,
-  Repondre :Repondre,
   resetPasswordDetails: resetPassword,
 });
 

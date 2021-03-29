@@ -1,5 +1,6 @@
 const asyncHandler = require("../middleware/async");
 const createError = require("../utilis/createError");
+const path = require("path");
 const Brand = require("../models/Brand");
 const cloudinary = require("cloudinary").v2;
 
@@ -10,28 +11,22 @@ cloudinary.config({
 });
 
 const getBrands = asyncHandler(async (req, res, next) => {
-  console.log("Fetching brands");
   const keyWord = req.query.keyWord;
-  if(keyWord){
-      const searchItem = keyWord ? {name : {$regex: keyWord , $options: "i"}}:{};
-      const searchBrand = await Brand.find(searchItem);
-      res.status(200).send({status: "success",data: { results : searchBrand , count: searchBrand.length }})
-  }else{
-      const brands = await Brand.find();
-      res.status(200).send({status: "success",data: { results : brands , count: brands.length }})
+  if (keyWord) {
+    const searchItem = keyWord ? { name: { $regex: keyWord, $options: "i" } }: {};
+    const searchBrand = await Brand.find(searchItem);
+    res.status(200).send({status: "success", data: { results: searchBrand, count: searchProduct.length },});
+  } else {
+    res.status(200).send({ status: "success", data: res.advanceResults });
   }
-});
-const getBrandByUserId = asyncHandler(async (req, res, next) => {
-  console.log("Fetching brand by user id = "+req.params.userId);
-  const brand = await Brand.findOne({userId:req.params.userId});
-  if (!brand)
-    throw createError(404,`brand is not found with user id of ${req.params.userId}`);
-  res.status(200).send({ status: "success", data: brand });
 });
 
 const getBrand = asyncHandler(async (req, res, next) => {
-  console.log("Fetching brand with id "+ req.params.brandId);
-  const brand = await Brand.findById(req.params.brandId);
+  const brand = await Brand.findById(req.params.productId).populate({
+    path: "Reviews",
+    select: "title text",
+  });
+
   if (!brand)
     throw createError(404,`brand is not found with id of ${req.params.brandId}`);
   res.status(200).send({ status: "success", data: brand });
@@ -69,11 +64,16 @@ const createBrand = asyncHandler(async (req, res, next) => {
         }
       );
     });
+  
+  
 });
 
 const updateBrand = asyncHandler(async (req, res, next) => {
-  console.log("Updating brand");
-  const editBrand = await Brand.findByIdAndUpdate(req.params.brandId,req.body,{ new: true, runValidators: true, });
+  const editBrand = await Brand.findByIdAndUpdate(
+    req.params.productId,
+    req.body,
+    { new: true, runValidators: true, }
+  );
   if (!editBrand) throw createError(404,`Brand is not found with id of ${req.params.brandId}`);
   const updatedBrand = await Brand.findById(req.params.brandId);
   res.status(201).send({ status: "success", data: updatedBrand });
@@ -81,16 +81,21 @@ const updateBrand = asyncHandler(async (req, res, next) => {
 
 const deleteBrand = asyncHandler(async (req, res, next) => {
   const deleteBrand = await Brand.findById(req.params.brandId);
-  if (!deleteBrand) throw createError(404, `Brand is not found with id of ${req.params.brandId}`);
+
+  if (!deleteBrand)
+    throw createError(
+      404,
+      `Brand is not found with id of ${req.params.brandId}`
+    );
+
   await deleteBrand.remove();
+
   res.status(204).send({ status: "success", message: "Brand Deleted Successfully" });
 });
-
 module.exports = {
   getBrands,
   getBrand,
   createBrand,
   updateBrand,
   deleteBrand,
-  getBrandByUserId
 };

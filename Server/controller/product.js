@@ -5,20 +5,16 @@ const Product = require("../models/Product");
 
 
 const getProducts = asyncHandler(async (req,res,next)=>{
-    const keyWord = req.query.keyWord;
-    const ltORgt = req.query;
 
-    if(keyWord || ltORgt ){
+    const keyWord = req.query.keyWord;
+
+    if(keyWord){
         const searchItem = keyWord ?
             {name : {$regex: keyWord , $options: "i"}}:
             {};
-        const priceRange = (!isNaN(Number(ltORgt.priceMin)) && !isNaN(Number(ltORgt.priceMax))) ?
-            {price: {$gt: Number(ltORgt.priceMin), $lt: Number(ltORgt.priceMax)}}:
-            {};
-        console.log(priceRange)
 
-        const searchProduct = await Product.find(priceRange);
-        console.log("Products",searchProduct)
+        const searchProduct = await Product.find(searchItem);
+console.log(searchProduct)
         res.status(200).send({
             status: "success",
             data: { results : searchProduct , count: searchProduct.length }
@@ -28,16 +24,18 @@ const getProducts = asyncHandler(async (req,res,next)=>{
 
         res.status(200).send({
             status: "success",
-            data: { results : products , count: products.length }
+                    data: { results : products , count: products.length }
         })
     }
 
 });
+
 const getProduct =asyncHandler(async (req,res,next)=>{
     const product= await Product.findById(req.params.productId).populate({
         path : "Review",
         select: "title text"
     })
+    console.log(product);
     if(!product)
         throw createError(404,`Product with id ${req.params.productId} not found`);
 
