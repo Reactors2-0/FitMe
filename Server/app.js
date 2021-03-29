@@ -26,6 +26,8 @@ app.use("/api/v1/brand", brandRouter);
 app.use("/api/product", productRouter);
 app.use("/api/review", reviewRouter);
 app.use(express.json());
+//sadek routes
+const RepondreAdmin = require("./routes/Admin");
 
 app.use(
     fileUpload({
@@ -34,6 +36,7 @@ app.use(
 );
 
 
+app.use("/api/v1/Admin", RepondreAdmin);
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/user", userRouter);

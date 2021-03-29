@@ -1,12 +1,13 @@
 import React from "react"
 import {Redirect, Route} from "react-router-dom"
 /** SADEK Imports */
-import Dashboard from "../backoffice/pages/Dashboard/index"
+import Dashboard from "../backoffice/pages/DashboardAdmin/index"
 import ContactAdmin from "../backoffice/pages/Contact/ContactList"
 import  userlists from "../backoffice/pages/User/UserList"
 import OrderAdmin from "../backoffice/pages/Order/Order"
 import ProductsList from "../backoffice/pages/Products/index"
 import BrandList from "../backoffice/pages/Brand/BrandtList"
+import AddProduct from "../backoffice/pages/Products/AddProduct"
 
 /** SADEK Imports END*/
 
@@ -74,6 +75,7 @@ const authProtectedBackRoutes = [
     { path: "/dashboard/admin/Repondre", component: ContactAdmin },
 
     { path: "/dashboard/admin/Products", component: ProductsList },
+    { path: "/dashboard/admin/AddProducts", component: AddProduct },
 
     { path: "/dashboard/admin/Order", component: OrderAdmin },
     { path: "/dashboard/admin/Brand", component: BrandList },

@@ -1,7 +1,8 @@
-import React from "react"
+import React, {useState} from "react"
 import PropTypes from "prop-types"
 import {
   Button,
+
   Modal,
   ModalBody,
   ModalFooter,
@@ -15,16 +16,38 @@ import {
   Container,
   Form,
   Row,
-} from "reactstrap"
+} from "reactstrap";
+import {
+  TextField,
+
+  CircularProgress,
+  makeStyles,
+} from "@material-ui/core/";
 import MetaTags from 'react-meta-tags';
+import { useDispatch, useSelector } from "react-redux";
 
 import img7 from "../../../backoffice/assets/images/product/img-7.png"
 import img4 from "../../../backoffice/assets/images/product/img-4.png"
 import { Editor } from "react-draft-wysiwyg"
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
+import * as adminAction from "../../../actions/AdminAction";
+
 const EcommerceOrdersModal = props => {
+const dispatch = useDispatch();
   const { isOpen, toggle } = props
+  const [subject, setSubject] = useState("");
+  const [body, setBody] = useState("");
+
+
+  const send = (e) =>{
+    e.preventDefault();
+
+dispatch(adminAction.Repondre({body}));
+console.log("hey"+body);
+  }
+
   return (
+
     <Modal
       isOpen={isOpen}
       role="dialog"
@@ -72,13 +95,27 @@ const EcommerceOrdersModal = props => {
         <CardTitle className="h4">Repondre</CardTitle>
 
 
-        <Form method="post">
-          <Editor
-              toolbarClassName="toolbarClassName"
-              wrapperClassName="wrapperClassName"
-              editorClassName="editorClassName"
-          />
-        </Form>
+
+          <Form className="formLoginRegister">
+              <TextField
+                  variant="outlined"
+                  type="text"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Repondre"
+                  name="body"
+                  autoComplete="body"
+                  autoFocus
+                  value={body}
+                  onChange={(e) => setBody(e.target.value)}
+              />
+              <Button type="button" color="secondary" onClick={send}>
+                  Envoyer
+              </Button>
+          </Form>
+
       </CardBody>
     </Card></Col>
 
@@ -92,11 +129,8 @@ const EcommerceOrdersModal = props => {
             </Table>
           </div>
         </ModalBody>
-        <ModalFooter>
-          <Button type="button" color="secondary" onClick={toggle}>
-            Close
-          </Button>
-        </ModalFooter>
+
+
       </div>
     </Modal>
   )
