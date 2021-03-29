@@ -21,12 +21,25 @@ import {
     // EditProduct,
 } from "./reducers/productReducers";
 
-
+import {
+  createOrderReducer,
+  getOrder,
+  orderPayReducer,
+  orderDeliverReducer,
+  authOrders,
+  listOrders,
+} from "./reducers/orderReducers";
 
 
 
 
 const rootReducer = combineReducers({
+    createOrder: createOrderReducer,
+  orderDetails: getOrder,
+  authOrders: authOrders,
+  orderList: listOrders,
+  orderPay: orderPayReducer,
+  orderDeliver: orderDeliverReducer,
   products: listProducts,
   Product: Product,
   userLogin: userLogin,

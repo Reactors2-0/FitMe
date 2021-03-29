@@ -15,6 +15,15 @@ const Register = lazy(() => import('@FrontOfficePages/LoginRegister/Register'));
 const ForgotPassword = lazy(() => import('@FrontOfficePages/LoginRegister/ForgotPassword'));
 const ResetPassword = lazy(() => import('@FrontOfficePages/LoginRegister/ResetPassword'));
 const EmailVerification = lazy(() => import('@FrontOfficePages/LoginRegister/EmailVerification'));
+
+/* Cyrine Imports */
+const OrderList = lazy(() => import('@FrontOfficePages/Order/OrderList'));
+const Order = lazy(() => import('@FrontOfficePages/Order/Order'));
+const Profile = lazy(() => import('@FrontOfficePages/Order/Profile'));
+
+//const Order = lazy(() => import('@FrontOfficePages/Order/Order'));
+
+
 // * Chihab's imports
 const BrandSignup = lazy(() => import('@FrontOfficePages/BrandSignup/BrandSignup'));
 const AdminBrandsList = lazy(() => import('@BackOfficePages/AdminBrandsList/AdminBrandsList'));
@@ -41,6 +50,8 @@ function App() {
               <Route exact={true} path="/EmailVerification" component={EmailVerification} />
               <Route exact={true} path="/logout" component={Logout} />
                // * End Brayek routes
+               //* Cyrine Routes */
+               <Route exact={true} path="/Profile" component={Profile} />
             </Switch>
           </Suspense>
         </Container>

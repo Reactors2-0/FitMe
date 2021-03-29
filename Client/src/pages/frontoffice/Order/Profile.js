@@ -1,29 +1,29 @@
 import React, { useEffect } from "react";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Row, Col, ListGroup, Card } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import ErrorMessage from "@Components/Message/errorMessage";
-import { listOrders } from "@Actions/orderAction";
+//import { Button as MeterialButton } from "@material-ui/core/";
+import { authOrder } from "@Actions/orderAction";
 import TableLoader from "@Components/Loader/TableLoader";
 import Print from "@Components/Print/Print";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-// from cyrine to sadek use it in admin dashboard
-const OrderList = () => {
-  const orderList = useSelector((state) => state.orderList);
-  const userLogin = useSelector((state) => state.userLogin);
-
-  const { orders, loading, error, count } = orderList;
-  const { userInfo } = userLogin;
-
+const Profile = () => {
   const dispatch = useDispatch();
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const authOrders = useSelector((state) => state.authOrders);
+  const { orders, loading, error, count } = authOrders;
+
   useEffect(() => {
-    dispatch(listOrders());
+    dispatch(authOrder());
     // eslint-disable-next-line
-  }, [dispatch]);
+  }, [dispatch, userInfo]);
 
   const printAs = (e) => {
     const downloadAs = e.target.value;
@@ -86,7 +86,7 @@ const OrderList = () => {
                   [
                     {
                       border: ["#5bc0de", false, false, false],
-                      text: "Orders List",
+                      text: "Order Details",
                     },
                   ],
                 ],
@@ -123,12 +123,6 @@ const OrderList = () => {
                           color: "white",
                         },
                         {
-                          text: "USER",
-                          bold: true,
-                          fillColor: "#2B2B52",
-                          color: "white",
-                        },
-                        {
                           text: "DATE",
                           bold: true,
                           fillColor: "#2B2B52",
@@ -157,7 +151,6 @@ const OrderList = () => {
                       ...orders.map((o, i) => [
                         i + 1,
                         o._id,
-                        o.userId && o.userId.name,
                         o.createdAt.substring(0, 10),
                         o.totalPrice,
                         o.isPaid ? o.paidAt.substring(0, 10) : "Not paid",
@@ -168,7 +161,7 @@ const OrderList = () => {
                     ],
                   },
 
-                  fontSize: 9,
+                  fontSize: 10,
                   alignment: "center",
                 }
               : null,
@@ -194,7 +187,7 @@ const OrderList = () => {
             },
           },
         };
-        pdfMake.createPdf(docDefinition).download("ordersList.pdf");
+        pdfMake.createPdf(docDefinition).download("orders.pdf");
 
         break;
       case "excel":
@@ -206,70 +199,116 @@ const OrderList = () => {
   };
 
   return (
-    <>
-      <div className="clearfix">
-        <span className="float-left">
-          <h1>Orders ({count})</h1>
-        </span>
+    <Row>
+      <Col md={3}>
+        <h2>Profile</h2>
+        <Card>
+          <ListGroup variant="flush">
+            <ListGroup.Item>
+              <Row>
+                <Col>Name:</Col>
+                <Col>
+                  <strong>{userInfo.name}</strong>
+                </Col>
+              </Row>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Row>
+                <Col>Email:</Col>
+                <Col>
+                  <strong>{userInfo.email}</strong>
+                </Col>
+              </Row>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Row>
+                <Col>Account:</Col>
+                <Col>
+                  <strong>
+                    {userInfo.verify ? "Verified" : "Not Verified"}
+                  </strong>
+                </Col>
+              </Row>
+            </ListGroup.Item>
+            {/* <ListGroup.Item>
+              <LinkContainer to="/updateUserDetails">
+                <MeterialButton
+                  type="button"
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  disabled={true}
+                >
+                  Update
+                </MeterialButton>
+              </LinkContainer>
+            </ListGroup.Item> */}
+          </ListGroup>
+        </Card>
+      </Col>
+      <Col md={9}>
+        <div className="clearfix">
+          <span className="float-left">
+            <h1>My Orders ({count})</h1>
+          </span>
 
-        <span className="float-right">
-          {" "}
-          <Print printAs={printAs} />
-        </span>
-      </div>
+          <span className="float-right">
+            {" "}
+            <Print printAs={printAs} />
+          </span>
+        </div>
 
-      {loading ? (
-        <TableLoader />
-      ) : error ? (
-        <ErrorMessage header="Something went wrong" message={error} />
-      ) : (
-        <Table striped bordered hover responsive className="table-sm">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>USER</th>
-              <th>DATE</th>
-              <th>TOTAL</th>
-              <th>PAID</th>
-              <th>DELIVERED</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map((order) => (
-              <tr key={order._id}>
-                <td>{order._id}</td>
-                <td>{order.userId && order.userId.name}</td>
-                <td>{order.createdAt.substring(0, 10)}</td>
-                <td>${order.totalPrice}</td>
-                <td>
-                  {order.isPaid ? (
-                    order.paidAt.substring(0, 10)
-                  ) : (
-                    <i className="fas fa-times" style={{ color: "red" }}></i>
-                  )}
-                </td>
-                <td>
-                  {order.isDelivered ? (
-                    order.deliveredAt.substring(0, 10)
-                  ) : (
-                    <i className="fas fa-times" style={{ color: "red" }}></i>
-                  )}
-                </td>
-                <td>
-                  <LinkContainer to={`/order/${order._id}`}>
-                    <Button variant="light" className="btn-sm">
-                      Details
-                    </Button>
-                  </LinkContainer>
-                </td>
+        {loading ? (
+          <TableLoader />
+        ) : error ? (
+          <ErrorMessage header="Something went wrong" message={error} />
+        ) : (
+          <Table striped bordered hover responsive className="table-sm">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>DATE</th>
+                <th>TOTAL PRICE</th>
+                <th>PAID</th>
+                <th>DELIVERED</th>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      )}
-    </>
+            </thead>
+            <tbody>
+              {orders.map((order) => (
+                <tr key={order._id}>
+                  <td>{order._id}</td>
+                  <td>{order.createdAt.substring(0, 10)}</td>
+                  <td>{order.totalPrice}</td>
+                  <td>
+                    {order.isPaid ? (
+                      order.paidAt.substring(0, 10)
+                    ) : (
+                      <i className="fas fa-times" style={{ color: "red" }}></i>
+                    )}
+                  </td>
+                  <td>
+                    {order.isDelivered ? (
+                      order.deliveredAt.substring(0, 10)
+                    ) : (
+                      <i className="fas fa-times" style={{ color: "red" }}></i>
+                    )}
+                  </td>
+                  <td>
+                    <LinkContainer to={`/order/${order._id}`}>
+                      <Button className="btn-sm" variant="light">
+                        Details
+                      </Button>
+                    </LinkContainer>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        )}
+      </Col>
+    </Row>
   );
 };
 
-export default OrderList;
+export default Profile;
