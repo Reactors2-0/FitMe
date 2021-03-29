@@ -55,8 +55,7 @@ import Home from "../frontoffice/pages/Home/Home";
 
 
 const authProtectedBackRoutes = [
-    { path: "/dashboard/admin", component: Dashboard },
-
+    { path: "/dashboard", component: Dashboard },
     //profile
     { path: "/profile", component: UserProfile },
 
@@ -84,7 +83,7 @@ const authProtectedBackRoutes = [
     { path: "/tui-charts", component: ToastUIChart },
     { path: "/charts-knob", component: ChartsKnob },
 
-
+    { path: "/brandSignup", component: BrandSignup },
     // this route should be at the end of all other routes
      { path: "*", exact: true, component: () => <Redirect to = "/dashboard" / > },
 ]
@@ -105,7 +104,7 @@ const publicFrontRoutes = [
     { path: "/page-confirm-mail-2", component: ConfirmMail2 },
     { path: "/auth-two-step-verification", component: TwostepVerification },
     { path: "/auth-two-step-verification-2", component: TwostepVerification2 },
-
+    
 ]
 const authProtectedFrontRoutes = [
 
