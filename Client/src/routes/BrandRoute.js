@@ -14,7 +14,7 @@ const BrandRoute = ({ component: Component, ...rest }) => {
         !userInfo ? (
           <Redirect to="/login" />
         ) : userInfo.role !== "seller" ? (
-          <Redirect to="/dashboard/seller" />
+          <Redirect to="/dashboard" />
         ) : (
           <Component {...props} />
         )
