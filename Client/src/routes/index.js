@@ -103,7 +103,6 @@ const authProtectedBackRoutes = [
     { path: "/tui-charts", component: ToastUIChart },
     { path: "/charts-knob", component: ChartsKnob },
 
-    { path: "/brandSignup", component: BrandSignup },
     // this route should be at the end of all other routes
      { path: "*", exact: true, component: () => <Redirect to = "/dashboard" /> },
 
@@ -111,6 +110,7 @@ const authProtectedBackRoutes = [
 
 const publicFrontRoutes = [
 
+    { path: "/brandSignup", component: BrandSignup },
     { path: "/", component: Home },
     // Moetaz Paths
     { path: "/logout", component: Logout },

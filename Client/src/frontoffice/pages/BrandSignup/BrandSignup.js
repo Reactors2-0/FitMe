@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Form} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import {TextField,Button,CircularProgress,makeStyles} from "@material-ui/core/";
+
 import ErrorMessage from "@Components/Message/errorMessage";
 import SuccessMessage from "@Components/Message/successMessage";
 import FormContainer from "@Components/FormContainer/FormContainer";
-import {TextField,Button,CircularProgress,makeStyles} from "@material-ui/core/";
 import ColorPicker from "@Components/ColorPicker/ColorPicker";
+
 import * as brandAction from "@Actions/brandAction";
 import * as brandConstants from "@Constants/brandConstants";
 
@@ -29,7 +31,8 @@ const BrandSignup = ({ location, history }) => {
   // * Styles
   const classes = useStyles();
 
-  const brandRegisterData = useSelector((state) => state.createBrand);
+  const brandRegisterData = useSelector((state) => brandAction.createBrand);
+  console.log(userInfo.role);
   const { error, loading, message, success } = brandRegisterData;
   
   const redirect = location.search ? location.search.split("=")[1] : "/";
