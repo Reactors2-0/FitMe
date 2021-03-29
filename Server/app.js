@@ -20,11 +20,16 @@ const reviewRouter = require("./routes/review");
 //! Moetaz Routes
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
+//! cyrine Routes
+const orderRouter = require("./routes/order");
+
 // ! Chihab's routes
 const brandRouter = require("./routes/brand");
-app.use("/api/brands", brandRouter);
+app.use("/api/v1/brand", brandRouter);
 app.use("/api/product", productRouter);
 app.use("/api/review", reviewRouter);
+app.use("/api/v1/order", orderRouter);
+
 app.use(express.json());
 
 app.use(
