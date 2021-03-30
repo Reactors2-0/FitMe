@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Form} from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import ("./BrandSignup.css");
 import { useDispatch, useSelector } from "react-redux";
 import {TextField,Button,CircularProgress,makeStyles} from "@material-ui/core/";
 
@@ -31,11 +35,13 @@ const BrandSignup = ({ location, history }) => {
   // * Styles
   const classes = useStyles();
 
-  const brandRegisterData = useSelector((state) => brandAction.createBrand);
-  console.log(userInfo.role);
+  const brandRegisterData = useSelector((state) => state.createBrand);
   const { error, loading, message, success } = brandRegisterData;
-  
+
   const redirect = location.search ? location.search.split("=")[1] : "/";
+  useEffect(() => {
+    console.log("from user effect "+brandImage)
+  },[brandImage]);
   useEffect(() => {
     if (success) {
       setTimeout(() => {
@@ -60,7 +66,6 @@ const BrandSignup = ({ location, history }) => {
     formData.append("brandProof", proof);
     formData.append("color", brandColor);
     formData.append("userId", userInfo.id);
-    
     dispatch(brandAction.createBrand(formData));
   };
   function RGBToHex(r,g,b) {
@@ -79,87 +84,89 @@ const BrandSignup = ({ location, history }) => {
     setBrandColor(RGBToHex(val.r,val.g,val.b));
   };
   return (
-    <FormContainer>
-      <h1>Register brand :</h1>
-      {error && (
-        <ErrorMessage
-          header="Auth Error"
-          message={error}
-          reset={brandConstants.CREATE_BRAND_RESET}
-        />
-      )}
-      {verificationMessage !== "" && (
-        <ErrorMessage header="Auth Error" message={verificationMessage} />
-      )}
-      {success && (
-        <SuccessMessage
-          header="Registered brand SuccessFully"
-          message={message}
-          reset={brandConstants.CREATE_BRAND_RESET}
-        />
-      )}
-      <Form onSubmit={handleSubmit}>
-        <TextField
-          variant="outlined"
-          type="text"
-          margin="normal"
-          required
-          fullWidth
-          id="brandName"
-          label="Brand Name"
-          name="brandName"
-          autoComplete="email"
-          autoFocus
-          value={brandName}
-          onChange={(e) => setBrandName(e.target.value)}
-        />
-        <div className="ui label"><i aria-hidden="true" className="mail icon"></i> Brand Image :</div>
-        <TextField
-          variant="outlined"
-          type="file"
-          margin="normal"
-          required
-          fullWidth
-          id="file"
-          name="file"
-          autoComplete="file"
-          autoFocus
-          onChange={(e) => setBrandImage(e.target.files[0])}
-        />
-        <div className="ui label"><i aria-hidden="true" className="mail icon"></i> Legal proof of business :</div>
-        <TextField
-          variant="outlined"
-          type="file"
-          margin="normal"
-          required
-          fullWidth
-          id="proof"
-          name="proof"
-          autoComplete="proof"
-          autoFocus
-          onChange={(e) => setBrandProof(e.target.files[0])}
-        />
-        <div className="ui label"><i aria-hidden="true" className="mail icon"></i> Brand primary color :</div>
-        <ColorPicker handelColor={handelColorChange} />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          fullWidth
-          onClick={handleSubmit}
-          disabled={loading}
-        >
-          {loading ? (
-            <CircularProgress
-              color="inherit"
-              className={classes.prgressColor}
+      <Container fluid className="verticalHeight">
+        <FormContainer>
+          <h1>Register brand :</h1>
+          {error && (
+            <ErrorMessage
+              header="Auth Error"
+              message={error}
+              reset={brandConstants.CREATE_BRAND_RESET}
             />
-          ) : (
-            <>Register brand</>
           )}
-        </Button>
-      </Form>
-    </FormContainer>
+          {verificationMessage !== "" && (
+            <ErrorMessage header="Auth Error" message={verificationMessage} />
+          )}
+          {success && (
+            <SuccessMessage
+              header="Registered brand SuccessFully"
+              message={message}
+              reset={brandConstants.CREATE_BRAND_RESET}
+            />
+          )}
+          <Form onSubmit={handleSubmit}>
+            <TextField
+              variant="outlined"
+              type="text"
+              margin="normal"
+              required
+              fullWidth
+              id="brandName"
+              label="Brand Name"
+              name="brandName"
+              autoComplete="email"
+              autoFocus
+              value={brandName}
+              onChange={(e) => setBrandName(e.target.value)}
+            />
+            <div className="ui label"><i aria-hidden="true" className="mail icon"/> Brand Image :</div>
+            <TextField
+              variant="outlined"
+              type="file"
+              margin="normal"
+              required
+              fullWidth
+              id="file"
+              name="file"
+              autoComplete="file"
+              autoFocus
+              onChange={(e) => setBrandImage(e.target.files[0])}
+            />
+            <div className="ui label"><i aria-hidden="true" className="mail icon"/> Legal proof of business :</div>
+            <TextField
+              variant="outlined"
+              type="file"
+              margin="normal"
+              required
+              fullWidth
+              id="proof"
+              name="proof"
+              autoComplete="proof"
+              autoFocus
+              onChange={(e) => setBrandProof(e.target.files[0])}
+            />
+            <div className="ui label"><i aria-hidden="true" className="mail icon"/> Brand primary color :</div>
+            <ColorPicker handelColor={handelColorChange} />
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={handleSubmit}
+              disabled={loading}
+            >
+              {loading ? (
+                <CircularProgress
+                  color="inherit"
+                  className={classes.prgressColor}
+                />
+              ) : (
+                <>Register brand</>
+              )}
+            </Button>
+          </Form>
+        </FormContainer>
+      </Container>
   );
 };
 

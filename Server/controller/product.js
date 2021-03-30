@@ -56,7 +56,7 @@ const createProduct = asyncHandler(async (req,res,next)=>{
     //TODO : check file size
 
     //TODO : Store img in cloud
-    // TODO : XML element accesse *
+    // TODO : XML element access *
     const product = await Product.create({
         ...req.body,
         productImage : "add photo in cloud !"

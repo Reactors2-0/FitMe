@@ -2,7 +2,6 @@ const asyncHandler = require("../middleware/async");
 const createError = require("../utilis/createError");
 const Brand = require("../models/Brand");
 const cloudinary = require("cloudinary").v2;
-
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.API_KEY,
@@ -38,11 +37,13 @@ const getBrand = asyncHandler(async (req, res, next) => {
 });
 
 const createBrand = asyncHandler(async (req, res, next) => {
+  console.log("Creating brand");
   if (!req.files) throw createError(400, "Please add a photo & Proof");
   const image = req.files.brandImage;
   const proof = req.files.brandProof;
   if (!image.mimetype.startsWith("image"))
     throw createError(400, "This file is not supported");
+  // restruction pdf / ==> application/pdf  .php /* application/pdf
   if(!proof.mimetype.startsWith("application/pdf"))
     throw createError(400, "This proof is not supported");
   if (image.size > process.env.FILE_UPLOAD_SIZE || proof.size > process.env.FILE_UPLOAD_SIZE)

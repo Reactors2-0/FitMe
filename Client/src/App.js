@@ -1,7 +1,5 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Container } from "react-bootstrap";
-import FooterPage from "@Components/Footer/FooterPage";
 import Loader from "@FrontOfficeComponents/Loader/HomeLoader"
 
 import { publicFrontRoutes, authProtectedBackRoutes } from "./routes/index"
@@ -10,11 +8,9 @@ import VerticalLayout from "@BackOfficeComponents/VerticalLayout/"
 
 // Dashboard imports
 
-const Dashboard = lazy(() => import('@BackOfficePages/Dashboard'));
-const DashboardSideBar = lazy(() => import('@BackOfficeComponents/VerticalLayout/Sidebar'));
 function App() {
   return (
-    <Suspense fallback={<img src={Loader} />}>
+    <Suspense fallback={<img src={Loader} alt="Loading..."/>}>
       <React.Fragment>
         <Router>
           <Switch>

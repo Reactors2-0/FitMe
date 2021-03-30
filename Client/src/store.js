@@ -20,7 +20,14 @@ import {
     // createProduct,
     // EditProduct,
 } from "./reducers/productReducers";
-
+import {
+  listBrands,
+  brandByUserId,
+  Brand,
+  deleteBrand,
+  createBrand,
+  editBrand,
+} from "./reducers/brandReducers";
 import {
   createOrderReducer,
   getOrder,
@@ -34,7 +41,13 @@ import {
 
 
 const rootReducer = combineReducers({
-    createOrder: createOrderReducer,
+  listBrands:listBrands,
+  brandByUserId:brandByUserId,
+  Brand:Brand,
+  deleteBrand:deleteBrand,
+  createBrand:createBrand,
+  editBrand:editBrand,
+  createOrder: createOrderReducer,
   orderDetails: getOrder,
   authOrders: authOrders,
   orderList: listOrders,
