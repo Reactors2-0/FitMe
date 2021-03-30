@@ -279,3 +279,32 @@ export const resetPassword = (resetPasswordData) => async (dispatch) => {
     });
   }
 };
+export const userblock = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: userConstants.USER_DELETE_START });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.get(`/api/v1/user/block/${id}`, config).then((resp) => {
+      dispatch({
+        type: userConstants.USER_DELETE_SUCCESS,
+      });
+    });
+  } catch (error) {
+    dispatch({
+      type: userConstants.USER_DELETE_FAIL,
+      payload:
+          error.response && error.response.data.error
+              ? error.response.data.error
+              : error.message,
+    });
+  }
+};

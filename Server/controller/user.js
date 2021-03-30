@@ -25,8 +25,11 @@ const createUser = asyncHandler(async (req, res, next) => {
 // block user
 
 const blockuser = asyncHandler(async (req, res, next) => {
-    const editUser = await User.findByIdAndUpdate(req.params.id, req.body, {
-        actif: false,
+    const user = await  User.findById(req.params.id);
+    console.log(user.actif);
+
+    const editUser = await User.findByIdAndUpdate(req.params.id, {
+       actif: !user.actif,
     });
 
     if (!editUser)

@@ -16,6 +16,8 @@ connectDb();
 const productRouter = require("./routes/product");
 const reviewRouter = require("./routes/review");
 const orderRouter = require("./routes/order");
+//!
+const adminRouter = require("./routes/Admin");
 
 //! Moetaz Routes
 const authRouter = require("./routes/auth");
@@ -36,6 +38,8 @@ app.use("/api/brands", brandRouter);
 app.use("/api/product", productRouter);
 app.use("/api/review", reviewRouter);
 app.use("/api/v1/order", orderRouter);
+app.use("/api/v1/admin", adminRouter);
+
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/user", userRouter);
