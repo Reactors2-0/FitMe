@@ -54,7 +54,6 @@ export default function ProductPage({match}) {
     const productData = useSelector((state) => state.Product);
     const { loading, product, error } = productData;
     const {addToCartHandler,totCartItems} = useCart();
-    console.log(product)
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(productAction.product(match.params.id));
@@ -131,7 +130,7 @@ export default function ProductPage({match}) {
                             </GridItem>
                             <GridItem md={6} sm={6}>
                                 <h2 className={classes.title}>{product.name}</h2>
-                                <h3 className={classes.mainPrice}>$335</h3>
+                                <h3 className={classes.mainPrice}>{product.price} TND</h3>
                                 <Accordion
                                     active={0}
                                     activeColor="rose"

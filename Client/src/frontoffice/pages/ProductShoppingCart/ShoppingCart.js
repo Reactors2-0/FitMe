@@ -28,6 +28,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import * as cartConstants from "../../../constants/cartConstants";
+import ShoppingCart from "@material-ui/icons/ShoppingCart";
 const useStyles = makeStyles(shoppingCartStyle);
 const TAX_RATE = 0.19;
 
@@ -46,13 +47,13 @@ const styles = theme => ({
 export default function ShoppingCartPage() {
     React.useEffect(() => {
         window.scrollTo(0, 0);
-        document.body.scrollTop = 0;
-    });
+        document.body.scrollTop = 1;
+    },[onclick]);
     const classes = useStyles();
     const dispatch = useDispatch();
     let history = useHistory();
 
-    const {cartItems,addToCartHandler,removeFromCartHandler} = useCart();
+    const {cartItems,addToCartHandler,removeFromCartHandler,totCartItems} = useCart();
 
 
     function ccyFormat(num) {
@@ -97,11 +98,12 @@ export default function ShoppingCartPage() {
                 filter="dark"
                 small
             >
+
                 <div className={classes.container} >
                     <GridContainer>
                         <GridItem
-                            md={8}
-                            sm={8}
+                            md={10}
+                            sm={10}
                             className={classNames(
                                 classes.mlAuto,
                                 classes.mrAuto,
@@ -110,7 +112,12 @@ export default function ShoppingCartPage() {
                         >
                             <h2 className={classes.title}>Shopping Page</h2>
                         </GridItem>
+
+
+
                     </GridContainer>
+
+
                 </div>
             </Parallax>
             <div className={classNames(classes.main, classes.mainRaised)}  style={{width : "70%",marginLeft : "15%"}}>
@@ -140,12 +147,12 @@ export default function ShoppingCartPage() {
                                     <TableBody >
                                         {cartItems.map(row => (
 
-                                            <TableRow key={row.id}>
-                                                <TableCell className={classes.imgContainer} key={row.id}>
+                                            <TableRow >
+                                                <TableCell className={classes.imgContainer} >
                                                     <img src={row.productImage} alt="..." className={classes.img}/>
                                                 </TableCell>
 
-                                                <TableCell>  <Link to={`/product/${row.productId}`}>  {row.productName}</Link>
+                                                <TableCell>  <Link to={`/product/${row.productId}`} style={{color : "black"}}>  {row.productName}</Link>
                                                    </TableCell>
 
                                                 <TableCell align="right">red</TableCell>
@@ -158,9 +165,8 @@ export default function ShoppingCartPage() {
                                                 size="sm"
                                                 round
                                                 className={classes.firstButton}
-                                                onClick={(event)=> {
-                                                    event.preventDefault();
-                                                    removeFromCartHandler(row.productId, 1)
+                                                onClick={()=> {
+                                                        removeFromCartHandler(row.productId, 1)
                                                 }}
 
                                             >
@@ -171,13 +177,14 @@ export default function ShoppingCartPage() {
                                                 size="sm"
                                                 round
                                                 className={classes.lastButton}
-                                                onClick={(e)=> {
-                                                    e.preventDefault();
+                                                onClick={()=> {
                                                     addToCartHandler(row.productId, 1)
                                                 }}
                                             >
+
                                                 <div style={{position : "absolute",marginRight : 60,fontSize : 20}}>{row.qty}</div>
                                               <Add/>
+
                                             </Button>
                                           </div>
 
