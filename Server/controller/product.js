@@ -3,7 +3,13 @@ const createError = require("../utilis/createError");
 const path = require("path");
 const Product = require("../models/Product");
 
+const cloudinary = require("cloudinary").v2;
 
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
+});
 const getProducts = asyncHandler(async (req,res,next)=>{
     const keyWord = req.query.keyWord;
     const ltORgt = req.query;
@@ -53,17 +59,24 @@ const createProduct = asyncHandler(async (req,res,next)=>{
     if(!file.mimetype.startsWith("image"))
         throw createError(400,"This file is not supported");
 
-    //TODO : check file size
-
-    //TODO : Store img in cloud
-    // TODO : XML element accesse *
-    const product = await Product.create({
-        ...req.body,
-        productImage : "add photo in cloud !"
-    });
-
-    res.status(200).send({status : "success",data : product});
-});
+    if (file.size > process.env.FILE_UPLOAD_SIZE)
+        throw createError(
+            400,
+            `Please upload a image of size less than ${process.env.FILE_UPLOAD_SIZE}`
+        );
+    //Add cloudinary API and save img url in db
+    await cloudinary.uploader.upload(
+        file.tempFilePath,
+        {use_filename: true, folder: "products"},
+        async function (error, result) {
+            if (error) throw createError(409, `failed to create product`);
+            const product = await Product.create({
+                ...req.body,
+                productImage: result.url,
+            });
+            res.status(200).send({status: "success", data: product});
+        }
+    );});
 
 const updateProduct = asyncHandler(async (req,res,next)=>{
     const editProduct = await Product.findByIdAndUpdate(

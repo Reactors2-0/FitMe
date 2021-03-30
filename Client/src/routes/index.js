@@ -62,7 +62,8 @@ import BrandSignup from '../frontoffice/pages/BrandSignup/BrandSignup';
 // * Med Imports *
 
 import Home from "../frontoffice/pages/Home/Home";
-import ProductPageu from "../frontoffice/pages/ProductDetails/ProductPage";
+import ProductPage from "../frontoffice/pages/ProductDetails/ProductPage";
+import ShoppingCart from "../frontoffice/pages/ProductShoppingCart/ShoppingCart";
 
 import('../frontoffice/pages/Home/Home');
 import('@Routes/AdminRoute');
@@ -129,7 +130,8 @@ const publicFrontRoutes = [
     { path: "/auth-two-step-verification-2", component: TwostepVerification2 },
 
     //Product path
-    { path: "/product/:id", component: ProductPageu },
+    { path: "/product/:id", component: ProductPage },
+    { path: "/shoppingCart", component: ShoppingCart },
 
 ]
 const authProtectedFrontRoutes = [
