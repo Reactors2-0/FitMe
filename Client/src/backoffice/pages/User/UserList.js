@@ -31,14 +31,14 @@ const UserList = ({ history }) => {
 
   const deleteHandler = (id) => {
 
-    if (window.confirm("Are you sure.? ")) {
+    if (window.confirm("Are you sure want to delete ? ")) {
       dispatch(userDelete(id));
     }
   };
-  const blockHandler = (id,actif) => {
+  const blockHandler = (id) => {
 
-    if (window.confirm("Are you sure.? ")) {
-      dispatch(userblock(id,actif));
+    if (window.confirm("Are you sure want to block.? ")) {
+      dispatch(userblock(id));
     }
   };
 
@@ -175,7 +175,7 @@ False              </Badge>
 
                 <Button
                     className="btn-sm"
-                    onClick={() => blockHandler(user._id,user.actif)}
+                    onClick={() => blockHandler(user._id)}
                 >
                     <i className="fas fa-check"></i>
                 </Button>
@@ -184,7 +184,7 @@ False              </Badge>
 
                 <Button
                     className="btn-sm"
-                    onClick={() => blockHandler(user._id,user.actif)}
+                    onClick={() => blockHandler(user._id)}
                 >
                   <i className="fas fa-accusoft"></i>
                 </Button>
