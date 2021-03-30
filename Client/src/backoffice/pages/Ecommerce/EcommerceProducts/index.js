@@ -1,0 +1,355 @@
+import React, { Component } from "react"
+import PropTypes from "prop-types"
+import MetaTags from 'react-meta-tags';
+import { connect } from "react-redux"
+import { Link, withRouter } from "react-router-dom"
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  Col,
+  Container,
+  Form,
+  Input,
+  Label,
+  Nav,
+  NavItem,
+  NavLink,
+  Pagination,
+  PaginationItem,
+  PaginationLink,
+  Row,
+} from "reactstrap"
+import classnames from "classnames"
+import { isEmpty, map, size } from "lodash"
+
+//Import Star Ratings
+import StarRatings from "react-star-ratings"
+
+// RangeSlider
+import Nouislider from "nouislider-react"
+import "nouislider/distribute/nouislider.css"
+
+//Import Product Images
+import { productImages } from "@BackOfficeAssets/images/product"
+
+//Import Breadcrumb
+import Breadcrumbs from "@BackOfficeComponents/Common/Breadcrumb"
+
+
+class EcommerceProducts extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      FilterClothes: [
+        { id: 1, name: "T-shirts", link: "#" },
+        { id: 2, name: "Shirts", link: "#" },
+        { id: 3, name: "Jeans", link: "#" },
+        { id: 4, name: "Jackets", link: "#" },
+      ],
+      products: [],
+      activeTab: "1",
+      discountData: [],
+      filters: {
+        discount: [],
+        price: { min: 0, max: 500 },
+      },
+      page: 1,
+      totalPage: 5, //replace this with total pages of data
+    }
+    this.toggleTab = this.toggleTab.bind(this)
+    this.onSelectRating = this.onSelectRating.bind(this)
+  }
+
+  componentDidMount() {
+
+  }
+
+  // eslint-disable-next-line no-unused-vars
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const { products } = this.props
+    if (
+      isEmpty(prevProps.products) &&
+      !isEmpty(products) &&
+      size(products) !== size(prevProps.products)
+    ) {
+      this.setState({ products })
+    }
+  }
+
+  toggleTab(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab,
+      })
+    }
+  }
+
+  onSelectDiscount = e => {
+    const { value, checked } = e.target
+    const {
+      filters,
+      filters: { discount },
+    } = this.state
+    this.setState(
+      {
+        filters: {
+          ...filters,
+          discount: discount.find(item => item === value)
+            ? discount.filter(item => item !== value)
+            : [...discount, value],
+        },
+      },
+      () => {
+        this.onFilterProducts(value, checked)
+      }
+    )
+  }
+
+  onFilterProducts = (value, checked) => {
+
+  }
+
+  onUpdate = (render, handle, value) => {
+
+  }
+
+  /*
+  on change rating checkbox method
+  */
+  onChangeRating = value => {
+
+  }
+
+  onSelectRating = value => {
+
+  }
+
+  onUncheckMark = () => {
+
+  }
+
+  handlePageClick = page => {
+    this.setState({ page })
+  }
+
+  render() {
+    const { history } = this.props
+    return (
+      <React.Fragment>
+        <div className="page-content">
+        <MetaTags>
+            <title>Products | Skote - Responsive Bootstrap 5 Admin Dashboard</title>
+          </MetaTags>
+          <Container fluid>
+            <Breadcrumbs title="Ecommerce" breadcrumbItem="Products" />
+            <Row>
+              <Col lg="3">
+                <Card>
+                  <CardBody>
+                    <CardTitle className="mb-4">Filter</CardTitle>
+                    <div>
+                      <h5 className="font-size-14 mb-3">Clothes</h5>
+                      {/* Render Cloth Categories */}
+                      <ul className="list-unstyled product-list">
+                        {this.state.FilterClothes.map((cloth, key) => (
+                          <li key={"_li_" + key}>
+                            <Link to={cloth.link}>
+                              <i className="mdi mdi-chevron-right me-1" />{" "}
+                              {cloth.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="mt-4 pt-3">
+                      <h5 className="font-size-14 mb-4">Price</h5>
+                      <br />
+
+                      <Nouislider
+                        range={{ min: 0, max: 600 }}
+                        tooltips={true}
+                        start={[100, 500]}
+                        connect
+                        onSlide={this.onUpdate}
+                      />
+
+                    </div>
+
+                    <div className="mt-4 pt-3">
+                      <h5 className="font-size-14 mb-3">Discount</h5>
+
+                    </div>
+
+                    <div className="mt-4 pt-3">
+                      <h5 className="font-size-14 mb-3">Customer Rating</h5>
+                      <div>
+                        <div className="form-check mt-2">
+                          <Input
+                            type="checkbox"
+                            className="form-check-input"
+                            id="productratingCheck1"
+                            onChange={e => {
+                              if (e.target.checked) {
+                                this.onChangeRating(4)
+                              } else {
+                                this.onUncheckMark(4)
+                              }
+                            }}
+                          />{" "}
+                          <Label
+                            className="form-check-label"
+                            htmlFor="productratingCheck1"
+                          >
+                            4 <i className="bx bxs-star text-warning" /> & Above
+                          </Label>
+                        </div>
+                        <div className="form-check mt-2">
+                          <Input
+                            type="checkbox"
+                            className="form-check-input"
+                            id="productratingCheck2"
+                            onChange={e => {
+                              if (e.target.checked) {
+                                this.onChangeRating(3)
+                              } else {
+                                this.onUncheckMark(3)
+                              }
+                            }}
+                          />{" "}
+                          <Label
+                            className="form-check-label"
+                            htmlFor="productratingCheck2"
+                          >
+                            3 <i className="bx bxs-star text-warning" /> & Above
+                          </Label>
+                        </div>
+                        <div className="form-check mt-2">
+                          <Input
+                            type="checkbox"
+                            className="form-check-input"
+                            id="productratingCheck3"
+                            onChange={e => {
+                              if (e.target.checked) {
+                                this.onChangeRating(2)
+                              } else {
+                                this.onUncheckMark(2)
+                              }
+                            }}
+                          />{" "}
+                          <Label
+                            className="form-check-label"
+                            htmlFor="productratingCheck3"
+                          >
+                            2 <i className="bx bxs-star text-warning" /> & Above
+                          </Label>
+                        </div>
+                        <div className="form-check mt-2">
+                          <Input
+                            type="checkbox"
+                            className="form-check-input"
+                            id="productratingCheck4"
+                            onChange={e => {
+                              if (e.target.checked) {
+                                this.onSelectRating(1)
+                              } else {
+                                this.onUncheckMark(1)
+                              }
+                            }}
+                          />{" "}
+                          <Label
+                            className="form-check-label"
+                            htmlFor="productratingCheck4"
+                          >
+                            1 <i className="bx bxs-star text-warning" />
+                          </Label>
+                        </div>
+                      </div>
+                    </div>
+                  </CardBody>
+                </Card>
+              </Col>
+
+              <Col lg="9">
+                <Row className="mb-3">
+                  <Col xl="4" sm="6">
+                    <div className="mt-2">
+                      <h5>Clothes</h5>
+                    </div>
+                  </Col>
+                  <Col lg="8" sm="6">
+                    <Form className="mt-4 mt-sm-0 float-sm-end d-flex align-items-center">
+                      <div className="search-box me-2">
+                        <div className="position-relative">
+                          <Input
+                            type="text"
+                            className="form-control border-0"
+                            placeholder="Search..."
+                          />
+                          <i className="bx bx-search-alt search-icon" />
+                        </div>
+                      </div>
+                      <Nav className="product-view-nav" pills>
+                        <NavItem>
+                          <NavLink
+                            className={classnames({
+                              active: this.state.activeTab === "1",
+                            })}
+                            onClick={() => {
+                              this.toggleTab("1")
+                            }}
+                          >
+                            <i className="bx bx-grid-alt" />
+                          </NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink
+                            className={classnames({
+                              active: this.state.activeTab === "2",
+                            })}
+                            onClick={() => {
+                              this.toggleTab("2")
+                            }}
+                          >
+                            <i className="bx bx-list-ul" />
+                          </NavLink>
+                        </NavItem>
+                      </Nav>
+                    </Form>
+                  </Col>
+                </Row>
+                <Row>
+
+                </Row>
+
+                <Row>
+                  <Col lg="12">
+                    <Pagination className="pagination pagination-rounded justify-content-center mt-3 mb-4 pb-1 pagination-b-0">
+
+
+
+                    </Pagination>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      </React.Fragment>
+    )
+  }
+}
+
+EcommerceProducts.propTypes = {
+  products: PropTypes.array,
+  onGetProducts: PropTypes.func,
+}
+
+const mapStateToProps = state => ({
+  products: state.ecommerce.products,
+})
+
+const mapDispatchToProps = dispatch => ({
+})
+
+export default EcommerceProducts;

@@ -1,63 +1,65 @@
 import React, { Suspense, lazy } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Container } from "react-bootstrap";
-import Headers from "@Components/frontoffice/Header/Header";
 import FooterPage from "@Components/Footer/FooterPage";
-import LoadingGif from '@Assets/Fidget-spinner.gif'
-//import Headers from "./pages/backoffice/VerticalLayout/Header"
-const Home = lazy(() => import('@FrontOfficePages/Home/Home'));
-const AdminRoute = lazy(() => import('@Routes/AdminRoute'));
+import Loader from "@FrontOfficeComponents/Loader/HomeLoader"
 
-/** Moetaz Brayek Imports */
-const Login = lazy(() => import('@FrontOfficePages/LoginRegister/Login'));
-const Logout = lazy(() => import('@FrontOfficePages/LoginRegister/Logout'));
-const Register = lazy(() => import('@FrontOfficePages/LoginRegister/Register'));
-const ForgotPassword = lazy(() => import('@FrontOfficePages/LoginRegister/ForgotPassword'));
-const ResetPassword = lazy(() => import('@FrontOfficePages/LoginRegister/ResetPassword'));
-const EmailVerification = lazy(() => import('@FrontOfficePages/LoginRegister/EmailVerification'));
+import { publicFrontRoutes, authProtectedBackRoutes } from "./routes/index"
+import AppRoute from "./routes/route"
+import VerticalLayout from "@BackOfficeComponents/VerticalLayout/"
 
-/* Cyrine Imports */
-const OrderList = lazy(() => import('@FrontOfficePages/Order/OrderList'));
-const Order = lazy(() => import('@FrontOfficePages/Order/Order'));
-const Profile = lazy(() => import('@FrontOfficePages/Order/Profile'));
+// Dashboard imports
 
-//const Order = lazy(() => import('@FrontOfficePages/Order/Order'));
-
-
-// * Chihab's imports
-const BrandSignup = lazy(() => import('@FrontOfficePages/BrandSignup/BrandSignup'));
-const AdminBrandsList = lazy(() => import('@BackOfficePages/AdminBrandsList/AdminBrandsList'));
+const Dashboard = lazy(() => import('@BackOfficePages/Dashboard'));
+const DashboardSideBar = lazy(() => import('@BackOfficeComponents/VerticalLayout/Sidebar'));
 function App() {
   const isBackOfficePage = window.location.pathname.startsWith('/dashboard');
+  console.log(isBackOfficePage)
+  const Layout = VerticalLayout;
   return (
-    <BrowserRouter>
-      { !isBackOfficePage ? (<Headers />) : (<></>)}
-      <main className="py-3">
-        <Container>
-          <Suspense fallback={<img src={LoadingGif} alt="loading..." />}>
-            <Switch>
-              // * Chihab's routes
-            <Route exact={true} path="/brandSignup" component={BrandSignup} />
-              <AdminRoute exact={true} path="/admin/brandList" component={AdminBrandsList} />
-            // * End Chihab's routes
+    <Suspense fallback={<img src={Loader} />}>
 
-            //* brayek routes
-            <Route exact={true} path="/" component={Home} />
-              <Route exact={true} path="/login" component={Login} />
-              <Route exact={true} path="/forgotPasssword" component={ForgotPassword} />
-              <Route exact={true} path="/resetPassword" component={ResetPassword} />
-              <Route exact={true} path="/register" component={Register} />
-              <Route exact={true} path="/EmailVerification" component={EmailVerification} />
-              <Route exact={true} path="/logout" component={Logout} />
-               // * End Brayek routes
-               //* Cyrine Routes */
-               <Route exact={true} path="/Profile" component={Profile} />
-            </Switch>
-          </Suspense>
-        </Container>
-      </main>
-      { !isBackOfficePage ? (<FooterPage />) : (<></>)}
-    </BrowserRouter>
+      <React.Fragment>
+        <Router>
+
+          <Switch>
+
+            {publicFrontRoutes.map((route, idx) => (
+              <AppRoute
+                path={route.path}
+                layout={Layout}
+                component={route.component}
+                key={idx}
+                isAuthProtected={false}
+                isFront={true}
+                exact
+              />
+
+            ))}
+
+            {authProtectedBackRoutes.map((route, idx) => (
+
+              <AppRoute
+                path={route.path}
+                layout={Layout}
+                component={route.component}
+                key={idx}
+                isAuthProtected={false}
+                isFront={false}
+
+                exact
+              />
+
+            ))}
+
+
+
+
+          </Switch>
+
+        </Router>
+      </React.Fragment>
+    </Suspense>
   );
 }
 
