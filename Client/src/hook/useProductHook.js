@@ -20,7 +20,6 @@ export const useProduct = (sort,category,searchProductKey,ltORgt,init) => {
         } else {
             fetchProductList();
         }
-        // eslint-disable-next-line
     }, [dispatch, searchProductKey, sort, category,ltORgt]);
 
     const fetchProductList = () => {

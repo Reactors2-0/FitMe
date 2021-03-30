@@ -27,9 +27,12 @@ import {
     Collapse
 } from "shards-react";
 import {Button} from "bootstrap";
+import {Link} from "react-router-dom";
+import {useCart} from "../../../../hook/useCartHook";
 
 const Header = () => {
     const userAuthData = useSelector((state) => state.userLogin);
+    const {totCartItems} = useCart();
 
 
     const { userInfo } = userAuthData;
@@ -92,9 +95,10 @@ const Header = () => {
                         {userInfo ? (
                             <div className="d-flex justify-content-around mt-3">
                                 <div className="d-flex justify-content-between mt-2 ml-3" style={{width : 100}}>
-                                    <FontAwesomeIcon icon={faUserAlt} />
-                                    <FontAwesomeIcon icon={faShoppingCart} />
-                                    <FontAwesomeIcon icon={faHeart} />
+                                    <Link to="" className="notification">    <FontAwesomeIcon icon={faUserAlt} /><span className="badge">3</span></Link>
+                                    <Link to="/shoppingCart" className="notification">    <FontAwesomeIcon icon={faShoppingCart} />{(totCartItems !==0 )?<span className="badge">{totCartItems}</span> :''}</Link>
+                                    <Link to="" className="notification">    <FontAwesomeIcon icon={faHeart} /><span className="badge">3</span></Link>
+
                                 </div>
                                 <div >
                                     <NavDropdown title={userInfo.name} id="username" className="ml-4 ">

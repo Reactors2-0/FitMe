@@ -40,3 +40,40 @@ input {
 input:focus {
     box-shadow: none !important;
 }
+
+.dot {
+    height: 15px;
+    width: 15px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.sec{
+    position: relative;
+    right: -13px;
+    top:-22px;
+}
+
+.counter.counter-lg {
+    top: -24px !important;
+}
+
+.notification {
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    color : #565b60;
+    font-size: 16px;
+}
+
+.notification:hover {
+    color: #7E69BA;
+}
+
+.notification .badge {
+    position: absolute;
+    border-radius: 50%;
+    background-color: #7559c9;
+    color: white;
+}

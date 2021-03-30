@@ -65,7 +65,8 @@ import BrandSignup from '../frontoffice/pages/BrandSignup/BrandSignup';
 // * Med Imports *
 
 import Home from "../frontoffice/pages/Home/Home";
-import ProductPageu from "../frontoffice/pages/ProductDetails/ProductPage";
+import ProductPage from "../frontoffice/pages/ProductDetails/ProductPage";
+import ShoppingCart from "../frontoffice/pages/ProductShoppingCart/ShoppingCart";
 
 import('../frontoffice/pages/Home/Home');
 import('@Routes/AdminRoute');
@@ -93,7 +94,6 @@ const authProtectedBackRoutes = [
     { path: "/ecommerce-orders", component: EcommerceOrders },
     //    { path: "/ecommerce-customers", component: EcommerceCustomers },
     { path: "/ecommerce-cart", component: EcommerceCart },
-    { path: "/ecommerce-checkout", component: EcommerceCheckout },
     //{ path: "/ecommerce-shops", component: EcommerceShops },
     { path: "/ecommerce-add-product", component: EcommerceAddProduct },
 
@@ -106,7 +106,6 @@ const authProtectedBackRoutes = [
     { path: "/tui-charts", component: ToastUIChart },
     { path: "/charts-knob", component: ChartsKnob },
 
-    { path: "/brandSignup", component: BrandSignup },
     // this route should be at the end of all other routes
     { path: "*", exact: true, component: () => <Redirect to="/dashboard" /> },
 
@@ -114,6 +113,7 @@ const authProtectedBackRoutes = [
 
 const publicFrontRoutes = [
 
+    { path: "/brandSignup", component: BrandSignup },
     { path: "/", component: Home },
     // Moetaz Paths
     { path: "/logout", component: Logout },
@@ -130,9 +130,11 @@ const publicFrontRoutes = [
     { path: "/page-confirm-mail-2", component: ConfirmMail2 },
     { path: "/auth-two-step-verification", component: TwostepVerification },
     { path: "/auth-two-step-verification-2", component: TwostepVerification2 },
+    { path: "/ecommerce-checkout", component: EcommerceCheckout },
 
     //Product path
-    { path: "/product/:id", component: ProductPageu },
+    { path: "/product/:id", component: ProductPage },
+    { path: "/shoppingCart", component: ShoppingCart },
 
 ]
 const authProtectedFrontRoutes = [
