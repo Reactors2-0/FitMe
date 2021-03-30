@@ -53,6 +53,8 @@ import Logout from '../frontoffice/pages/LoginRegister/Logout';
 import Register from '../frontoffice/pages/LoginRegister/Register';
 import ForgotPassword from '../frontoffice/pages/LoginRegister/ForgotPassword';
 import ResetPassword from '../frontoffice/pages/LoginRegister/ResetPassword';
+import Profile from '../frontoffice/pages/Order/Profile';
+
 import EmailVerification from '../frontoffice/pages/LoginRegister/EmailVerification';
 
 // * Chihab's imports
@@ -119,7 +121,7 @@ const publicFrontRoutes = [
     { path: "/register", component: Register },
     { path: "/EmailVerification", component: EmailVerification },
     { path: "/resetPassword", component: ResetPassword },
-
+    { path: "/profile", component: Profile },
     // Authentication Inner
     { path: "/auth-lock-screen", component: LockScreen },
     { path: "/auth-lock-screen-2", component: LockScreen2 },
