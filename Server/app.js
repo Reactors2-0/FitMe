@@ -12,19 +12,20 @@ const expressListRoutes = require('express-list-routes');
 dotenv.config({ path: ".env" });
 
 connectDb();
-app.use(cors());
 //! Moetaz Routes
 const productRouter = require("./routes/product");
 const reviewRouter = require("./routes/review");
+const orderRouter = require("./routes/order");
+//!
+const adminRouter = require("./routes/Admin");
 
 //! Moetaz Routes
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 // ! Chihab's routes
 const brandRouter = require("./routes/brand");
-app.use("/api/v1/brand", brandRouter);
-app.use("/api/product", productRouter);
-app.use("/api/review", reviewRouter);
+
+app.use(cors());
 app.use(express.json());
 
 app.use(
@@ -33,6 +34,11 @@ app.use(
     })
 );
 
+app.use("/api/brands", brandRouter);
+app.use("/api/product", productRouter);
+app.use("/api/review", reviewRouter);
+app.use("/api/v1/order", orderRouter);
+app.use("/api/v1/admin", adminRouter);
 
 
 app.use("/api/v1/auth", authRouter);

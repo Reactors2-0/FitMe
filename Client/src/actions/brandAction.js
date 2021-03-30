@@ -20,7 +20,7 @@ export const listBrands = (brandInfo) => async (dispatch) => {
             searchBrandKey !== "" ? `&keyWord=${searchBrandKey}` : "",
         ];
 
-        await axios.get(`/api/v1/brand/?${queryString.join("")}`).then((resp) => {
+        await axios.get(`/api/brands/?${queryString.join("")}`).then((resp) => {
             const brandList = resp.data.data.results;
             const totalBrands = resp.data.data.count;
 
@@ -50,7 +50,7 @@ export const listBrandsForAdmin = (initialLoading) => async (dispatch) => {
             });
         }
 
-        await axios.get(`/api/v1/brand/`).then((resp) => {
+        await axios.get(`/api/brands/`).then((resp) => {
             const brandList = resp.data.data.results;
             const totalBrands = resp.data.data.count;
 
@@ -78,7 +78,7 @@ export const brand = (id) => async (dispatch) => {
             type: brandConstants.BRAND_FETCH_START
         });
 
-        await axios.get(`/api/v1/brand/${id}`).then((resp) => {
+        await axios.get(`/api/brands/${id}`).then((resp) => {
             const brand = resp.data.data;
 
             dispatch({
@@ -95,13 +95,34 @@ export const brand = (id) => async (dispatch) => {
         });
     }
 };
+export const brandByUserId = (userid) => async (dispatch) => {
+    try {
+        dispatch({
+            type: brandConstants.BRAND_FETCH_START
+        });
 
+        await axios.get(`/api/brands/${userid}/getbyuser`).then((resp) => {
+            const brand = resp.data.data;
+            dispatch({
+                type: brandConstants.BRAND_FETCH_SUCCESS,
+                payload: brand,
+            });
+        });
+    } catch (error) {
+        dispatch({
+            type: brandConstants.BRAND_FETCH_FAIL,
+            payload: error.response && error.response.data.error ?
+                error.response.data.error :
+                error.message,
+        });
+    }
+};
 export const deleteBrand = (id) => async (dispatch, getState) => {
     try {
         dispatch({ type: brandConstants.DELETE_BRAND_START });
         const { userLogin: { userInfo }, } = getState();
         const config = { headers: { Authorization: `Bearer ${userInfo.token}`, }, };
-        await axios.delete(`/api/v1/brand/${id}`, config).then((resp) => {
+        await axios.delete(`/api/brands/${id}`, config).then((resp) => {
             dispatch({
                 type: brandConstants.DELETE_BRAND_SUCCESS,
             });
@@ -118,12 +139,15 @@ export const deleteBrand = (id) => async (dispatch, getState) => {
 
 export const createBrand = (formData) => async (dispatch, getState) => {
     try {
+        console.log(formData.get("brandImage"))
+        console.log(formData.get("brandName"))
         dispatch({
             type: brandConstants.CREATE_BRAND_START
         });
         const { userLogin: { userInfo }, } = getState();
-        const config = { headers: { Authorization: `Bearer ${userInfo.token}`, }, };
-        await axios.post("/api/v1/brand/", formData, config).then((resp) => {
+        const config = { headers: {Authorization: `Bearer ${userInfo.token}`, }, };
+
+        await axios.post("/api/brands/", formData, config).then((resp) => {
             dispatch({ type: brandConstants.CREATE_BRAND_SUCCESS, });
         });
     } catch (error) {
@@ -155,7 +179,7 @@ export const editBrand = (id, UpdatedData) => async (dispatch, getState) => {
         };
 
         await axios
-            .put(`/api/v1/brand/${id}`, UpdatedData, config)
+            .put(`/api/brands/${id}`, UpdatedData, config)
             .then((resp) => {
                 dispatch({
                     type: brandConstants.EDIT_BRAND_SUCCESS,

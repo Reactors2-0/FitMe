@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import PropTypes from "prop-types"
 import {
   Button,
@@ -16,13 +16,24 @@ import {
   Form,
   Row,
 } from "reactstrap"
-import MetaTags from 'react-meta-tags';
+import {
+  TextField
 
-import img7 from "../../../backoffice/assets/images/product/img-7.png"
-import img4 from "../../../backoffice/assets/images/product/img-4.png"
+} from "@material-ui/core/";
+import * as userAction from "../../../actions/AdminAction";
 import { Editor } from "react-draft-wysiwyg"
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
+import {useDispatch} from "react-redux";
 const EcommerceOrdersModal = props => {
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const dispatch = useDispatch();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(userAction.Repondre({ email },{ message }));
+  };
+
   const { isOpen, toggle } = props
   return (
     <Modal
@@ -71,14 +82,47 @@ const EcommerceOrdersModal = props => {
       <CardBody>
         <CardTitle className="h4">Repondre</CardTitle>
 
+          <Form className="formLoginRegister">
+            <TextField
+                variant="outlined"
+                type="email"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Your Email"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextField
+                variant="outlined"
+                type="email"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="message"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+            />
+            <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={handleSubmit}
+            >
 
-        <Form method="post">
-          <Editor
-              toolbarClassName="toolbarClassName"
-              wrapperClassName="wrapperClassName"
-              editorClassName="editorClassName"
-          />
-        </Form>
+                  <>Repondre </>
+
+            </Button>
+          </Form>
       </CardBody>
     </Card></Col>
 

@@ -1,11 +1,13 @@
-const {getBrands,getBrand,createBrand,updateBrand,deleteBrand, } = require("../controller/brand");
+const {getBrands,getBrand,createBrand,updateBrand,deleteBrand,getBrandByUserId } = require("../controller/brand");
 const router = require("express").Router();
-const { protect, permissions } = require("../middleware/auth");
+const { protect, permissions, permission } = require("../middleware/auth");
+// const { route } = require("./review");
 
 
-
-
-router.route("/").get(getBrands).post(protect, permissions(["admin","user"]),createBrand);
+router.route("/").get(getBrands).post(protect, permission("user"),createBrand);
 router.route("/:brandId").get(getBrand).put(protect, permissions(["admin","seller"]),updateBrand).delete(deleteBrand);
+router.route("/:userId/getbyuser").get(getBrandByUserId);
+
+
 
 module.exports = router;

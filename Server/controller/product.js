@@ -78,6 +78,7 @@ const createProduct = asyncHandler(async (req,res,next)=>{
         }
     );});
 
+
 const updateProduct = asyncHandler(async (req,res,next)=>{
     const editProduct = await Product.findByIdAndUpdate(
         req.params.productId,

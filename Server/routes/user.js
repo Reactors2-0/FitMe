@@ -21,7 +21,7 @@ router.use(protect);
 router.use(permission("admin"));
 
 router.route("/").get(advanceResults(User), getUsers).post(createUser);
-router.route("/admin/:id").get(blockuser);
+router.route("/block/:id").get(blockuser);
 router.route("/:id").get(getUser).put(updateUser).delete(deleteUser);
 module.exports = router;
 

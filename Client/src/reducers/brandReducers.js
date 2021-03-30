@@ -23,6 +23,28 @@ export const listBrands = (state = { brands: [] }, action) => {
   }
 };
 
+export const brandByUserId = (state = { brand: {} }, action) => {
+  switch (action.type) {
+    case brandConstants.BRAND_FETCH_START:
+      return {
+        loading: true,
+        brand: {},
+      };
+    case brandConstants.BRAND_FETCH_SUCCESS:
+      return {
+        brand: action.payload,
+        success: true,
+      };
+    case brandConstants.BRAND_FETCH_FAIL:
+      return {
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
 export const Brand = (state = { brand: {} }, action) => {
   switch (action.type) {
     case brandConstants.BRAND_FETCH_START:

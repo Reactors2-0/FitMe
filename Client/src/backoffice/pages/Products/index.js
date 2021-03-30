@@ -98,7 +98,7 @@ class EcommerceCustomers extends Component {
                                       className="btn-rounded waves-effect waves-light mb-2 me-2"
                                     >
                                       <i className="mdi mdi-plus me-1" />{" "}
-                                      New Customers
+                                      New Product
                                     </Button>
                                   </div>
                                 </Col>

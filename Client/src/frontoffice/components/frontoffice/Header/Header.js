@@ -95,9 +95,9 @@ const Header = () => {
                         {userInfo ? (
                             <div className="d-flex justify-content-around mt-3">
                                 <div className="d-flex justify-content-between mt-2 ml-3" style={{width : 100}}>
-                                    <Link to="" className="notification">    <FontAwesomeIcon icon={faUserAlt} /></Link>
+                                    <Link to="" className="notification">    <FontAwesomeIcon icon={faUserAlt} /><span className="badge">3</span></Link>
                                     <Link to="/shoppingCart" className="notification">    <FontAwesomeIcon icon={faShoppingCart} />{(totCartItems !==0 )?<span className="badge">{totCartItems}</span> :''}</Link>
-                                    <Link to="" className="notification">    <FontAwesomeIcon icon={faHeart} /></Link>
+                                    <Link to="" className="notification">    <FontAwesomeIcon icon={faHeart} /><span className="badge">3</span></Link>
 
                                 </div>
                                 <div >

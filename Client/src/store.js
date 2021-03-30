@@ -23,11 +23,40 @@ import {
 import {cartReducer} from "./reducers/cartReducers";
 
 
+import {
+  listBrands,
+  brandByUserId,
+  Brand,
+  deleteBrand,
+  createBrand,
+  editBrand,
+} from "./reducers/brandReducers";
+import {
+  createOrderReducer,
+  getOrder,
+  orderPayReducer,
+  orderDeliverReducer,
+  authOrders,
+  listOrders,
+} from "./reducers/orderReducers";
 
 
 
 
 const rootReducer = combineReducers({
+
+  listBrands:listBrands,
+  brandByUserId:brandByUserId,
+  Brand:Brand,
+  deleteBrand:deleteBrand,
+  createBrand:createBrand,
+  editBrand:editBrand,
+  createOrder: createOrderReducer,
+  orderDetails: getOrder,
+  authOrders: authOrders,
+  orderList: listOrders,
+  orderPay: orderPayReducer,
+  orderDeliver: orderDeliverReducer,
   products: listProducts,
   Product: Product,
   cart: cartReducer,

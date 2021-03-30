@@ -1,9 +1,9 @@
 import React from "react"
-import {Redirect, Route} from "react-router-dom"
+import { Redirect, Route } from "react-router-dom"
 /** SADEK Imports */
 import Dashboard from "../backoffice/pages/Dashboard/index"
 import ContactAdmin from "../backoffice/pages/Contact/ContactList"
-import  userlists from "../backoffice/pages/User/UserList"
+import userlists from "../backoffice/pages/User/UserList"
 import OrderAdmin from "../backoffice/pages/Order/Order"
 import ProductsList from "../backoffice/pages/Products/index"
 import BrandList from "../backoffice/pages/Brand/BrandtList"
@@ -54,6 +54,8 @@ import Register from '../frontoffice/pages/LoginRegister/Register';
 import ForgotPassword from '../frontoffice/pages/LoginRegister/ForgotPassword';
 import ResetPassword from '../frontoffice/pages/LoginRegister/ResetPassword';
 import EmailVerification from '../frontoffice/pages/LoginRegister/EmailVerification';
+/** cyrine imports */
+import Profile from '../frontoffice/pages/Order/Profile';
 
 // * Chihab's imports
 import BrandSignup from '../frontoffice/pages/BrandSignup/BrandSignup';
@@ -70,7 +72,7 @@ import('@Routes/AdminRoute');
 
 const authProtectedBackRoutes = [
     { path: "/dashboard/admin", component: Dashboard },
-    { path:"/dashboard/admin/userlist", component :userlists},
+    { path: "/dashboard/admin/userlist", component: userlists },
 
     { path: "/dashboard/admin/Repondre", component: ContactAdmin },
 
@@ -80,7 +82,6 @@ const authProtectedBackRoutes = [
     { path: "/dashboard/admin/Brand", component: BrandList },
 
     //profile
-    { path: "/profile", component: UserProfile },
     //chat
 
     //Ecommerce
@@ -89,9 +90,8 @@ const authProtectedBackRoutes = [
     //{ path: "/ecommerce-product-detail/:id", component: EcommerceProductDetail },
 
     { path: "/ecommerce-orders", component: EcommerceOrders },
-//    { path: "/ecommerce-customers", component: EcommerceCustomers },
+    //    { path: "/ecommerce-customers", component: EcommerceCustomers },
     { path: "/ecommerce-cart", component: EcommerceCart },
-    { path: "/ecommerce-checkout", component: EcommerceCheckout },
     //{ path: "/ecommerce-shops", component: EcommerceShops },
     { path: "/ecommerce-add-product", component: EcommerceAddProduct },
 
@@ -104,14 +104,14 @@ const authProtectedBackRoutes = [
     { path: "/tui-charts", component: ToastUIChart },
     { path: "/charts-knob", component: ChartsKnob },
 
-
     // this route should be at the end of all other routes
-     { path: "*", exact: true, component: () => <Redirect to = "/dashboard" /> },
+    { path: "*", exact: true, component: () => <Redirect to="/dashboard" /> },
 
 ]
 
 const publicFrontRoutes = [
 
+    { path: "/brandSignup", component: BrandSignup },
     { path: "/", component: Home },
     // Moetaz Paths
     { path: "/logout", component: Logout },
@@ -120,7 +120,7 @@ const publicFrontRoutes = [
     { path: "/register", component: Register },
     { path: "/EmailVerification", component: EmailVerification },
     { path: "/resetPassword", component: ResetPassword },
-
+    { path: "/Profile", component: Profile },
     // Authentication Inner
     { path: "/auth-lock-screen", component: LockScreen },
     { path: "/auth-lock-screen-2", component: LockScreen2 },
@@ -128,6 +128,7 @@ const publicFrontRoutes = [
     { path: "/page-confirm-mail-2", component: ConfirmMail2 },
     { path: "/auth-two-step-verification", component: TwostepVerification },
     { path: "/auth-two-step-verification-2", component: TwostepVerification2 },
+    { path: "/ecommerce-checkout", component: EcommerceCheckout },
 
     //Product path
     { path: "/product/:id", component: ProductPage },
