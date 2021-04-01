@@ -10,6 +10,10 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 
+// rating imports
+
+import Rating from "../Rating/Rating";
+
 // @material-ui/icons
 import ShoppingCart from "@material-ui/icons/ShoppingCart";
 import LocalShipping from "@material-ui/icons/LocalShipping";
@@ -40,20 +44,20 @@ import product1 from "../../assets/img/examples/product1.jpg";
 import product2 from "../../assets/img/examples/product2.jpg";
 import product3 from "../../assets/img/examples/product3.jpg";
 import product4 from "../../assets/img/examples/product4.jpg";
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import * as productAction from "../../../actions/productAction";
-import {useCart} from "../../../hook/useCartHook";
-import {Link} from "react-router-dom";
+import { useCart } from "../../../hook/useCartHook";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(productStyle);
 
-export default function ProductPage({match}) {
+export default function ProductPage({ match }) {
     const [colorSelect, setColorSelect] = React.useState("0");
     const [sizeSelect, setSizeSelect] = React.useState("0");
     const productData = useSelector((state) => state.Product);
     const { loading, product, error } = productData;
-    const {addToCartHandler,totCartItems} = useCart();
+    const { addToCartHandler, totCartItems } = useCart();
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(productAction.product(match.params.id));
@@ -90,8 +94,8 @@ export default function ProductPage({match}) {
                     <GridContainer className={classes.titleRow}>
                         <GridItem md={4} className={classes.mlAuto}>
                             <Link to="/shoppingCart">
-                            <Button color="white" className={classes.floatRight}>
-                                <ShoppingCart /> {totCartItems} items
+                                <Button color="white" className={classes.floatRight}>
+                                    <ShoppingCart /> {totCartItems} items
                             </Button>
                             </Link>
                         </GridItem>
@@ -108,7 +112,7 @@ export default function ProductPage({match}) {
                                     showPlayButton={false}
                                     items={images}
                                     showThumbnails={true}
-                                    renderLeftNav={(onClick,disabled) => {
+                                    renderLeftNav={(onClick, disabled) => {
                                         return (
                                             <button
                                                 className='btn btn-outline-dark btn-fitMe mr-2'
@@ -117,7 +121,7 @@ export default function ProductPage({match}) {
                                             >Previous</button>
                                         );
                                     }}
-                                    renderRightNav={(onClick,disabled) => {
+                                    renderRightNav={(onClick, disabled) => {
                                         return (
                                             <button
                                                 className='btn btn-outline-dark btn-fitMe'
@@ -276,8 +280,13 @@ export default function ProductPage({match}) {
                                         </FormControl>
                                     </GridItem>
                                 </GridContainer>
+                                <Rating
+                                    value={product.averageRating}
+                                    text={`${product.Reviews ? product.Reviews.length : 0
+                                        } reviews`}
+                                />
                                 <GridContainer className={classes.pullRight}>
-                                    <Button round color="rose" onClick={()=>addToCartHandler(product.id,1)}>
+                                    <Button round color="rose" onClick={() => addToCartHandler(product.id, 1)}>
                                         Add to Cart &nbsp; <ShoppingCart />
                                     </Button>
                                 </GridContainer>

@@ -1,208 +1,218 @@
-import React, { Component } from "react"
+import React, { useEffect } from "react";
+import { LinkContainer } from "react-router-bootstrap";
+import { Table, Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import Message from "../User/Message";
+import { userList, userDelete, userblock } from "../../../actions/userAction";
 
-import {Card, CardBody, CardTitle, Badge, Button, Container} from "reactstrap"
-import { Link } from "react-router-dom"
-import EcommerceOrdersModal from "../Ecommerce/EcommerceOrders/EcommerceOrdersModal"
+import Loader from "../User/Loader";
+import { Badge, Card, CardBody, CardTitle, Container } from "reactstrap";
+import { Link } from "react-router-dom";
+import MetaTags from "react-meta-tags";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 
-class BrandtList extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      modal: false,
-      transactions: [
-        {
-          id: "customCheck2",
-          orderId: "#SK2540",
-          billingName: "Neal Matthews",
-          Date: "07 Oct, 2019",
-          total: "$400",
-          badgeClass: "success",
-          paymentStatus: "Paid",
-          methodIcon: "fa-cc-mastercard",
-          paymentMethod: "Mastercard",
-          link: "#",
-        },
-        {
-          id: "customCheck3",
-          orderId: "#SK2541",
-          billingName: "Jamal Burnett",
-          Date: "07 Oct, 2019",
-          total: "$380",
-          badgeClass: "danger",
-          paymentStatus: "Chargeback",
-          methodIcon: "fa-cc-visa",
-          paymentMethod: "Visa",
-          link: "#",
-        },
-        {
-          id: "customCheck4",
-          orderId: "#SK2542",
-          billingName: "Juan Mitchell",
-          Date: "06 Oct, 2019",
-          total: "$384",
-          badgeClass: "success",
-          paymentStatus: "Paid",
-          methodIcon: "fa-cc-paypal",
-          paymentMethod: "Paypal",
-          link: "#",
-        },
-        {
-          id: "customCheck5",
-          orderId: "#SK2543",
-          billingName: "Barry Dick",
-          Date: "05 Oct, 2019",
-          total: "$412",
-          badgeClass: "success",
-          paymentStatus: "Paid",
-          methodIcon: "fa-cc-mastercard",
-          paymentMethod: "Mastercard",
-          link: "#",
-        },
-        {
-          id: "customCheck6",
-          orderId: "#SK2544",
-          billingName: "Ronald Taylor",
-          Date: "04 Oct, 2019",
-          total: "$404",
-          badgeClass: "warning",
-          paymentStatus: "Refund",
-          methodIcon: "fa-cc-visa",
-          paymentMethod: "Visa",
-          link: "#",
-        },
-        {
-          id: "customCheck7",
-          orderId: "#SK2545",
-          billingName: "Jacob Hunter",
-          Date: "04 Oct, 2019",
-          total: "$392",
-          badgeClass: "success",
-          paymentStatus: "Paid",
-          methodIcon: "fa-cc-paypal",
-          paymentMethod: "Paypal",
-          link: "#",
-        },
-      ],
+
+const BrandList = ({ history }) => {
+  const dispatch = useDispatch();
+
+  const userListBack = useSelector((state) => state.userListBack);
+  const { loading, error, users } = userListBack;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const userDeleteDetails = useSelector((state) => state.userDeleteDetails);
+  const { success: successDelete } = userDeleteDetails;
+
+  useEffect(() => {
+    dispatch(userList());
+
+  }, [dispatch, history, successDelete, userInfo]);
+
+  const deleteHandler = (id) => {
+
+    if (window.confirm("Are you sure want to delete ? ")) {
+      dispatch(userDelete(id));
     }
-  }
+  };
+  const blockHandler = (id) => {
 
-  toggleModal = () => {
-    this.setState(prevState => ({
-      modal: !prevState.modal,
-    }))
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <EcommerceOrdersModal
-          isOpen={this.state.modal}
-          toggle={this.toggleModal}
-        />
-        <div className="page-content">
-
-          <Container fluid>
-            <Breadcrumbs title="Dashborad" breadcrumbItem="Brand" />
+    if (window.confirm("Are you sure want to block.? ")) {
+      dispatch(userblock(id));
+    }
+  };
 
 
-            <Card>
-          <CardBody>
-            <CardTitle className="mb-4 h4">Brand Verification
-              </CardTitle>
-            <div className="table-responsive">
-              <table className="table align-middle table-nowrap mb-0">
-                <thead className="table-light">
-                  <tr>
-                    <th style={{ width: "20px" }}>
-                      <div className="form-check font-size-16 align-middle" style={{ width: '24px' }}>
-                        <input
-                          type="checkbox"
-                          className="form-check-input"
-                          id="transactionCheck01"
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="transactionCheck01"
-                        ></label>
-                      </div>
-                    </th>
-                    <th className="align-middle">ID</th>
-                    <th className="align-middle">Brand Name</th>
-                    <th className="align-middle">Date</th>
-                    <th className="align-middle">Verify</th>
-                    <th className="align-middle">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.state.transactions.map((transaction, key) => (
-                    <tr key={"_tr_" + key}>
-                      <td>
-                        <div className="form-check font-size-16">
-                          <input
-                            type="checkbox"
-                            className="form-check-input"
-                            id={transaction.id}
-                          />
-                          <label
-                            className="form-check-label"
-                            htmlFor={transaction.id}
-                          ></label>
-                        </div>
-                      </td>
-                      <td>
-                        <Link to="#" className="text-body fw-bold">
-                          {" "}
-                          {transaction.orderId}{" "}
-                        </Link>{" "}
-                      </td>
-                      <td>{transaction.billingName}</td>
-                      <td>{transaction.Date}</td>
-                      <td>
-                        <Badge
-                          className={
-                            "font-size-11 badge-soft-" + transaction.badgeClass
-                          }
-                          color={transaction.badgeClass}
-                          pill
-                        >
-                          {transaction.paymentStatus}
-                        </Badge>
-                      </td>
+  return (
+    <React.Fragment>
+      <div className="page-content">
 
-                      <td>
-                        <div
-                            className="btn-group btn-group-example mb-3"
-                            role="group"
-                        >
-                          <button
-                              type="button"
-                              className="btn btn-primary w-xs"
-                          >
-                            <i className="fas fa-chevron-circle-down
-"></i>
-                          </button>{" "}
-                          <button
-                              type="button"
-                              className="btn btn-danger w-xs"
-                          >
-                            <i className="dripicons-cross
-"></i>
-                          </button>{" "}
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </CardBody>
-        </Card>
-          </Container>
-        </div>
-      </React.Fragment>
-    )
-  }
-}
+        <Container fluid>
+          <Breadcrumbs title="Dashborad" breadcrumbItem="UserList" />
 
-export default BrandtList
+
+          <>
+
+            {loading ? (
+              <Loader />
+            ) : error ? (
+              <Message variant="danger">{error}</Message>
+            ) : (
+
+              <Card>
+                <CardBody>
+                  <CardTitle className="mb-4 h4">List Users</CardTitle>
+                  <div className="table-responsive">
+                    <table className="table align-middle table-nowrap mb-0">
+                      <thead className="table-light">
+                        <tr>
+                          <th style={{ width: "20px" }}>
+                            <div className="form-check font-size-16 align-middle" style={{ width: '24px' }}>
+                              <input
+                                type="checkbox"
+                                className="form-check-input"
+                                id="transactionCheck01"
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor="transactionCheck01"
+                              ></label>
+                            </div>
+                          </th>
+                          <th className="align-middle">ID</th>
+                          <th className="align-middle"> Name</th>
+                          <th className="align-middle">Email</th>
+                          <th className="align-middle">Role</th>
+                          <th className="align-middle">Verify</th>
+                          <th className="align-middle">status</th>
+
+                          <th className="align-middle">Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {users.map((user) => (
+                          <tr key={"_tr_" + user}>
+                            <td>
+                              <div className="form-check font-size-16">
+                                <input
+                                  type="checkbox"
+                                  className="form-check-input"
+                                  id={user.uid}
+                                />
+                                <label
+                                  className="form-check-label"
+                                  htmlFor={user.uid}
+                                ></label>
+                              </div>
+                            </td>
+                            <td>
+                              <Link to="#" className="text-body fw-bold">
+                                {" "}
+                                {user.uid}{" "}
+                              </Link>{" "}
+                            </td>
+                            <td>{user.name}</td>
+                            <td>{user.email}</td>
+                            <td>
+
+                              {user.role == "user" ? (
+                                <Badge
+                                  className={
+                                    "font-size-11 badge-soft-" + "success"
+                                  }
+                                  color="success"
+                                  pill
+                                >
+                                  {user.role}
+                                </Badge>
+                              ) : (
+                                <Badge
+                                  className={
+                                    "font-size-11 badge-soft-" + "danger"
+                                  }
+                                  color="danger"
+                                  pill
+                                >
+                                  {user.role}
+                                </Badge>
+                              )}
+
+
+
+
+
+
+
+
+
+
+                            </td>
+                            <td>
+                              {user.verify ? (
+                                <Badge
+                                  className={
+                                    "font-size-11 badge-soft-" + "success"
+                                  }
+                                  color="success"
+                                  pill
+                                >
+                                  True
+                                </Badge>
+                              ) : (
+                                <Badge
+                                  className={
+                                    "font-size-11 badge-soft-" + "danger"
+                                  }
+                                  color="danger"
+                                  pill
+                                >
+                                  False              </Badge>
+                              )}
+                            </td>
+                            {user.actif ? (
+
+                              <td>
+
+                                <Button
+                                  className="btn-sm"
+                                  onClick={() => blockHandler(user._id)}
+                                >
+                                  <i className="fas fa-check"></i>
+                                </Button>
+                              </td>) : (
+                              <td>
+
+                                <Button
+                                  className="btn-sm"
+                                  onClick={() => blockHandler(user._id)}
+                                >
+                                  <i className="fas fa-accusoft"></i>
+                                </Button>
+                              </td>
+                            )}
+                            <td>
+
+                              <Button
+                                variant="danger"
+                                className="btn-sm"
+                                onClick={() => deleteHandler(user._id)}
+                              >
+                                <i className="fas fa-trash"></i>
+                              </Button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </CardBody>
+              </Card>
+            )}
+          </>
+        </Container>
+      </div>
+    </React.Fragment>
+  );
+};
+
+export default BrandList;
