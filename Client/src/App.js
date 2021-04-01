@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Loader from "@FrontOfficeComponents/Loader/HomeLoader"
-import { publicFrontRoutes, authProtectedBackRoutes } from "./routes/index"
+import { publicFrontRoutes, authProtectedBackRoutes, authProtectedFrontRoutes } from "./routes/index"
 import AppRoute from "./routes/route"
 import VerticalLayout from "@BackOfficeComponents/VerticalLayout/"
 // Dashboard imports
