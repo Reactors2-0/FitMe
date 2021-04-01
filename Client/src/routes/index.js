@@ -8,6 +8,8 @@ import OrderAdmin from "../backoffice/pages/Order/Order"
 import ProductsList from "../backoffice/pages/Products/index"
 import BrandList from "../backoffice/pages/Brand/BrandtList"
 import AddProduct from "../backoffice/pages/Products/AddProduct"
+import Category from "../backoffice/pages/Category/Category"
+import AddCategory from "../backoffice/pages/Category/AddCategory"
 
 /** SADEK Imports END*/
 
@@ -76,6 +78,8 @@ const authProtectedBackRoutes = [
     { path: "/dashboard/admin/userlist", component: userlists },
 
     { path: "/dashboard/admin/Repondre", component: ContactAdmin },
+    { path: "/dashboard/admin/Category", component: Category },
+    { path: "/dashboard/admin/AddCategory", component: AddCategory },
 
     { path: "/dashboard/admin/Products", component: ProductsList },
 
