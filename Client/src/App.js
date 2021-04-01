@@ -22,6 +22,20 @@ function App() {
                 exact
               />
             ))}
+              {authProtectedFrontRoutes.map((route, idx) => (
+                  <AppRoute
+                      path={route.path}
+                      layout={Layout}
+                      component={route.component}
+                      key={idx}
+                      isAuthProtected={false}
+                      isFront={true}
+                      exact
+                  />
+
+              ))}
+
+
             {authProtectedBackRoutes.map((route, idx) => (
               <AppRoute
                 path={route.path}

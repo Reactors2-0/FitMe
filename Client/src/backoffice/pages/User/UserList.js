@@ -31,14 +31,14 @@ const UserList = ({ history }) => {
 
   const deleteHandler = (id) => {
 
-    if (window.confirm("Are you sure.? ")) {
+    if (window.confirm("Are you sure want to delete ? ")) {
       dispatch(userDelete(id));
     }
   };
-  const blockHandler = (id,actif) => {
+  const blockHandler = (id) => {
 
-    if (window.confirm("Are you sure.? ")) {
-      dispatch(userblock(id,actif));
+    if (window.confirm("Are you sure want to block.? ")) {
+      dispatch(userblock(id));
     }
   };
 
@@ -73,7 +73,10 @@ const UserList = ({ history }) => {
         className="form-check-input"
         id="transactionCheck01"
         />
-        <label className="form-check-label" htmlFor="transactionCheck01"/>
+        <label
+        className="form-check-label"
+        htmlFor="transactionCheck01"
+        ></label>
         </div>
         </th>
         <th className="align-middle">ID</th>
@@ -82,6 +85,7 @@ const UserList = ({ history }) => {
         <th className="align-middle">Role</th>
         <th className="align-middle">Verify</th>
             <th className="align-middle">status</th>
+
             <th className="align-middle">Delete</th>
         </tr>
         </thead>
@@ -95,7 +99,10 @@ const UserList = ({ history }) => {
         className="form-check-input"
         id={user.uid}
         />
-        <label className="form-check-label" htmlFor={user.uid}/>
+        <label
+        className="form-check-label"
+        htmlFor={user.uid}
+        ></label>
         </div>
         </td>
         <td>
@@ -108,7 +115,7 @@ const UserList = ({ history }) => {
         <td>{user.email}</td>
         <td>
 
-          {user.role ==="user"? (
+          {user.role =="user"? (
               <Badge
                   className={
                     "font-size-11 badge-soft-" +"success"
@@ -129,6 +136,16 @@ const UserList = ({ history }) => {
                 {user.role}
               </Badge>
           )}
+
+
+
+
+
+
+
+
+
+
         </td>
         <td>
           {user.verify ? (
@@ -153,17 +170,23 @@ False              </Badge>
           )}
         </td>
           {user.actif ? (
+
                   <td>
-                <Button className="btn-sm" onClick={() => blockHandler(user._id,user.actif)}>
-                    <i className="fas fa-check"/>
+
+                <Button
+                    className="btn-sm"
+                    onClick={() => blockHandler(user._id)}
+                >
+                    <i className="fas fa-check"></i>
                 </Button>
             </td>):(
               <td>
+
                 <Button
                     className="btn-sm"
-                    onClick={() => blockHandler(user._id,user.actif)}
+                    onClick={() => blockHandler(user._id)}
                 >
-                  <i className="fas fa-accusoft"/>
+                  <i className="fas fa-accusoft"></i>
                 </Button>
               </td>
           )}
@@ -174,7 +197,7 @@ False              </Badge>
               className="btn-sm"
               onClick={() => deleteHandler(user._id)}
           >
-            <i className="fas fa-trash"/>
+            <i className="fas fa-trash"></i>
           </Button>
         </td>
         </tr>

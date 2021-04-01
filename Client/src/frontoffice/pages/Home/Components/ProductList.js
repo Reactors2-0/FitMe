@@ -23,21 +23,29 @@ import suit1 from "@FrontOfficeAssets/img/examples/suit-1.jpg";
 import GridItem from "../../../components/frontoffice/ui/Grid/GridItem";
 import GridContainer from "../../../components/frontoffice/ui/Grid/GridContainer";
 const useStyles = makeStyles(styles);
+import "../../../assets/css/style.css"
+import {useCart} from "../../../../hook/useCartHook";
+import {addToCart} from "../../../../actions/cartAction";
+import {useDispatch} from "react-redux";
 
 export default function ProductList(props) {
     const productsLst =props.productsLst;
     const classes = useStyles();
+    const dispatch = useDispatch();
 
+    const addToCartHandler = (id) => {
+        dispatch(addToCart(id, 1));
+    };
 return (
     <GridContainer>
-    {   productsLst.map((item,index) => {
+    {   productsLst.slice(0, 9).map((item,index) => {
             return (
                 <GridItem md={4} sm={4} key={index}>
                     <Link to={`/product/${item.id}`}>
-                    <Card plain product>
+                    <Card plain product >
                         <CardHeader noShadow image>
                             <a href="#pablo">
-                                <img src={suit1} alt=".."/>
+                                <img src={item.productImage} style={{width :200,height : 300}} alt=".."/>
                             </a>
                         </CardHeader>
                         <CardBody plain>
@@ -68,6 +76,9 @@ return (
                                     <Favorite/>
                                 </Button>
                             </Tooltip>
+                            <Link to="/shoppingCart">
+                                <button className="btn btn-outline-dark btn-fitMe-cart" onClick={()=>{addToCartHandler(item.id)}}>Add To Cart</button>
+                            </Link>
                         </CardFooter>
                     </Card>
                     </Link>

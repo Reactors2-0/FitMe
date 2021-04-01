@@ -140,7 +140,8 @@ const googleColor = "#dd4b39";
 const linkedinColor = "#0976b4";
 const pinterestColor = "#cc2127";
 const youtubeColor = "#e52d27";
-const tumblrColor = "#35465c";
+const tumblrColor = "#7E69BA";
+
 const behanceColor = "#1769ff";
 const dribbbleColor = "#ea4c89";
 const redditColor = "#ff4500";
