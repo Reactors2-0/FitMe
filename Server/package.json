@@ -29,6 +29,7 @@
     "node": "10.x"
   },
   "devDependencies": {
+    "multer": "^1.4.2",
     "node-env-run": "^4.0.2"
   }
 }

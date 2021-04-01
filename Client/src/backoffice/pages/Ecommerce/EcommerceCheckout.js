@@ -67,7 +67,7 @@ function EcommerceCheckout(){
   },[onclick]);
     const [activeTab,setActiveTab] = useState("1")
     const [selectedGroup,setSelectedGroup] = useState(null)
-    const {totCartItems,cartItems} = useCart();
+    const {totCartItems,cartItems,priceRow,invoiceSubtotal,invoiceTaxes,invoiceTotal} = useCart();
 
 
   const [orderSummary,setOrderSummary] = useState(cartItems)
@@ -731,7 +731,7 @@ function EcommerceCheckout(){
                                             </p>
                                           </td>
                                           <td>
-                                            TND {orderitem.price * orderitem.qty}
+                                            TND {priceRow(orderitem.price , orderitem.qty)}
                                           </td>
                                         </tr>
                                       )
@@ -742,7 +742,7 @@ function EcommerceCheckout(){
                                           Sub Total:
                                         </h6>
                                       </td>
-                                      <td>TND 675</td>
+                                      <td>{invoiceSubtotal} (+ 19% TVA) </td>
                                     </tr>
                                     <tr>
                                       <td colSpan="3">
@@ -763,7 +763,7 @@ function EcommerceCheckout(){
                                           Total:
                                         </h6>
                                       </td>
-                                      <td>TND 675</td>
+                                      <td>TND {invoiceTotal}</td>
                                     </tr>
                                   </tbody>
                                 </Table>

@@ -1,16 +1,15 @@
 const mongoose = require("mongoose");
 
-const CategorySchema = new Schema({
-  name: {
-    type: String,
-    required: [true, "catogry Name is required"],
-  }
+const CategorySchema = new mongoose.Schema({
+    categoryName: {
+        type: String,
+        required: [true, "Please add a category name"],
+        trim: true,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
-CategorySchema.virtual("Products", {
-  ref: "Product",
-  localField: "_id",
-  foreignField: "CategoryId",
-  justOne: false,
-});
-module.exports = mongoose.model("Category", CategorySchema);
+module.exports = mongoose.model("category", CategorySchema);

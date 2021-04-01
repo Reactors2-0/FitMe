@@ -50,7 +50,7 @@ return (
                         </CardHeader>
                         <CardBody plain>
                             <a href="#pablo">
-                                <h4 className={classes.cardTitle}>{item.brand}</h4>
+                                {/*<h4 className={classes.cardTitle}>{item.brand}</h4>*/}
                             </a>
                             <p className={classes.description}>
                                 {item.description.substring(0, 40)} ...

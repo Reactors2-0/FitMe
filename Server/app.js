@@ -12,8 +12,9 @@ const expressListRoutes = require('express-list-routes');
 dotenv.config({ path: ".env" });
 
 connectDb();
-//! Moetaz Routes
 const productRouter = require("./routes/product");
+const categoryRouter = require("./routes/category");
+
 const reviewRouter = require("./routes/review");
 const orderRouter = require("./routes/order");
 //!
@@ -36,6 +37,8 @@ app.use(
 
 app.use("/api/brands", brandRouter);
 app.use("/api/product", productRouter);
+app.use("/api/category", categoryRouter);
+
 app.use("/api/review", reviewRouter);
 app.use("/api/v1/order", orderRouter);
 app.use("/api/v1/admin", adminRouter);
