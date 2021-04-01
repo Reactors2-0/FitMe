@@ -25,7 +25,7 @@ function App() {
               {authProtectedFrontRoutes.map((route, idx) => (
                   <AppRoute
                       path={route.path}
-                      layout={Layout}
+                      layout={VerticalLayout}
                       component={route.component}
                       key={idx}
                       isAuthProtected={false}
