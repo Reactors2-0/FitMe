@@ -50,11 +50,11 @@ const orderItemSchema = new mongoose.Schema({
     required: true,
   },
   color: {
-    type: String;
+    type: String,
     required: [true, "Please add a product color"],
   },
   size:{
-    type: String;
+    type: String,
     required: [true, "Please add a product size"],
   }
 });
