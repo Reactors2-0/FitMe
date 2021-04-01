@@ -8,10 +8,10 @@ import {
   whiteColor,
   grayColor,
   mlAuto
-} from "assets/jss/material-kit-pro-react.js";
+} from "../../material-kit-pro-react.js";
 
-import buttonGroup from "assets/jss/material-kit-pro-react/buttonGroupStyle.js";
-import tooltips from "assets/jss/material-kit-pro-react/tooltipsStyle.js";
+import buttonGroup from "../buttonGroupStyle.js";
+import tooltips from "../tooltipsStyle.js";
 
 const styles = {
   main,
@@ -23,7 +23,7 @@ const styles = {
   ...tooltips,
   container: {
     ...container,
-    zIndex: 1
+    zIndex: 2
   },
   title: {
     ...title,
@@ -41,6 +41,9 @@ const styles = {
     textDecoration: "none",
     position: "relative",
     display: "block"
+  },
+  table: {
+    width : "100%",
   },
   inlineBlock: {
     display: "inline-block",

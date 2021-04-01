@@ -3,7 +3,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../User/Message";
-import { userList, userDelete } from "../../../actions/userAction";
+import { userList, userDelete,userblock } from "../../../actions/userAction";
 
 import Loader from "../User/Loader";
 import {Badge, Card, CardBody, CardTitle, Container} from "reactstrap";
@@ -31,10 +31,17 @@ const UserList = ({ history }) => {
 
   const deleteHandler = (id) => {
 
-    if (window.confirm("Are you sure.? ")) {
+    if (window.confirm("Are you sure want to delete ? ")) {
       dispatch(userDelete(id));
     }
   };
+  const blockHandler = (id) => {
+
+    if (window.confirm("Are you sure want to block.? ")) {
+      dispatch(userblock(id));
+    }
+  };
+
 
   return (
       <React.Fragment>
@@ -162,15 +169,27 @@ const UserList = ({ history }) => {
 False              </Badge>
           )}
         </td>
-            <td>
+          {user.actif ? (
+
+                  <td>
 
                 <Button
                     className="btn-sm"
-                    onClick={() => deleteHandler(user._id)}
+                    onClick={() => blockHandler(user._id)}
                 >
                     <i className="fas fa-check"></i>
                 </Button>
-            </td>
+            </td>):(
+              <td>
+
+                <Button
+                    className="btn-sm"
+                    onClick={() => blockHandler(user._id)}
+                >
+                  <i className="fas fa-accusoft"></i>
+                </Button>
+              </td>
+          )}
         <td>
 
           <Button

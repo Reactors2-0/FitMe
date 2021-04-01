@@ -92,14 +92,12 @@ class EcommerceCustomers extends Component {
                                 </Col>
                                 <Col sm="8">
                                   <div className="text-sm-end">
-                                    <Button
-                                      type="button"
-                                      color="success"
-                                      className="btn-rounded waves-effect waves-light mb-2 me-2"
+                                    <a
+                                        href="/dashboard/admin/AddProducts"
+                                        className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
                                     >
-                                      <i className="mdi mdi-plus me-1" />{" "}
-                                      New Customers
-                                    </Button>
+                                      <i className="fa fa-plus fa-sm text-white-50"></i> Add New Product
+                                    </a>
                                   </div>
                                 </Col>
                               </Row>

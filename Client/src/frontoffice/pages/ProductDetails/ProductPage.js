@@ -30,7 +30,7 @@ import CardFooter from "../../components/frontoffice/ui/Card/CardFooter.js";
 import Tooltip from "@material-ui/core/Tooltip";
 
 import productStyle from "../../assets/jss/material-kit-pro-react/views/productStyle.js";
-import "./style.css"
+import "../../assets/css/style.css"
 // images
 import cardProduct1 from "../../assets/img/examples/card-product1.jpg";
 import cardProduct3 from "../../assets/img/examples/card-product3.jpg";
@@ -43,6 +43,8 @@ import product4 from "../../assets/img/examples/product4.jpg";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import * as productAction from "../../../actions/productAction";
+import {useCart} from "../../../hook/useCartHook";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles(productStyle);
 
@@ -51,7 +53,7 @@ export default function ProductPage({match}) {
     const [sizeSelect, setSizeSelect] = React.useState("0");
     const productData = useSelector((state) => state.Product);
     const { loading, product, error } = productData;
-    console.log(productData)
+    const {addToCartHandler,totCartItems} = useCart();
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(productAction.product(match.params.id));
@@ -60,23 +62,22 @@ export default function ProductPage({match}) {
     const classes = useStyles();
     const images = [
         {
-            original: product3,
-            thumbnail: product3
+            original: product.productImage,
+            thumbnail: product.productImage
         },
         {
             original: product4,
             thumbnail: product4
         },
         {
-            original: product1,
-            thumbnail: product1
+            original: product.productImage,
+            thumbnail: product.productImage
         },
         {
             original: product2,
             thumbnail: product2
         }
     ];
-    console.log(match.params.id)
     return (
         <div className={classes.productPage}>
 
@@ -88,9 +89,11 @@ export default function ProductPage({match}) {
                 <div className={classes.container}>
                     <GridContainer className={classes.titleRow}>
                         <GridItem md={4} className={classes.mlAuto}>
+                            <Link to="/shoppingCart">
                             <Button color="white" className={classes.floatRight}>
-                                <ShoppingCart /> 0 items
+                                <ShoppingCart /> {totCartItems} items
                             </Button>
+                            </Link>
                         </GridItem>
                     </GridContainer>
                 </div>
@@ -126,8 +129,8 @@ export default function ProductPage({match}) {
                                 />
                             </GridItem>
                             <GridItem md={6} sm={6}>
-                                <h2 className={classes.title}>Becky Silk Blazer</h2>
-                                <h3 className={classes.mainPrice}>$335</h3>
+                                <h2 className={classes.title}>{product.name}</h2>
+                                <h3 className={classes.mainPrice}>{product.price} TND</h3>
                                 <Accordion
                                     active={0}
                                     activeColor="rose"
@@ -136,12 +139,7 @@ export default function ProductPage({match}) {
                                             title: "Description",
                                             content: (
                                                 <p>
-                                                    Eres{"'"} daring {"'"}Grigri Fortune{"'"} swimsuit has
-                                                    the fit and coverage of a bikini in a one-piece
-                                                    silhouette. This fuchsia style is crafted from the
-                                                    label{"'"}s sculpting peau douce fabric and has
-                                                    flattering cutouts through the torso and back. Wear
-                                                    yours with mirrored sunglasses on vacation.
+                                                    {product.description}
                                                 </p>
                                             )
                                         },
@@ -279,7 +277,7 @@ export default function ProductPage({match}) {
                                     </GridItem>
                                 </GridContainer>
                                 <GridContainer className={classes.pullRight}>
-                                    <Button round color="rose">
+                                    <Button round color="rose" onClick={()=>addToCartHandler(product.id,1)}>
                                         Add to Cart &nbsp; <ShoppingCart />
                                     </Button>
                                 </GridContainer>

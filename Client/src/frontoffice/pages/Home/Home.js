@@ -47,11 +47,12 @@ const Home = () => {
                                         sm={8}
                                         className="mlAuto mrAuto textCenter"
                                     >
-                                        <div className={classes.brand}>
+                                        <div className={classes.brand} style={{width : 400}}>
                                             <h1 className={classes.title}>Fit Me !</h1>
                                             <h4>
-                                                Free global delivery for all products. Use coupon{" "}
-                                                <b>25summer</b> for an extra 25% Off
+                                                Free global delivery for all products.<br/>
+                                                Use coupon{" "}
+                                                <b>FITME25</b> for an extra <b>25%</b> Off
                                             </h4>
                                         </div>
                                     </GridItem>

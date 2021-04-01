@@ -24,7 +24,6 @@ export const listProducts = (productInfo) => async (dispatch) =>{
             `&priceMax=${ltORgt[1]}`,
 
         ];
-        console.log(ltORgt)
 
         await axios.get(`http://localhost:3000/api/product/?${queryString.join("")}`).then((res)=>{
             const productList = res.data.data.results;

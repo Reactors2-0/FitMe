@@ -26,10 +26,19 @@ import classnames from "classnames"
 
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb"
+import { makeStyles } from "@material-ui/core/styles";
 
 //Import Images
 import img1 from "../../assets/images/product/img-1.png"
 import img7 from "../../assets/images/product/img-7.png"
+import Parallax from "../../../frontoffice/components/frontoffice/ui/Parallax/Parallax";
+import GridContainer from "../../../frontoffice/components/frontoffice/ui/Grid/GridContainer";
+import GridItem from "../../../frontoffice/components/frontoffice/ui/Grid/GridItem";
+import Button from "../../../frontoffice/components/frontoffice/ui/CustomButtons/Button";
+import ShoppingCart from "@material-ui/icons/ShoppingCart";
+import productStyle from "../../../frontoffice/assets/jss/material-kit-pro-react/views/productStyle.js";
+import {useCart} from "../../../hook/useCartHook";
+import {useState} from "react";
 
 const optionGroup = [
   {
@@ -49,70 +58,78 @@ const optionGroup = [
     ],
   },
 ]
+const useStyles = makeStyles(productStyle);
 
-class EcommerceCheckout extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      orderSummary: [
-        {
-          id: 1,
-          img: img1,
-          productTitle: "Half sleeve T-shirt (64GB)",
-          price: 450,
-          qty: 1,
-        },
-        {
-          id: 2,
-          img: img7,
-          productTitle: "Wirless Headphone",
-          price: 225,
-          qty: 1,
-        },
-      ],
-      activeTab: "1",
-      selectedGroup: null,
-    }
-    this.toggleTab = this.toggleTab.bind(this)
-    this.handleSelectGroup = this.handleSelectGroup.bind(this)
-  }
+function EcommerceCheckout(){
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+  },[onclick]);
+    const [activeTab,setActiveTab] = useState("1")
+    const [selectedGroup,setSelectedGroup] = useState(null)
+    const {totCartItems,cartItems} = useCart();
 
-  toggleTab(tab) {
-    if (this.state.activeTab !== tab) {
-      this.setState({
-        activeTab: tab,
-      })
+
+  const [orderSummary,setOrderSummary] = useState(cartItems)
+ const toggleTab=(tab)=> {
+    if (activeTab !== tab) {
+      setActiveTab(tab)
     }
   }
 
-  handleSelectGroup = selectedGroup => {
-    this.setState({ selectedGroup })
+ const handleSelectGroup = selectedGroup => {
+    setSelectedGroup({ selectedGroup })
   }
 
-  render() {
-    const { selectedGroup } = this.state
+
+
+
     return (
       <React.Fragment>
         <div className="page-content">
           <MetaTags>
-            <title>Checkout | Skote - Responsive Bootstrap 5 Admin Dashboard</title>
+            <title>Checkout | FitMe</title>
           </MetaTags>
           <Container fluid>
             {/* Render Breadcrumb */}
-            <Breadcrumbs title="Ecommerce" breadcrumbItem="Checkout" />
-
-            <div className="checkout-tabs">
+            {/*<Breadcrumbs title="Ecommerce" breadcrumbItem="Checkout" />*/}
+            <Parallax
+                image={require("../../../frontoffice/assets/img/bg10.jpg")}
+                filter="blue"
+                style={{
+                  minHeight: "60vh",
+                  maxHeight: "600px",
+                  height: "auto",
+                  backgroundPosition: "top center"
+                }}
+            >
+              <div className="container-fluid" style={{ zIndex: 1}}>
+                <GridContainer style={{    marginTop: "-8vh"
+                }}>
+                  <GridItem md={4} style={{ marginLeft: "auto"}}>
+                    <Link to="/shoppingCart">
+                      <Button color="white" style={{    float: "right!important"
+                      }}>
+                        <ShoppingCart /> {totCartItems}items
+                      </Button>
+                    </Link>
+                  </GridItem>
+                </GridContainer>
+              </div>
+            </Parallax>
+            <div className="checkout-tabs text-center" style={{width : "80%",marginLeft : "10%"}}>
               <Row>
                 <Col lg="2" sm="3">
                   <Nav className="flex-column" pills>
-                    <NavItem>
+                    <NavItem >
                       <NavLink
                         className={classnames({
-                          active: this.state.activeTab === "1",
+                          active: activeTab === "1",
                         })}
                         onClick={() => {
-                          this.toggleTab("1")
+                          toggleTab("1")
                         }}
+                        style={{backgroundColor: activeTab === "1" ? "#7E69BA" : "white"}}
                       >
                         <i className="bx bxs-truck d-block check-nav-icon mt-4 mb-2" />
                         <p className="font-weight-bold mb-4">Shipping Info</p>
@@ -121,11 +138,12 @@ class EcommerceCheckout extends Component {
                     <NavItem>
                       <NavLink
                         className={classnames({
-                          active: this.state.activeTab === "2",
+                          active: activeTab === "2",
                         })}
                         onClick={() => {
-                          this.toggleTab("2")
+                          toggleTab("2")
                         }}
+                        style={{backgroundColor: activeTab === "2" ? "#7E69BA" : "white"}}
                       >
                         <i className="bx bx-money d-block check-nav-icon mt-4 mb-2" />
                         <p className="font-weight-bold mb-4">Payment Info</p>
@@ -134,11 +152,12 @@ class EcommerceCheckout extends Component {
                     <NavItem>
                       <NavLink
                         className={classnames({
-                          active: this.state.activeTab === "3",
+                          active: activeTab === "3",
                         })}
                         onClick={() => {
-                          this.toggleTab("3")
+                          toggleTab("3")
                         }}
+                        style={{backgroundColor: activeTab === "3" ? "#7E69BA" : "white"}}
                       >
                         <i className="bx bx-badge-check d-block check-nav-icon mt-4 mb-2" />
                         <p className="font-weight-bold mb-4">Confirmation</p>
@@ -149,7 +168,7 @@ class EcommerceCheckout extends Component {
                 <Col lg="10" sm="9">
                   <Card>
                     <CardBody>
-                      <TabContent activeTab={this.state.activeTab}>
+                      <TabContent activeTab={activeTab}>
                         <TabPane tabId="1">
                           <div>
                             <CardTitle className="h4">Shipping information</CardTitle>
@@ -517,7 +536,7 @@ class EcommerceCheckout extends Component {
                                 <Col md="10">
                                   <Select
                                     value={selectedGroup}
-                                    onChange={this.handleSelectGroup}
+                                    onChange={handleSelectGroup}
                                     options={optionGroup}
                                     className="select2"
                                     placeholder="Select States"
@@ -686,12 +705,12 @@ class EcommerceCheckout extends Component {
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    {this.state.orderSummary.map(
+                                    {orderSummary.map(
                                       (orderitem, key) => (
                                         <tr key={"_orderSummary_" + key}>
                                           <th scope="row">
                                             <img
-                                              src={orderitem.img}
+                                              src={orderitem.productImage}
                                               alt="product-img"
                                               title="product-img"
                                               className="avatar-md"
@@ -703,16 +722,16 @@ class EcommerceCheckout extends Component {
                                                 href="ecommerce-product-detail.html"
                                                 className="text-dark"
                                               >
-                                                {orderitem.productTitle}{" "}
+                                                {orderitem.productName}{" "}
                                               </a>
                                             </h5>
                                             <p className="text-muted mb-0">
-                                              $ {orderitem.price} x{" "}
+                                              TND {orderitem.price} x{" "}
                                               {orderitem.qty}
                                             </p>
                                           </td>
                                           <td>
-                                            $ {orderitem.price * orderitem.qty}
+                                            TND {orderitem.price * orderitem.qty}
                                           </td>
                                         </tr>
                                       )
@@ -723,7 +742,7 @@ class EcommerceCheckout extends Component {
                                           Sub Total:
                                         </h6>
                                       </td>
-                                      <td>$ 675</td>
+                                      <td>TND 675</td>
                                     </tr>
                                     <tr>
                                       <td colSpan="3">
@@ -744,7 +763,7 @@ class EcommerceCheckout extends Component {
                                           Total:
                                         </h6>
                                       </td>
-                                      <td>$ 675</td>
+                                      <td>TND 675</td>
                                     </tr>
                                   </tbody>
                                 </Table>
@@ -784,7 +803,7 @@ class EcommerceCheckout extends Component {
         </div>
       </React.Fragment>
     )
-  }
+
 }
 
 export default EcommerceCheckout

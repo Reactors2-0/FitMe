@@ -80,7 +80,6 @@ export const brand = (id) => async (dispatch) => {
 
         await axios.get(`/api/brands/${id}`).then((resp) => {
             const brand = resp.data.data;
-
             dispatch({
                 type: brandConstants.BRAND_FETCH_SUCCESS,
                 payload: brand,
@@ -95,7 +94,28 @@ export const brand = (id) => async (dispatch) => {
         });
     }
 };
-
+export const brandByUserIdCall = () => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: brandConstants.BRAND_FETCH_START
+        });
+        const { userLogin: { userInfo }, } = getState();
+        await axios.get(`/api/brands/${userInfo.id}/getbyuser`).then((resp) => {
+            const brandByUserId = resp.data.data;
+            dispatch({
+                type: brandConstants.BRAND_FETCH_SUCCESS,
+                payload: {brandByUserId},
+            });
+        });
+    } catch (error) {
+        dispatch({
+            type: brandConstants.BRAND_FETCH_FAIL,
+            payload: error.response && error.response.data.error ?
+                error.response.data.error :
+                error.message,
+        });
+    }
+};
 export const deleteBrand = (id) => async (dispatch, getState) => {
     try {
         dispatch({ type: brandConstants.DELETE_BRAND_START });
@@ -118,11 +138,14 @@ export const deleteBrand = (id) => async (dispatch, getState) => {
 
 export const createBrand = (formData) => async (dispatch, getState) => {
     try {
+        console.log(formData.get("brandImage"))
+        console.log(formData.get("brandName"))
         dispatch({
             type: brandConstants.CREATE_BRAND_START
         });
         const { userLogin: { userInfo }, } = getState();
-        const config = { headers: { Authorization: `Bearer ${userInfo.token}`, }, };
+        const config = { headers: {Authorization: `Bearer ${userInfo.token}`, }, };
+
         await axios.post("/api/brands/", formData, config).then((resp) => {
             dispatch({ type: brandConstants.CREATE_BRAND_SUCCESS, });
         });
