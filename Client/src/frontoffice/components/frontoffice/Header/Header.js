@@ -89,6 +89,11 @@ const Header = () => {
                                 <div >
                                     <NavDropdown title={userInfo.name} id="username" className="ml-4 ">
                                         {/* cyrine part*/}
+                                        {userInfo.role === "admin" || userInfo.role=== "seller" ? (
+                                            <LinkContainer to="/order">
+                                                <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                                            </LinkContainer> ) :
+                                        (<></>)}
                                         <LinkContainer to="/order">
                                             <NavDropdown.Item>order</NavDropdown.Item>
                                         </LinkContainer>

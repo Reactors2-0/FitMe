@@ -73,10 +73,7 @@ const UserList = ({ history }) => {
         className="form-check-input"
         id="transactionCheck01"
         />
-        <label
-        className="form-check-label"
-        htmlFor="transactionCheck01"
-        ></label>
+        <label className="form-check-label" htmlFor="transactionCheck01"/>
         </div>
         </th>
         <th className="align-middle">ID</th>
@@ -85,7 +82,6 @@ const UserList = ({ history }) => {
         <th className="align-middle">Role</th>
         <th className="align-middle">Verify</th>
             <th className="align-middle">status</th>
-
             <th className="align-middle">Delete</th>
         </tr>
         </thead>
@@ -99,10 +95,7 @@ const UserList = ({ history }) => {
         className="form-check-input"
         id={user.uid}
         />
-        <label
-        className="form-check-label"
-        htmlFor={user.uid}
-        ></label>
+        <label className="form-check-label" htmlFor={user.uid}/>
         </div>
         </td>
         <td>
@@ -115,7 +108,7 @@ const UserList = ({ history }) => {
         <td>{user.email}</td>
         <td>
 
-          {user.role =="user"? (
+          {user.role ==="user"? (
               <Badge
                   className={
                     "font-size-11 badge-soft-" +"success"
@@ -136,16 +129,6 @@ const UserList = ({ history }) => {
                 {user.role}
               </Badge>
           )}
-
-
-
-
-
-
-
-
-
-
         </td>
         <td>
           {user.verify ? (
@@ -170,23 +153,17 @@ False              </Badge>
           )}
         </td>
           {user.actif ? (
-
                   <td>
-
-                <Button
-                    className="btn-sm"
-                    onClick={() => blockHandler(user._id,user.actif)}
-                >
-                    <i className="fas fa-check"></i>
+                <Button className="btn-sm" onClick={() => blockHandler(user._id,user.actif)}>
+                    <i className="fas fa-check"/>
                 </Button>
             </td>):(
               <td>
-
                 <Button
                     className="btn-sm"
                     onClick={() => blockHandler(user._id,user.actif)}
                 >
-                  <i className="fas fa-accusoft"></i>
+                  <i className="fas fa-accusoft"/>
                 </Button>
               </td>
           )}
@@ -197,7 +174,7 @@ False              </Badge>
               className="btn-sm"
               onClick={() => deleteHandler(user._id)}
           >
-            <i className="fas fa-trash"></i>
+            <i className="fas fa-trash"/>
           </Button>
         </td>
         </tr>

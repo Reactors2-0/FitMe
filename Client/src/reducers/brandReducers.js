@@ -23,23 +23,24 @@ export const listBrands = (state = { brands: [] }, action) => {
   }
 };
 
-export const brandByUserId = (state = { brand: {} }, action) => {
+export const brandByUserIdCall = (state = { brandByUserId: {} }, action) => {
+  console.log("from reducer",state.brandByUserId)
   switch (action.type) {
     case brandConstants.BRAND_FETCH_START:
       return {
         loading: true,
-        brand: {},
+        brandByUserId: {},
       };
     case brandConstants.BRAND_FETCH_SUCCESS:
       return {
-        brand: action.payload,
+        brandByUserId: action.payload.brandByUserId,
         success: true,
       };
+
     case brandConstants.BRAND_FETCH_FAIL:
       return {
         error: action.payload,
       };
-
     default:
       return state;
   }
