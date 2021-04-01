@@ -80,7 +80,6 @@ export const brand = (id) => async (dispatch) => {
 
         await axios.get(`/api/brands/${id}`).then((resp) => {
             const brand = resp.data.data;
-
             dispatch({
                 type: brandConstants.BRAND_FETCH_SUCCESS,
                 payload: brand,
@@ -95,17 +94,17 @@ export const brand = (id) => async (dispatch) => {
         });
     }
 };
-export const brandByUserId = (userid) => async (dispatch) => {
+export const brandByUserIdCall = () => async (dispatch, getState) => {
     try {
         dispatch({
             type: brandConstants.BRAND_FETCH_START
         });
-
-        await axios.get(`/api/brands/${userid}/getbyuser`).then((resp) => {
-            const brand = resp.data.data;
+        const { userLogin: { userInfo }, } = getState();
+        await axios.get(`/api/brands/${userInfo.id}/getbyuser`).then((resp) => {
+            const brandByUserId = resp.data.data;
             dispatch({
                 type: brandConstants.BRAND_FETCH_SUCCESS,
-                payload: brand,
+                payload: {brandByUserId},
             });
         });
     } catch (error) {

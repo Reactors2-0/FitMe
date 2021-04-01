@@ -3,16 +3,18 @@ import Form from "react-bootstrap/Form";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import ("./BrandSignup.css");
+import Toast from 'react-bootstrap/Toast'
+import Modal from 'react-bootstrap/Modal';
+import("./BrandSignup.css");
 import { useDispatch, useSelector } from "react-redux";
-import {TextField,Button,CircularProgress,makeStyles} from "@material-ui/core/";
+import { TextField, Button, CircularProgress, makeStyles } from "@material-ui/core/";
 
 import ErrorMessage from "@Components/Message/errorMessage";
 import SuccessMessage from "@Components/Message/successMessage";
 import FormContainer from "@Components/FormContainer/FormContainer";
 import ColorPicker from "@Components/ColorPicker/ColorPicker";
-
-import * as brandAction from "@Actions/brandAction";
+import Home from "@FrontOfficePages/Home/Home";
+import * as brandAction from "../../../actions/brandAction";
 import * as brandConstants from "@Constants/brandConstants";
 
 const useStyles = makeStyles((theme) => ({
@@ -20,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
   },
 }));
-const BrandSignup = ({ location, history }) => {
+const BrandSignup = ({ history }) => {
   const dispatch = useDispatch();
   // * Fields
   const [brandName, setBrandName] = useState("");
@@ -34,24 +36,33 @@ const BrandSignup = ({ location, history }) => {
   const { userInfo } = userLogin;
   // * Styles
   const classes = useStyles();
-
   const brandRegisterData = useSelector((state) => state.createBrand);
+
+  const brandByUserIdSelector = useSelector((state) => state.brandByUserId);
+  const { brandByUserId } = brandByUserIdSelector;
   const { error, loading, message, success } = brandRegisterData;
 
-  const redirect = location.search ? location.search.split("=")[1] : "/";
+  // modal
+  const [show, setShow] = useState(true);
+  const handleClose = () => {
+    setShow(false);
+    setRedirecting(true);
+    setTimeout(() => {
+      // TODO : Insert brand id and redirect to page
+      history.push("/dashboard");
+    }, 5000);
+  };
+  const [redirecting, setRedirecting] = useState(false);
   useEffect(() => {
-    console.log("from user effect "+brandImage)
-  },[brandImage]);
-  useEffect(() => {
+    if (userInfo) {
+      dispatch(brandAction.brandByUserIdCall());
+    }
     if (success) {
       setTimeout(() => {
-        const redirectUrl = redirect
-          ? `/EmailVerification?redirect=${redirect}`
-          : "/EmailVerification";
-        history.push(redirectUrl);
+        history.push("/");
       }, 5000);
     }
-  }, [success, history, redirect]);
+  }, [success, history, dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -68,7 +79,7 @@ const BrandSignup = ({ location, history }) => {
     formData.append("userId", userInfo.id);
     dispatch(brandAction.createBrand(formData));
   };
-  function RGBToHex(r,g,b) {
+  function RGBToHex(r, g, b) {
     r = r.toString(16);
     g = g.toString(16);
     b = b.toString(16);
@@ -81,92 +92,122 @@ const BrandSignup = ({ location, history }) => {
     return "#" + r + g + b;
   }
   const handelColorChange = (val) => {
-    setBrandColor(RGBToHex(val.r,val.g,val.b));
+    setBrandColor(RGBToHex(val.r, val.g, val.b));
   };
   return (
-      <Container fluid className="verticalHeight">
-        <FormContainer>
-          <h1>Register brand :</h1>
-          {error && (
-            <ErrorMessage
-              header="Auth Error"
-              message={error}
-              reset={brandConstants.CREATE_BRAND_RESET}
-            />
-          )}
-          {verificationMessage !== "" && (
-            <ErrorMessage header="Auth Error" message={verificationMessage} />
-          )}
-          {success && (
-            <SuccessMessage
-              header="Registered brand SuccessFully"
-              message={message}
-              reset={brandConstants.CREATE_BRAND_RESET}
-            />
-          )}
-          <Form onSubmit={handleSubmit}>
-            <TextField
-              variant="outlined"
-              type="text"
-              margin="normal"
-              required
-              fullWidth
-              id="brandName"
-              label="Brand Name"
-              name="brandName"
-              autoComplete="email"
-              autoFocus
-              value={brandName}
-              onChange={(e) => setBrandName(e.target.value)}
-            />
-            <div className="ui label"><i aria-hidden="true" className="mail icon"/> Brand Image :</div>
-            <TextField
-              variant="outlined"
-              type="file"
-              margin="normal"
-              required
-              fullWidth
-              id="file"
-              name="file"
-              autoComplete="file"
-              autoFocus
-              onChange={(e) => setBrandImage(e.target.files[0])}
-            />
-            <div className="ui label"><i aria-hidden="true" className="mail icon"/> Legal proof of business :</div>
-            <TextField
-              variant="outlined"
-              type="file"
-              margin="normal"
-              required
-              fullWidth
-              id="proof"
-              name="proof"
-              autoComplete="proof"
-              autoFocus
-              onChange={(e) => setBrandProof(e.target.files[0])}
-            />
-            <div className="ui label"><i aria-hidden="true" className="mail icon"/> Brand primary color :</div>
-            <ColorPicker handelColor={handelColorChange} />
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              fullWidth
-              onClick={handleSubmit}
-              disabled={loading}
-            >
-              {loading ? (
-                <CircularProgress
-                  color="inherit"
-                  className={classes.prgressColor}
+    <>
+      { redirecting && (
+        <div aria-live="polite" aria-atomic="true" style={{ position: 'relative', minHeight: '100px', }}>
+          <Toast style={{ position: 'absolute', top: 0, right: 0, }}>
+            <Toast.Header>
+              <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
+              <strong className="mr-auto">FitMe</strong>
+            </Toast.Header>
+            <Toast.Body>Redirecting you to your brands dashboard page 😊 .</Toast.Body>
+          </Toast>
+        </div>
+      )}
+      { brandByUserId && (
+        <>
+          <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+            <Modal.Header closeButton>
+              <Modal.Title>Notice !</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              You are already a manager of {brandByUserId.brandName}! <br />
+                Your brand is currently {brandByUserId.verify ? "Verified" : "Pending verification"}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+                  </Button>
+            </Modal.Footer>
+          </Modal>
+          <Home />
+        </>)}
+      { !brandByUserId &&
+        (
+          <Container fluid className="verticalHeight">
+            <FormContainer>
+              <h1>Register brand :</h1>
+              {error && (
+                <ErrorMessage
+                  header="Auth Error"
+                  message={error}
+                  reset={brandConstants.CREATE_BRAND_RESET}
                 />
-              ) : (
-                <>Register brand</>
               )}
-            </Button>
-          </Form>
-        </FormContainer>
-      </Container>
+              {verificationMessage !== "" && (
+                <ErrorMessage header="Auth Error" message={verificationMessage} />
+              )}
+              {success && (
+                <SuccessMessage
+                  header="Registered brand SuccessFully"
+                  message={message}
+                  reset={brandConstants.CREATE_BRAND_RESET}
+                />
+              )}
+              <Form onSubmit={handleSubmit}>
+                <TextField
+                  variant="outlined"
+                  type="text"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="brandName"
+                  label="Brand Name"
+                  name="brandName"
+                  autoComplete="email"
+                  autoFocus
+                  value={brandName}
+                  onChange={(e) => setBrandName(e.target.value)}
+                />
+                <div className="ui label"><i aria-hidden="true" className="mail icon" /> Brand Image :</div>
+                <TextField
+                  variant="outlined"
+                  type="file"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="file"
+                  name="file"
+                  autoComplete="file"
+                  autoFocus
+                  onChange={(e) => setBrandImage(e.target.files[0])}
+                />
+                <div className="ui label"><i aria-hidden="true" className="mail icon" /> Legal proof of business :</div>
+                <TextField
+                  variant="outlined"
+                  type="file"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="proof"
+                  name="proof"
+                  autoComplete="proof"
+                  autoFocus
+                  onChange={(e) => setBrandProof(e.target.files[0])}
+                />
+                <div className="ui label"><i aria-hidden="true" className="mail icon" /> Brand primary color :</div>
+                <ColorPicker handelColor={handelColorChange} />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  onClick={handleSubmit}
+                  disabled={loading}
+                >
+                  {loading ?
+                    (<CircularProgress color="inherit" className={classes.prgressColor} />)
+                    :
+                    (<>Register brand</>)}
+                </Button>
+              </Form>
+            </FormContainer>
+          </Container>
+        )}
+    </>
   );
 };
 

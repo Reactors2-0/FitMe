@@ -72,7 +72,7 @@ import('../frontoffice/pages/Home/Home');
 import('@Routes/AdminRoute');
 
 const authProtectedBackRoutes = [
-    { path: "/dashboard/admin", component: Dashboard },
+    { path: "/dashboard", component: Dashboard },
     { path: "/dashboard/admin/userlist", component: userlists },
 
     { path: "/dashboard/admin/Repondre", component: ContactAdmin },
@@ -96,6 +96,7 @@ const authProtectedBackRoutes = [
     { path: "/ecommerce-cart", component: EcommerceCart },
     //{ path: "/ecommerce-shops", component: EcommerceShops },
     { path: "/add-product", component: EcommerceAddProduct },
+
 
     //Charts
     { path: "/apex-charts", component: ChartApex },

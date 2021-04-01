@@ -48,9 +48,9 @@ const createBrand = asyncHandler(async (req, res, next) => {
     throw createError(400, "This proof is not supported");
   if (image.size > process.env.FILE_UPLOAD_SIZE || proof.size > process.env.FILE_UPLOAD_SIZE)
     throw createError(400,`Please upload a image or proof of size less than ${process.env.FILE_UPLOAD_SIZE}`);
-  //const brandByName = await Brand.find({ brandName: req.body.brandName}).exec();
-  //if(brandByName)
-    //throw createError(400, "Brand already exists");
+  const brandByName = await Brand.find({ brandName: req.body.brandName});
+  if(brandByName)
+    throw createError(400, "Brand already exists");
   cloudinary.uploader.upload(
     proof.tempFilePath,
     { use_filename: true, folder: "brands/"+req.body.brandName },

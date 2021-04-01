@@ -25,7 +25,7 @@ import {cartReducer} from "./reducers/cartReducers";
 
 import {
   listBrands,
-  brandByUserId,
+  brandByUserIdCall,
   Brand,
   deleteBrand,
   createBrand,
@@ -46,7 +46,7 @@ import {
 const rootReducer = combineReducers({
 
   listBrands:listBrands,
-  brandByUserId:brandByUserId,
+  brandByUserId:brandByUserIdCall,
   Brand:Brand,
   deleteBrand:deleteBrand,
   createBrand:createBrand,

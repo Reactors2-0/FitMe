@@ -49,6 +49,14 @@ const orderItemSchema = new mongoose.Schema({
     ref: "Product",
     required: true,
   },
+  color: {
+    type: String,
+    required: [true, "Please add a product color"],
+  },
+  size:{
+    type: String,
+    required: [true, "Please add a product size"],
+  }
 });
 
 const OrderSchema = new mongoose.Schema({

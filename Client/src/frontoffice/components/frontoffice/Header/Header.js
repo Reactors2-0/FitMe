@@ -104,6 +104,11 @@ const Header = () => {
                                     <NavDropdown title={userInfo.name} id="username" className="ml-4 " style={{color :"#7E69BA"}}>
 
                                         {/* cyrine part*/}
+                                        {userInfo.role === "admin" || userInfo.role=== "seller" ? (
+                                            <LinkContainer to="/order">
+                                                <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                                            </LinkContainer> ) :
+                                        (<></>)}
                                         <LinkContainer to="/order">
                                             <NavDropdown.Item>order</NavDropdown.Item>
 
