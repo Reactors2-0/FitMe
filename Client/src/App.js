@@ -34,8 +34,6 @@ function App() {
                   />
 
               ))}
-
-
             {authProtectedBackRoutes.map((route, idx) => (
               <AppRoute
                 path={route.path}
