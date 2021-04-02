@@ -84,7 +84,7 @@ const authProtectedBackRoutes = [
     { path: "/dashboard/admin/Products", component: ProductsList },
 
     { path: "/dashboard/admin/Order", component: OrderAdmin },
-    { path: "/dashboard/admin/Brand", component: BrandList },
+    { path: "/dashboard/admin/brand", component: BrandList },
     { path: "/dashboard/admin/AddProducts", component:  AddProduct},
 
     //profile
