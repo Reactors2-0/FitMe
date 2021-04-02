@@ -60,7 +60,6 @@ export default function SectionProducts(props) {
                                         <GridItem md={9} sm={9}>
                                             <ProductList productsLst={products}/>
                                         </GridItem>
-
                                     </GridContainer>
                                 </div>
                             </div>
@@ -70,7 +69,5 @@ export default function SectionProducts(props) {
                 </>)
             }
         </>
-
-
     )
 }

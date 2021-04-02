@@ -3,10 +3,10 @@ import React from "react";
 import PropTypes from "prop-types";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import {Accordion as AccordionUi}   from '@material-ui/core'
+import { AccordionSummary } from '@material-ui/core'
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-
+import AccordionDetails from '@material-ui/core/AccordionActions'
 // @material-ui/icons
 import ExpandMore from "@material-ui/icons/ExpandMore";
 
@@ -46,7 +46,7 @@ export default function Accordion(props) {
     <div className={classes.root}>
       {collapses.map((prop, key) => {
         return (
-          <ExpansionPanel
+          <AccordionUi
             expanded={active === key || active.indexOf(key) !== -1}
             onChange={handleChange(key)}
             key={key}
@@ -55,7 +55,7 @@ export default function Accordion(props) {
               expanded: classes.expansionPanelExpanded
             }}
           >
-            <ExpansionPanelSummary
+            <AccordionSummary
               expandIcon={<ExpandMore />}
               classes={{
                 root: `${classes.expansionPanelSummary} ${
@@ -69,11 +69,11 @@ export default function Accordion(props) {
               }}
             >
               <h4 className={classes.title}>{prop.title}</h4>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails className={classes.expansionPanelDetails}>
+            </AccordionSummary>
+            <AccordionDetails className={classes.expansionPanelDetails}>
               {prop.content}
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+            </AccordionDetails>
+          </AccordionUi>
         );
       })}
     </div>

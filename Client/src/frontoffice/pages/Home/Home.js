@@ -30,7 +30,6 @@ const Home = () => {
     });
     const classes = useStyles();
 
-
     return (
                 <>
                         <Meta/>
@@ -111,8 +110,8 @@ const Home = () => {
                                                             </GridItem>
                                                             <GridItem xs={12} sm={6} md={6} lg={4}>
                                                                 <Button
-                                                                    color="rose"
-                                                                    block
+                                                                    color={"primary"}
+                                                                    block={"true"}
                                                                     className={classes.subscribeButton}
                                                                 >
                                                                     subscribe

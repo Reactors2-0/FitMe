@@ -21,10 +21,8 @@ const getProducts = asyncHandler(async (req,res,next)=>{
         const priceRange = (!isNaN(Number(ltORgt.priceMin)) && !isNaN(Number(ltORgt.priceMax))) ?
             {price: {$gt: Number(ltORgt.priceMin), $lt: Number(ltORgt.priceMax)}}:
             {};
-        console.log(priceRange)
 
         const searchProduct = await Product.find(priceRange);
-        console.log("Products",searchProduct)
         res.status(200).send({
             status: "success",
             data: { results : searchProduct , count: searchProduct.length }

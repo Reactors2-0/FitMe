@@ -17,6 +17,7 @@ const getBrands = asyncHandler(async (req, res, next) => {
       res.status(200).send({status: "success",data: { results : searchBrand , count: searchBrand.length }})
   }else{
       const brands = await Brand.find();
+      console.log(brands);
       res.status(200).send({status: "success",data: { results : brands , count: brands.length }})
   }
 });

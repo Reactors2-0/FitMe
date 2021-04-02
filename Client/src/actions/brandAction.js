@@ -49,11 +49,9 @@ export const listBrandsForAdmin = (initialLoading) => async (dispatch) => {
                 type: brandConstants.BRANDLIST_FETCH_START
             });
         }
-
         await axios.get(`/api/brands/`).then((resp) => {
             const brandList = resp.data.data.results;
             const totalBrands = resp.data.data.count;
-
             dispatch({
                 type: brandConstants.BRANDLIST_FETCH_SUCCESS,
                 payload: {

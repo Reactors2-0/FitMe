@@ -48,7 +48,7 @@ const Header = () => {
                         <Collapse navbar>
                             <Nav navbar>
                                 <NavItem>
-                                    <NavLink acitve href="/">
+                                    <NavLink acitve={"true"} href="/">
                                         Home
                                     </NavLink>
                                 </NavItem>

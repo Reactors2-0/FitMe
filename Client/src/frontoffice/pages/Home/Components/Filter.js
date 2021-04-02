@@ -1,5 +1,5 @@
-import react from "react";
 import React, {useEffect, useState} from "react";
+import { useDispatch, useSelector } from "react-redux";
 // nodejs library that concatenates classes
 // plugin that creates slider
 import Slider from "nouislider";
@@ -21,31 +21,36 @@ import Button from "@FrontOfficeComponents/ui/CustomButtons/Button.js";
 import Clearfix from "@FrontOfficeComponents/ui/Clearfix/Clearfix.js";
 import classNames from "classnames";
 import {useProduct} from "../../../../hook/useProductHook";
+// Actions
+
+import * as brandAction from "@Actions/brandAction";
+import * as brandConstants from "@Constants/brandConstants";
 
 const useStyles = makeStyles(styles);
 
 export default function Filter() {
-
     const [checked, setChecked] = React.useState([1, 9, 27]);
     const [sort, setSort] = useState([]);
     const [category, setCategory] = useState("");
     const [priceRange, setPriceRange] = React.useState("");
     const [ltORgt, setLtORgt] = useState([0, 790]);
     const [init, setInit] = useState(true);
-
     const queryParams = new URLSearchParams(window.location.search);
+
     const searchProductKey = queryParams.get("search")
         ? queryParams.get("search").trim()
         : "";
     const {loading, fetchProductList} = useProduct("", "", "", ltORgt, init);
-
+    // * Chihab fetching brands
+    const dispatcher = useDispatch();
+    const listBrands = useSelector((state) => state.listBrands);
+    const { brandList , totalBrands } = listBrands;
 
     React.useEffect(() => {
-        if (
-            !document
-                .getElementById("sliderRegular")
-                .classList.contains("noUi-target")
-        ) {
+        dispatcher(brandAction.listBrands({searchBrandKey:"",
+            sort:true,
+            initialLoading:true,}));
+        if (!document.getElementById("sliderRegular").classList.contains("noUi-target")) {
             Slider.create(document.getElementById("sliderRegular"), {
                 start: ltORgt,
                 connect: true,
@@ -56,13 +61,9 @@ export default function Filter() {
                 setInit(true)
             });
         }
-
-
         return function cleanup() {
         };
-    });
-
-
+    },[dispatcher]);
     const handleToggle = value => {
         const currentIndex = checked.indexOf(value);
         const newChecked = [...checked];
@@ -74,8 +75,7 @@ export default function Filter() {
         setChecked(newChecked);
     };
     const classes = useStyles();
-
-
+    console.log(brandList)
     return (
         <Card plain>
             <CardBody className={classes.cardBodyRefine}>
