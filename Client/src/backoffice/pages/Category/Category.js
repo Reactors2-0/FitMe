@@ -6,13 +6,14 @@ import Message from "../User/Message";
 import { userList, userDelete, userblock } from "../../../actions/userAction";
 
 import Loader from "../User/Loader";
-import { Badge, Card, CardBody, CardTitle, Container } from "reactstrap";
+import { Badge, Card, CardBody, CardTitle ,Col, Container, Row} from "reactstrap";
 import { Link } from "react-router-dom";
 import MetaTags from "react-meta-tags";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
+import CategoryModal from "../Category/CategoryModal"
 
 
-const BrandList = ({ history }) => {
+const Category = ({ history }) => {
   const dispatch = useDispatch();
 
   const userListBack = useSelector((state) => state.userListBack);
@@ -46,10 +47,11 @@ const BrandList = ({ history }) => {
   return (
     <React.Fragment>
       <div className="page-content">
-
+  
+                             
         <Container fluid>
           <Breadcrumbs title="Dashborad" breadcrumbItem="UserList" />
-
+      
 
           <>
 
@@ -81,10 +83,7 @@ const BrandList = ({ history }) => {
                           </th>
                           <th className="align-middle">ID</th>
                           <th className="align-middle"> Name</th>
-                          <th className="align-middle">Email</th>
-                          <th className="align-middle">Role</th>
-                          <th className="align-middle">Verify</th>
-                          <th className="align-middle">status</th>
+                         
 
                           <th className="align-middle">Delete</th>
                         </tr>
@@ -112,84 +111,7 @@ const BrandList = ({ history }) => {
                               </Link>{" "}
                             </td>
                             <td>{user.name}</td>
-                            <td>{user.email}</td>
-                            <td>
-
-                              {user.role == "user" ? (
-                                <Badge
-                                  className={
-                                    "font-size-11 badge-soft-" + "success"
-                                  }
-                                  color="success"
-                                  pill
-                                >
-                                  {user.role}
-                                </Badge>
-                              ) : (
-                                <Badge
-                                  className={
-                                    "font-size-11 badge-soft-" + "danger"
-                                  }
-                                  color="danger"
-                                  pill
-                                >
-                                  {user.role}
-                                </Badge>
-                              )}
-
-
-
-
-
-
-
-
-
-
-                            </td>
-                            <td>
-                              {user.verify ? (
-                                <Badge
-                                  className={
-                                    "font-size-11 badge-soft-" + "success"
-                                  }
-                                  color="success"
-                                  pill
-                                >
-                                  True
-                                </Badge>
-                              ) : (
-                                <Badge
-                                  className={
-                                    "font-size-11 badge-soft-" + "danger"
-                                  }
-                                  color="danger"
-                                  pill
-                                >
-                                  False              </Badge>
-                              )}
-                            </td>
-                            {user.actif ? (
-
-                              <td>
-
-                                <Button
-                                  className="btn-sm"
-                                  onClick={() => blockHandler(user._id)}
-                                >
-                                  <i className="fas fa-check"></i>
-                                </Button>
-                              </td>) : (
-                              <td>
-
-                                <Button
-                                  className="btn-sm"
-                                  onClick={() => blockHandler(user._id)}
-                                >
-                                  <i className="fas fa-accusoft"></i>
-                                </Button>
-                              </td>
-                            )}
+                           
                             <td>
 
                               <Button
@@ -215,4 +137,4 @@ const BrandList = ({ history }) => {
   );
 };
 
-export default BrandList;
+export default Category;

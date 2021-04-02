@@ -124,6 +124,13 @@ class SidebarContent extends Component {
                 </Link>
               </li>
               <li>
+                <Link to="/dashboard/admin/Category" className=" waves-effect">
+                  <i className="bx bx-duplicate
+" />
+                  <span>Category</span>
+                </Link>
+              </li>
+              <li>
                 <Link to="/dashboard/admin/userlist" className=" waves-effect">
                   <i className="bx bx-user-circle" />
                   <span>Users</span>
