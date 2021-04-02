@@ -12,12 +12,11 @@ const getBrands = asyncHandler(async (req, res, next) => {
   console.log("Fetching brands");
   const keyWord = req.query.keyWord;
   if(keyWord){
-      const searchItem = keyWord ? {name : {$regex: keyWord , $options: "i"}}:{};
+      const searchItem = keyWord ? {brandName : {$regex: keyWord , $options: "i"}}:{};
       const searchBrand = await Brand.find(searchItem);
       res.status(200).send({status: "success",data: { results : searchBrand , count: searchBrand.length }})
   }else{
       const brands = await Brand.find();
-      console.log(brands);
       res.status(200).send({status: "success",data: { results : brands , count: brands.length }})
   }
 });
@@ -49,7 +48,8 @@ const createBrand = asyncHandler(async (req, res, next) => {
     throw createError(400, "This proof is not supported");
   if (image.size > process.env.FILE_UPLOAD_SIZE || proof.size > process.env.FILE_UPLOAD_SIZE)
     throw createError(400,`Please upload a image or proof of size less than ${process.env.FILE_UPLOAD_SIZE}`);
-  const brandByName = await Brand.find({ brandName: req.body.brandName});
+  const brandByName = await Brand.exists({ brandName: req.body.brandName});
+  console.log(brandByName)
   if(brandByName)
     throw createError(400, "Brand already exists");
   cloudinary.uploader.upload(

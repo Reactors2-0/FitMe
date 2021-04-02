@@ -22,34 +22,50 @@ import Clearfix from "@FrontOfficeComponents/ui/Clearfix/Clearfix.js";
 import classNames from "classnames";
 import {useProduct} from "../../../../hook/useProductHook";
 // Actions
-
 import * as brandAction from "@Actions/brandAction";
 import * as brandConstants from "@Constants/brandConstants";
-
+import axios from "axios";
 const useStyles = makeStyles(styles);
 
 export default function Filter() {
+    const dispatch = useDispatch();
     const [checked, setChecked] = React.useState([1, 9, 27]);
+    const [checkedBrand, setCheckedBrand] = React.useState([]);
     const [sort, setSort] = useState([]);
     const [category, setCategory] = useState("");
     const [priceRange, setPriceRange] = React.useState("");
     const [ltORgt, setLtORgt] = useState([0, 790]);
     const [init, setInit] = useState(true);
     const queryParams = new URLSearchParams(window.location.search);
+    const [toggleAllBrands, setToggleAllBrands] = useState(false);
+
+    // chihab
+    const fetchBrands = useSelector((state) => state.listBrands);
+    const { brands , count } = fetchBrands;
 
     const searchProductKey = queryParams.get("search")
         ? queryParams.get("search").trim()
         : "";
     const {loading, fetchProductList} = useProduct("", "", "", ltORgt, init);
-    // * Chihab fetching brands
-    const dispatcher = useDispatch();
-    const listBrands = useSelector((state) => state.listBrands);
-    const { brandList , totalBrands } = listBrands;
 
+    const brandToUi = (brand,index) => {
+        return <FormControlLabel key={index} control={<Checkbox disableRipple tabIndex={index} onClick={() =>
+            handleBrandToggle(brand._id)} checkedIcon={
+                    <Check className={classes.checkedIcon}/>}
+                        icon={<Check className={classes.uncheckedIcon}/>}
+                        classes={{checked: classes.checked, root: classes.checkRoot}}
+                    />} classes={{label: classes.label}} label={brand.brandName}/>;
+    }
+    useEffect(() => {
+            const brandInfo = {
+                searchBrandKey: "",
+                sort : "",
+                initialLoading:true,
+            };
+            dispatch(brandAction.listBrands(brandInfo));
+        }
+    , [dispatch]);
     React.useEffect(() => {
-        dispatcher(brandAction.listBrands({searchBrandKey:"",
-            sort:true,
-            initialLoading:true,}));
         if (!document.getElementById("sliderRegular").classList.contains("noUi-target")) {
             Slider.create(document.getElementById("sliderRegular"), {
                 start: ltORgt,
@@ -63,7 +79,7 @@ export default function Filter() {
         }
         return function cleanup() {
         };
-    },[dispatcher]);
+    });
     const handleToggle = value => {
         const currentIndex = checked.indexOf(value);
         const newChecked = [...checked];
@@ -74,8 +90,32 @@ export default function Filter() {
         }
         setChecked(newChecked);
     };
+    const handleBrandToggle = value => {
+        const currentIndex = checkedBrand.indexOf(value);
+        const newChecked = [...checkedBrand];
+        if (currentIndex === -1) {
+            newChecked.push(value);
+        } else {
+            newChecked.splice(currentIndex, 1);
+        }
+        setCheckedBrand(newChecked);
+    };
+
     const classes = useStyles();
-    console.log(brandList)
+    function handleAllBrandsToggle() {
+        if(toggleAllBrands){
+            checkedBrand.splice(0,checkedBrand.length);
+        }else {
+            brands.map((brand)=> {
+                if(checkedBrand.indexOf(brand._id) === -1){
+                    checkedBrand.push(brand._id);
+                }
+            })
+        }
+        setToggleAllBrands(!toggleAllBrands);
+        console.log(checkedBrand);
+    }
+
     return (
         <Card plain>
             <CardBody className={classes.cardBodyRefine}>
@@ -331,9 +371,9 @@ export default function Filter() {
                                                 <Checkbox
                                                     disableRipple
                                                     tabIndex={-1}
-                                                    onClick={() => handleToggle(9)}
+                                                    onClick={() => handleAllBrandsToggle()}
                                                     checked={
-                                                        checked.indexOf(9) !== -1 ? true : false
+                                                        toggleAllBrands
                                                     }
                                                     checkedIcon={
                                                         <Check className={classes.checkedIcon}/>
@@ -350,363 +390,9 @@ export default function Filter() {
                                             classes={{label: classes.label}}
                                             label="All"
                                         />
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    disableRipple
-                                                    tabIndex={-1}
-                                                    onClick={() => handleToggle(10)}
-                                                    checkedIcon={
-                                                        <Check className={classes.checkedIcon}/>
-                                                    }
-                                                    icon={
-                                                        <Check className={classes.uncheckedIcon}/>
-                                                    }
-                                                    classes={{
-                                                        checked: classes.checked,
-                                                        root: classes.checkRoot
-                                                    }}
-                                                />
-                                            }
-                                            classes={{label: classes.label}}
-                                            label="Polo Ralph Lauren"
-                                        />
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    disableRipple
-                                                    tabIndex={-1}
-                                                    onClick={() => handleToggle(11)}
-                                                    checkedIcon={
-                                                        <Check className={classes.checkedIcon}/>
-                                                    }
-                                                    icon={
-                                                        <Check className={classes.uncheckedIcon}/>
-                                                    }
-                                                    classes={{
-                                                        checked: classes.checked,
-                                                        root: classes.checkRoot
-                                                    }}
-                                                />
-                                            }
-                                            classes={{label: classes.label}}
-                                            label="Wooyoungmi"
-                                        />
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    disableRipple
-                                                    tabIndex={-1}
-                                                    onClick={() => handleToggle(12)}
-                                                    checkedIcon={
-                                                        <Check className={classes.checkedIcon}/>
-                                                    }
-                                                    icon={
-                                                        <Check className={classes.uncheckedIcon}/>
-                                                    }
-                                                    classes={{
-                                                        checked: classes.checked,
-                                                        root: classes.checkRoot
-                                                    }}
-                                                />
-                                            }
-                                            classes={{label: classes.label}}
-                                            label="Alexander McQueen"
-                                        />
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    disableRipple
-                                                    tabIndex={-1}
-                                                    onClick={() => handleToggle(13)}
-                                                    checkedIcon={
-                                                        <Check className={classes.checkedIcon}/>
-                                                    }
-                                                    icon={
-                                                        <Check className={classes.uncheckedIcon}/>
-                                                    }
-                                                    classes={{
-                                                        checked: classes.checked,
-                                                        root: classes.checkRoot
-                                                    }}
-                                                />
-                                            }
-                                            classes={{label: classes.label}}
-                                            label="Tom Ford"
-                                        />
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    disableRipple
-                                                    tabIndex={-1}
-                                                    onClick={() => handleToggle(14)}
-                                                    checkedIcon={
-                                                        <Check className={classes.checkedIcon}/>
-                                                    }
-                                                    icon={
-                                                        <Check className={classes.uncheckedIcon}/>
-                                                    }
-                                                    classes={{
-                                                        checked: classes.checked,
-                                                        root: classes.checkRoot
-                                                    }}
-                                                />
-                                            }
-                                            classes={{label: classes.label}}
-                                            label="AMI"
-                                        />
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    disableRipple
-                                                    tabIndex={-1}
-                                                    onClick={() => handleToggle(15)}
-                                                    checkedIcon={
-                                                        <Check className={classes.checkedIcon}/>
-                                                    }
-                                                    icon={
-                                                        <Check className={classes.uncheckedIcon}/>
-                                                    }
-                                                    classes={{
-                                                        checked: classes.checked,
-                                                        root: classes.checkRoot
-                                                    }}
-                                                />
-                                            }
-                                            classes={{label: classes.label}}
-                                            label="Berena"
-                                        />
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    disableRipple
-                                                    tabIndex={-1}
-                                                    onClick={() => handleToggle(16)}
-                                                    checkedIcon={
-                                                        <Check className={classes.checkedIcon}/>
-                                                    }
-                                                    icon={
-                                                        <Check className={classes.uncheckedIcon}/>
-                                                    }
-                                                    classes={{
-                                                        checked: classes.checked,
-                                                        root: classes.checkRoot
-                                                    }}
-                                                />
-                                            }
-                                            classes={{label: classes.label}}
-                                            label="Thom Sweeney"
-                                        />
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    disableRipple
-                                                    tabIndex={-1}
-                                                    onClick={() => handleToggle(17)}
-                                                    checkedIcon={
-                                                        <Check className={classes.checkedIcon}/>
-                                                    }
-                                                    icon={
-                                                        <Check className={classes.uncheckedIcon}/>
-                                                    }
-                                                    classes={{
-                                                        checked: classes.checked,
-                                                        root: classes.checkRoot
-                                                    }}
-                                                />
-                                            }
-                                            classes={{label: classes.label}}
-                                            label="Burberry Prorsum"
-                                        />
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    disableRipple
-                                                    tabIndex={-1}
-                                                    onClick={() => handleToggle(18)}
-                                                    checkedIcon={
-                                                        <Check className={classes.checkedIcon}/>
-                                                    }
-                                                    icon={
-                                                        <Check className={classes.uncheckedIcon}/>
-                                                    }
-                                                    classes={{
-                                                        checked: classes.checked,
-                                                        root: classes.checkRoot
-                                                    }}
-                                                />
-                                            }
-                                            classes={{label: classes.label}}
-                                            label="Calvin Klein"
-                                        />
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    disableRipple
-                                                    tabIndex={-1}
-                                                    onClick={() => handleToggle(19)}
-                                                    checkedIcon={
-                                                        <Check className={classes.checkedIcon}/>
-                                                    }
-                                                    icon={
-                                                        <Check className={classes.uncheckedIcon}/>
-                                                    }
-                                                    classes={{
-                                                        checked: classes.checked,
-                                                        root: classes.checkRoot
-                                                    }}
-                                                />
-                                            }
-                                            classes={{label: classes.label}}
-                                            label="Kingsman"
-                                        />
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    disableRipple
-                                                    tabIndex={-1}
-                                                    onClick={() => handleToggle(20)}
-                                                    checkedIcon={
-                                                        <Check className={classes.checkedIcon}/>
-                                                    }
-                                                    icon={
-                                                        <Check className={classes.uncheckedIcon}/>
-                                                    }
-                                                    classes={{
-                                                        checked: classes.checked,
-                                                        root: classes.checkRoot
-                                                    }}
-                                                />
-                                            }
-                                            classes={{label: classes.label}}
-                                            label="Club Monaco"
-                                        />
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    disableRipple
-                                                    tabIndex={-1}
-                                                    onClick={() => handleToggle(21)}
-                                                    checkedIcon={
-                                                        <Check className={classes.checkedIcon}/>
-                                                    }
-                                                    icon={
-                                                        <Check className={classes.uncheckedIcon}/>
-                                                    }
-                                                    classes={{
-                                                        checked: classes.checked,
-                                                        root: classes.checkRoot
-                                                    }}
-                                                />
-                                            }
-                                            classes={{label: classes.label}}
-                                            label="Dolce & Gabbana"
-                                        />
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    disableRipple
-                                                    tabIndex={-1}
-                                                    onClick={() => handleToggle(22)}
-                                                    checkedIcon={
-                                                        <Check className={classes.checkedIcon}/>
-                                                    }
-                                                    icon={
-                                                        <Check className={classes.uncheckedIcon}/>
-                                                    }
-                                                    classes={{
-                                                        checked: classes.checked,
-                                                        root: classes.checkRoot
-                                                    }}
-                                                />
-                                            }
-                                            classes={{label: classes.label}}
-                                            label="Gucci"
-                                        />
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    disableRipple
-                                                    tabIndex={-1}
-                                                    onClick={() => handleToggle(23)}
-                                                    checkedIcon={
-                                                        <Check className={classes.checkedIcon}/>
-                                                    }
-                                                    icon={
-                                                        <Check className={classes.uncheckedIcon}/>
-                                                    }
-                                                    classes={{
-                                                        checked: classes.checked,
-                                                        root: classes.checkRoot
-                                                    }}
-                                                />
-                                            }
-                                            classes={{label: classes.label}}
-                                            label="Biglioli"
-                                        />
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    disableRipple
-                                                    tabIndex={-1}
-                                                    onClick={() => handleToggle(24)}
-                                                    checkedIcon={
-                                                        <Check className={classes.checkedIcon}/>
-                                                    }
-                                                    icon={
-                                                        <Check className={classes.uncheckedIcon}/>
-                                                    }
-                                                    classes={{
-                                                        checked: classes.checked,
-                                                        root: classes.checkRoot
-                                                    }}
-                                                />
-                                            }
-                                            classes={{label: classes.label}}
-                                            label="Lanvin"
-                                        />
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    disableRipple
-                                                    tabIndex={-1}
-                                                    onClick={() => handleToggle(25)}
-                                                    checkedIcon={
-                                                        <Check className={classes.checkedIcon}/>
-                                                    }
-                                                    icon={
-                                                        <Check className={classes.uncheckedIcon}/>
-                                                    }
-                                                    classes={{
-                                                        checked: classes.checked,
-                                                        root: classes.checkRoot
-                                                    }}
-                                                />
-                                            }
-                                            classes={{label: classes.label}}
-                                            label="Loro Piana"
-                                        />
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    disableRipple
-                                                    tabIndex={-1}
-                                                    onClick={() => handleToggle(26)}
-                                                    checkedIcon={
-                                                        <Check className={classes.checkedIcon}/>
-                                                    }
-                                                    icon={
-                                                        <Check className={classes.uncheckedIcon}/>
-                                                    }
-                                                    classes={{
-                                                        checked: classes.checked,
-                                                        root: classes.checkRoot
-                                                    }}
-                                                />
-                                            }
-                                            classes={{label: classes.label}}
-                                            label="Massimo Alba"
-                                        />
+                                        { brands.map((brand,index) => {
+                                            return brandToUi(brand,index);
+                                        })}
                                     </div>
                                 </div>
                             )

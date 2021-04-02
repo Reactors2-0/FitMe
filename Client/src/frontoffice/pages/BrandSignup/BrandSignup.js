@@ -46,11 +46,12 @@ const BrandSignup = ({ history }) => {
   const [show, setShow] = useState(true);
   const handleClose = () => {
     setShow(false);
-    setRedirecting(true);
-    setTimeout(() => {
-      // TODO : Insert brand id and redirect to page
-      history.push("/dashboard");
-    }, 5000);
+    if( userInfo.role === "seller" || userInfo.role === "admin") {
+      setRedirecting(true);
+      setTimeout(() => {
+        history.push("/dashboard");
+      }, 5000);
+    }
   };
   const [redirecting, setRedirecting] = useState(false);
   useEffect(() => {
@@ -103,7 +104,7 @@ const BrandSignup = ({ history }) => {
               <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
               <strong className="mr-auto">FitMe</strong>
             </Toast.Header>
-            <Toast.Body>Redirecting you to your brands dashboard page 😊 .</Toast.Body>
+            <Toast.Body>Redirecting you to your brands dashboard page 😊</Toast.Body>
           </Toast>
         </div>
       )}
@@ -120,7 +121,7 @@ const BrandSignup = ({ history }) => {
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
                 Close
-                  </Button>
+              </Button>
             </Modal.Footer>
           </Modal>
           <Home />

@@ -23,7 +23,6 @@ export const listBrands = (brandInfo) => async (dispatch) => {
         await axios.get(`/api/brands/?${queryString.join("")}`).then((resp) => {
             const brandList = resp.data.data.results;
             const totalBrands = resp.data.data.count;
-
             dispatch({
                 type: brandConstants.BRANDLIST_FETCH_SUCCESS,
                 payload: {
@@ -136,8 +135,6 @@ export const deleteBrand = (id) => async (dispatch, getState) => {
 
 export const createBrand = (formData) => async (dispatch, getState) => {
     try {
-        console.log(formData.get("brandImage"))
-        console.log(formData.get("brandName"))
         dispatch({
             type: brandConstants.CREATE_BRAND_START
         });
