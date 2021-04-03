@@ -45,3 +45,85 @@ export const Category = (name) => async (dispatch) => {
     });
   }
 };
+export const deleteCategory = (id) => async (dispatch, getState) => {
+  try {
+      dispatch({ type: categoryConstants.Category_START });
+      const { userLogin: { userInfo }, } = getState();
+      const config = { headers: { Authorization: `Bearer ${userInfo.token}`, }, };
+      await axios.delete(`/api/catgory/${id}`, config).then((resp) => {
+          dispatch({
+              type: categoryConstants.Category_SUCCESS,
+          });
+      });
+  } catch (error) {
+      dispatch({
+          type: categoryConstants.Category_FAIL,
+          payload: error.response && error.response.data.error ?
+              error.response.data.error :
+              error.message,
+      });
+  }
+};
+
+export const editcategory = (id, UpdatedData) => async (dispatch, getState) => {
+  try {
+      dispatch({
+          type: categoryConstants.Category_START
+      });
+
+      const {
+          userLogin: {
+              userInfo
+          },
+      } = getState();
+
+      const config = {
+          headers: {
+              Authorization: `Bearer ${userInfo.token}`,
+          },
+      };
+
+      await axios
+          .put(`/api/Catgory/${id}`, UpdatedData, config)
+          .then((resp) => {
+              dispatch({
+                  type: categoryConstants.Category_SUCCESS,
+                  payload: "Category updated successfully",
+              });
+          });
+  } catch (error) {
+      dispatch({
+          type: categoryConstants.Category_FAIL,
+          payload: error.response && error.response.data.error ?
+              error.response.data.error :
+              error.message,
+      });
+  }
+};
+export const listCategoryForAdmin = (initialLoading) => async (dispatch) => {
+  try {
+      if (initialLoading) {
+          dispatch({
+              type: categoryConstants.Category_START
+          });
+      }
+      await axios.get(`/api/catgory/`).then((resp) => {
+          const categoryList = resp.data.data.results;
+          const totalcategory = resp.data.data.count;
+          dispatch({
+              type: categoryConstants.Category_SUCCESS,
+              payload: {
+                categoryList,
+                  totalcategory
+              } ,
+          });
+      });
+  } catch (error) {
+      dispatch({
+          type: categoryConstants.Category_FAIL,
+          payload: error.response && error.response.data.error ?
+              error.response.data.error :
+              error.message,
+      });
+  }
+};

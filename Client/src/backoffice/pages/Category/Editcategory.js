@@ -20,16 +20,21 @@ import Dropzone from "react-dropzone"
 import {useDispatch} from "react-redux";
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb"
-import {Category} from "../../../actions/AdminAction";
+import {editcategory} from "../../../actions/AdminAction";
 
-const AddProduct = () =>  {
+const EditCategory = () =>  
+
+
+
+
+{
   const [name, setName] = useState("");
  
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(Category({ name}));
+    dispatch(editcategory({ name}));
   };
 
   
@@ -101,4 +106,4 @@ const AddProduct = () =>  {
      );
 };
 
-export default AddProduct;
+export default EditCategory;

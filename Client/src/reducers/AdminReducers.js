@@ -1,4 +1,4 @@
-import * as userConstants from "../constants/AdminReducers";
+import * as userConstants from "../constants/AdminConstants";
 import * as CategoryConstants from "../constants/categoryConstants";
 
 export const Repondre = (state = { message: "" }, action) => {
@@ -24,7 +24,8 @@ export const Repondre = (state = { message: "" }, action) => {
   }
 };
 
-export const Category = (state = { message: "" }, action) => {
+
+export const categoryList = (state = { categorys: [] }, action) => {
   switch (action.type) {
     case CategoryConstants.Category_START:
       return {
@@ -32,15 +33,14 @@ export const Category = (state = { message: "" }, action) => {
       };
     case CategoryConstants.Category_SUCCESS:
       return {
+        categorys: action.payload.categoryList,
+        count: action.payload.totalcategory,
         success: true,
-        message: action.payload,
       };
     case CategoryConstants.Category_FAIL:
       return {
         error: action.payload,
       };
-    case CategoryConstants.Category_RESET:
-      return {};
 
     default:
       return state;
