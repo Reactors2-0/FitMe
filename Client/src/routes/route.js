@@ -16,6 +16,7 @@ const toggleMenuCallback = () => {
     }
 }
 const AppRoute = ({
+
                       component: Component,
                       layout: Layout,
                       isAuthProtected,

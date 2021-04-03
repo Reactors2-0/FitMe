@@ -30,7 +30,6 @@ import Paper from '@material-ui/core/Paper';
 import * as cartConstants from "../../../constants/cartConstants";
 import ShoppingCart from "@material-ui/icons/ShoppingCart";
 const useStyles = makeStyles(shoppingCartStyle);
-const TAX_RATE = 0.19;
 
 const styles = theme => ({
     root: {
@@ -53,21 +52,11 @@ export default function ShoppingCartPage() {
     const dispatch = useDispatch();
     let history = useHistory();
 
-    const {cartItems,addToCartHandler,removeFromCartHandler,totCartItems} = useCart();
+    const {cartItems,addToCartHandler,removeFromCartHandler,totCartItems,priceRow,invoiceSubtotal,invoiceTaxes,invoiceTotal,TAX_RATE} = useCart();
 
 
     function ccyFormat(num) {
         return `${num.toFixed(2)}`;
-    }
-
-    function priceRow(qty, unit) {
-        return qty * unit;
-    }
-
-
-
-    function subtotal(items) {
-        return items.map(({ price,qty }) => priceRow(qty , price)).reduce((sum, i) => sum + i, 0);
     }
 
     function resetCart(){
@@ -76,9 +65,6 @@ export default function ShoppingCartPage() {
         })
 
     }
-    const invoiceSubtotal = subtotal(cartItems);
-    const invoiceTaxes = TAX_RATE * invoiceSubtotal;
-    const invoiceTotal = invoiceTaxes + invoiceSubtotal;
 
  const passToOrder = ()=>{
             const user =localStorage.getItem('authUser');

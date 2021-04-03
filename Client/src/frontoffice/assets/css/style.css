@@ -10,14 +10,24 @@
     width: 90px;
 }
 
-.btn-fitMe-cart:hover{
-    color: #fff;
-    background-color: #7E69BA;
-    border-color: #7E69BA;
-    width: 120px;
-}
+
 .btn-fitMe-cart{
     color: #212529;
     border-color: #212529;
     width: 120px;
+}
+.btn-fitMe-cart{
+    color: #7E69BA;
+    background-color: #ffffff;
+    border-color: #7E69BA;
+    width: 130px;
+}
+.btn-fitMe-cart:hover{
+    color: #fff;
+    background-color: #7E69BA;
+    border-color: #7E69BA;
+    width: 130px;
+}
+.fitMe-color{
+    background-color: #7E69BA;
 }
