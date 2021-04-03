@@ -40,10 +40,9 @@ class Layout extends Component {
 
     // Scroll Top to 0
     window.scrollTo(0, 0)
-    // let currentage = this.capitalizeFirstLetter(this.props.location.pathname)
+    let currentage = this.capitalizeFirstLetter(this.props.location.pathname)
 
-    // document.title =
-    //   currentage + " | Skote - Responsive Bootstrap 5 Admin Dashboard"
+    document.title = currentage + " | FitMe"
     if (this.props.leftSideBarTheme) {
       this.props.changeSidebarTheme(this.props.leftSideBarTheme)
     }
@@ -77,30 +76,18 @@ class Layout extends Component {
         <div id="preloader">
           <div id="status">
             <div className="spinner-chase">
-              <div className="chase-dot"></div>
-              <div className="chase-dot"></div>
-              <div className="chase-dot"></div>
-              <div className="chase-dot"></div>
-              <div className="chase-dot"></div>
-              <div className="chase-dot"></div>
+              <div className="chase-dot"/>
+              <div className="chase-dot"/>
+              <div className="chase-dot"/>
+              <div className="chase-dot"/>
+              <div className="chase-dot"/>
+              <div className="chase-dot"/>
             </div>
           </div>
         </div>
-
         <div id="layout-wrapper">
-          {/* <Header
-            toggleMenuCallback={this.toggleMenuCallback}
-            toggleRightSidebar={this.toggleRightSidebar}
-          /> */}
-          {/* <Sidebar
-            theme={this.props.leftSideBarTheme}
-            type={this.props.leftSideBarType}
-            isMobile={this.state.isMobile}
-          /> */}
           <div className="main-content">{this.props.children}</div>
-          {/* <Footer /> */}
         </div>
-        
       </React.Fragment>
     )
   }

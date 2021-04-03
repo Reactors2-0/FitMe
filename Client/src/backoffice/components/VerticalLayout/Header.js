@@ -30,8 +30,6 @@ class Header extends Component {
     super(props)
     this.state = { isSearch: false }
     this.toggleMenu = this.toggleMenu.bind(this)
-    this.toggleRightbar = this.toggleRightbar.bind(this)
-    this.toggleFullscreen = this.toggleFullscreen.bind(this)
     this.toggleSearch = this.toggleSearch.bind(this)
   }
 
@@ -42,42 +40,9 @@ class Header extends Component {
    * Toggle sidebar
    */
   toggleMenu() {
-    this.props.openLeftMenuCallBack()
+    this.props.toggleMenuCallback()
   }
 
-  /**
-   * Toggles the sidebar
-   */
-  toggleRightbar() {
-    this.props.toggleRightSidebar()
-  }
-
-  toggleFullscreen() {
-    if (
-      !document.fullscreenElement &&
-      /* alternative standard method */ !document.mozFullScreenElement &&
-      !document.webkitFullscreenElement
-    ) {
-      // current working methods
-      if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen()
-      } else if (document.documentElement.mozRequestFullScreen) {
-        document.documentElement.mozRequestFullScreen()
-      } else if (document.documentElement.webkitRequestFullscreen) {
-        document.documentElement.webkitRequestFullscreen(
-          Element.ALLOW_KEYBOARD_INPUT
-        )
-      }
-    } else {
-      if (document.cancelFullScreen) {
-        document.cancelFullScreen()
-      } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen()
-      } else if (document.webkitCancelFullScreen) {
-        document.webkitCancelFullScreen()
-      }
-    }
-  }
 
   render() {
     return (
@@ -168,30 +133,7 @@ class Header extends Component {
                   </form>
                 </div>
               </div>
-
-
-              <div className="dropdown d-none d-lg-inline-block ms-1">
-                <button
-                  type="button"
-                  className="btn header-item noti-icon waves-effect"
-                  onClick={this.toggleFullscreen}
-                  data-toggle="fullscreen"
-                >
-                  <i className="bx bx-fullscreen"/>
-                </button>
-              </div>
-
-
               <ProfileMenu />
-
-              <div className="dropdown d-inline-block">
-                <button
-                  type="button"
-                  className="btn header-item noti-icon right-bar-toggle waves-effect"
-                >
-                  <i className="bx bx-cog bx-spin"/>
-                </button>
-              </div>
             </div>
           </div>
         </header>
