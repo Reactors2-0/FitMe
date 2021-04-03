@@ -11,24 +11,17 @@ class SidebarContent extends Component {
   constructor(props) {
     super(props)
     this.refDiv = React.createRef();
-    this.state = {
-      userInfo :localStorage.getItem("userInfo")
-    }
-
   }
-  componentWillMount(){
-    this.setState({userInfo: localStorage.getItem("userInfo")});
+  UNSAFE_componentWillMount(){
   }
   componentDidMount() {
     this.initMenu();
-
   }
   componentDidUpdate(prevProps, prevState, ss) {
     if (this.props.type !== prevProps.type) {
       this.initMenu()
     }
   }
-
   initMenu() {
     new MetisMenu("#side-menu")
     let matchingMenuItem = null
@@ -44,9 +37,6 @@ class SidebarContent extends Component {
       this.activateParentDropdown(matchingMenuItem)
     }
   }
-
-  // componentDidUpdate() {}
-
   scrollElement = item => {
     setTimeout(() => {
       if (this.refDiv.current !== null) {
@@ -61,25 +51,19 @@ class SidebarContent extends Component {
       }
     }, 300)
   }
-
   activateParentDropdown = item => {
     item.classList.add("active")
     const parent = item.parentElement
-
     const parent2El = parent.childNodes[1]
     if (parent2El && parent2El.id !== "side-menu") {
       parent2El.classList.add("mm-show")
     }
-
     if (parent) {
       parent.classList.add("mm-active")
       const parent2 = parent.parentElement
-
       if (parent2) {
         parent2.classList.add("mm-show") // ul tag
-
         const parent3 = parent2.parentElement // li tag
-
         if (parent3) {
           parent3.classList.add("mm-active") // li
           parent3.childNodes[0].classList.add("mm-active") //a
@@ -102,7 +86,8 @@ class SidebarContent extends Component {
   }
 
   render() {
-    console.log(this.state.userInfo.role);
+    const userRole = localStorage.getItem("userInfo").role;
+    const redirectTo = userRole === "admin" ? "admin" : "seller";
     return (
       <React.Fragment>
         <SimpleBar style={{ maxHeight: "100%" }} ref={this.refDiv}>
@@ -110,7 +95,7 @@ class SidebarContent extends Component {
             <ul className="metismenu list-unstyled" id="side-menu">
               <li className="menu-title">Dashbord</li>
               <li>
-                <Link to={"/dashboard/" + this.state.userInfo.role === "admin" ? "admin" : this.state.userInfo.role === "seller" ? " seller": ""} className="waves-effect">
+                <Link to={"/dashboard/" + redirectTo } className="waves-effect">
                   <i className="bx bx-home-circle" />
                   <span className="badge rounded-pill bg-info float-end">
                     04
@@ -118,7 +103,7 @@ class SidebarContent extends Component {
                   <span>Dashboard</span>
                 </Link>
               </li>
-              { this.state.userInfo.role === "admin" ? (
+              { userRole === "admin" ? (
                   <>
                     <li>
                       <Link to="/dashboard/admin/Repondre" className=" waves-effect">

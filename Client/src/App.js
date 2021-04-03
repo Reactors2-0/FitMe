@@ -1,13 +1,13 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Loader from "@FrontOfficeComponents/Loader/HomeLoader"
+import { BallBeat } from 'react-pure-loaders';
 import { publicFrontRoutes, authProtectedBackRoutes, authProtectedFrontRoutes } from "./routes/index"
 import AppRoute from "./routes/route"
 import VerticalLayout from "@BackOfficeComponents/VerticalLayout/"
 // Dashboard imports
 function App() {
   return (
-    <Suspense fallback={<img src={Loader} alt="Loading..."/>}>
+    <Suspense fallback={<BallBeat color="#123abc"/>}>
       <React.Fragment>
         <Router>
           <Switch>
