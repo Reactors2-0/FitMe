@@ -144,6 +144,24 @@ class SidebarContent extends Component {
                         <span>Brand</span>
                       </Link>
                     </li>
+                    <li>
+                      <Link to="/dashboard/admin/Repondre" className=" waves-effect">
+                        <i className="bx bx-envelope"/>
+                        <span>Contact</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/dashboard/admin/Category" className=" waves-effect">
+                        <i className="bx bx-duplicate" />
+                        <span>Category</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/dashboard/admin/userlist" className=" waves-effect">
+                        <i className="bx bx-user-circle" />
+                        <span>Users</span>
+                      </Link>
+                    </li>
                   </>
               )}
               {/**

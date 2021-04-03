@@ -116,20 +116,20 @@ console.log('====================================');
 
           <Button
               variant="primary"
-              className="btn-sm"
+              className="btn btn-danger mr-2"
               onClick={() => deleteHandler(category._id)}
           >
-            <i className="fas fa-trash"></i>
+            Delete
           </Button>
-          
+          <Link
+                          to={"/dashboard/admin/EditCategory/" + category._id}
+                          className="btn btn-primary mr-2"
+                        >
+                          Show
+                        </Link>
        
         </td>
-        <Link
-            to={`/dashboard/admin/EditCategory/${category._id}`}
-            className='d-block'
-          >
-            <p className='category-desc mb-2'>{category.name}</p>
-          </Link>
+      
         </tr>
         ))}
         </tbody>
