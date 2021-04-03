@@ -71,8 +71,6 @@ import Home from "../frontoffice/pages/Home/Home";
 import ProductPage from "../frontoffice/pages/ProductDetails/ProductPage";
 import ShoppingCart from "../frontoffice/pages/ProductShoppingCart/ShoppingCart";
 
-import('../frontoffice/pages/Home/Home');
-import('@Routes/AdminRoute');
 
 const authProtectedBackRoutes = [
     { path: "/dashboard", component: Dashboard },
@@ -86,7 +84,7 @@ const authProtectedBackRoutes = [
     { path: "/dashboard/admin/Products", component: ProductsList },
 
     { path: "/dashboard/admin/Order", component: OrderAdmin },
-    { path: "/dashboard/admin/Brand", component: BrandList },
+    { path: "/dashboard/admin/brand", component: BrandList },
     { path: "/dashboard/admin/AddProducts", component:  AddProduct},
 
     //profile
