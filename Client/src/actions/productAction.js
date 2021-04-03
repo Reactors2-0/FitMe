@@ -65,3 +65,97 @@ export const product = (id) => async (dispatch) => {
     }
 };
 
+
+export const deleteProduct = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: productConstants.DELETE_PRODUCT_START });
+
+        const {
+            userLogin: { userInfo },
+        } = getState();
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+
+        await axios.delete(`/api/product/${id}`, config).then((resp) => {
+            dispatch({
+                type: productConstants.DELETE_PRODUCT_SUCCESS,
+            });
+        });
+    } catch (error) {
+        dispatch({
+            type: productConstants.DELETE_PRODUCT_FAIL,
+            payload:
+                error.response && error.response.data.error
+                    ? error.response.data.error
+                    : error.message,
+        });
+    }
+};
+
+export const createProduct = (formData) => async (dispatch, getState) => {
+
+    try {
+        dispatch({ type: productConstants.CREATE_PRODUCT_START });
+
+        const {
+            userLogin: { userInfo },
+        } = getState();
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+
+        await axios.post("/api/product/", formData, config).then((resp) => {
+            dispatch({
+                type: productConstants.CREATE_PRODUCT_SUCCESS,
+            });
+        });
+    } catch (error) {
+        dispatch({
+            type: productConstants.CREATE_PRODUCT_FAIL,
+            payload:
+                error.response && error.response.data.error
+                    ? error.response.data.error
+                    : error.message,
+        });
+    }
+};
+
+export const EditProduct = (id, UpdatedData) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: productConstants.EDIT_PRODUCT_START });
+
+        const {
+            userLogin: { userInfo },
+        } = getState();
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+
+        await axios
+            .put(`/api/product/${id}`, UpdatedData, config)
+            .then((resp) => {
+                dispatch({
+                    type: productConstants.EDIT_PRODUCT_SUCCESS,
+                    payload: "Product updated successfully",
+                });
+            });
+    } catch (error) {
+        dispatch({
+            type: productConstants.EDIT_PRODUCT_FAIL,
+            payload:
+                error.response && error.response.data.error
+                    ? error.response.data.error
+                    : error.message,
+        });
+    }
+};

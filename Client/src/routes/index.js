@@ -87,7 +87,7 @@ const authProtectedBackRoutes = [
     //chat
 
     //Ecommerce
-    { path: "/ecommerce-products/:id", component: EcommerceProducts },
+    { path: "/product-detail/:id", component: EcommerceProductDetail },
     // { path: "/ecommerce-products", component: EcommerceProducts },
     //{ path: "/ecommerce-product-detail/:id", component: EcommerceProductDetail },
 
@@ -95,7 +95,7 @@ const authProtectedBackRoutes = [
     //    { path: "/ecommerce-customers", component: EcommerceCustomers },
     { path: "/ecommerce-cart", component: EcommerceCart },
     //{ path: "/ecommerce-shops", component: EcommerceShops },
-    { path: "/add-product", component: EcommerceAddProduct },
+    { path: "/add-product", component: AddProduct },
 
 
     //Charts

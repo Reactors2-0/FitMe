@@ -30,8 +30,6 @@ import StarRatings from "react-star-ratings"
 import Nouislider from "nouislider-react"
 import "nouislider/distribute/nouislider.css"
 
-//Import Product Images
-// import { productImages } from "assets/images/product"
 
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb"
@@ -42,8 +40,8 @@ import Breadcrumbs from "../../components/Common/Breadcrumb"
 //Import actions
 import {useState} from "react";
 import {useProduct} from "../../../hook/useProductHook";
-import ProductPage from "../../../frontoffice/pages/ProductDetails/ProductPage";
-import ProductList from "../../../frontoffice/pages/Home/Components/ProductList";
+// import ProductPage from "../../../frontoffice/pages/ProductDetails/ProductPage";
+// import ProductList from "../../../frontoffice/pages/Home/Components/ProductList";
 
 function EcommerceProducts(props) {
 
@@ -345,6 +343,8 @@ useEffect(()=>{
                           </NavLink>
                         </NavItem>
                       </Nav>
+                      <Link to="/add-product">  <button className="btn btn-fitMe btn-outline-success ">Add Products</button></Link>
+
                     </Form>
                   </Col>
                 </Row>
@@ -354,7 +354,7 @@ useEffect(()=>{
                       <Col xl="4" sm="6" key={"_col_" + key}>
                         <Card onClick={() =>
                             history.push(
-                                `/ecommerce-product-detail/${product.id}`
+                                `/product-detail/${product.id}`
                             )
                         }>
                           <CardBody>
@@ -362,14 +362,14 @@ useEffect(()=>{
                               <div className="product-img position-relative">
                                 {product.isDiscounted ? (
                                     <div className="avatar-sm product-ribbon">
-                                    <span className="avatar-title rounded-circle  bg-primary">
-                                      {`-${product.Discount}%`}
+                                    <span className="avatar-title rounded-circle  bg-primary fitMe-color">
+                                      {`-${product.discount}%`}
                                     </span>
                                     </div>
                                 ) : null}
 
                                 <img
-
+                                    src={product.productImage}
                                     alt=""
                                     className="img-fluid mx-auto d-block"
                                 />
@@ -379,7 +379,7 @@ useEffect(()=>{
                             <div className="mt-4 text-center">
                               <h5 className="mb-3 text-truncate">
                                 <Link
-                                    to={"/ecommerce-product-detail/" + product.id}
+                                    to={"/product-detail/" + product.id}
                                     className="text-dark"
                                 >
                                   {product.name}{" "}
@@ -398,9 +398,9 @@ useEffect(()=>{
                               </div>
                               <h5 className="my-0">
                                   <span className="text-muted me-2">
-                                    <del>${product.price}</del>
+                                    <del>TND {product.price}</del>
                                   </span>{" "}
-                                <b>${product.price}</b>
+                                <b>TND {product.price-((product.price*product.discount)/100)}</b>
                               {/*  TODO : test discount*/}
                               </h5>
                             </div>

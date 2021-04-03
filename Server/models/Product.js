@@ -11,21 +11,24 @@ const ProductSchema = new mongoose.Schema(
             type: String,
             required: [true, "Image is required"],
         },
-        brand: [
+        brand:
             { type: mongoose.Schema.Types.ObjectId, ref: 'Brand' }
-        ],
+        ,
         price: {
             type: Number,
             required: [true, "Price is required"],
         },
-        category: [
+        category:
             { type: mongoose.Schema.Types.ObjectId, ref: 'category' }
-        ],
+        ,
         color:[{
-            val:String,
+            value:String,
+            color : String,
+            label: String
         }],
         size:[{
-            val:String,
+            value:String,
+            label:String
         }],
         countInStock: {
             type: Number,
@@ -44,7 +47,7 @@ const ProductSchema = new mongoose.Schema(
         isDiscounted: {
             type: Boolean,
         },
-        Discount: {
+        discount: {
             type: Number,
         },
         createdAt: {

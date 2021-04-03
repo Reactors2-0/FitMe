@@ -23,8 +23,7 @@ const AppRoute = ({
           <Redirect
             to={{ pathname: "/login", state: { from: props.location } }}
           />
-          
-         
+
         )
       }
       if (isFront) {
@@ -51,8 +50,7 @@ const AppRoute = ({
           </div>
          </div>
        </div>
-      
-         
+
           <DashboadFooter />
        </>   
       )

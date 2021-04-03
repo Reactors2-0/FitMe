@@ -50,27 +50,47 @@ const getProduct =asyncHandler(async (req,res,next)=>{
 })
 
 const createProduct = asyncHandler(async (req,res,next)=>{
-    // if(!req.files)
-    //     throw createError(400 , "please add photo");
-    //
-    // const file = req.files.productImage;
-    // //Check file type
-    // if(!file.mimetype.startsWith("image"))
-    //     throw createError(400,"This file is not supported");
-    //
-    // if (file.size > process.env.FILE_UPLOAD_SIZE)
-    //     throw createError(
-    //         400,
-    //         `Please upload a image of size less than ${process.env.FILE_UPLOAD_SIZE}`
-    //     );
-    //Add cloudinary API and save img url in db
-    const product = await Product.create({
-        ...req.body,
-        productImage: "uploads/product/Levis.jpg",
-    });
-    res.status(200).send({status: "success", data: product});
 
-   });
+
+
+    const file = JSON.parse(req.body.productImage);
+
+    if (!file) throw createError(400, "Please add a photo");
+
+
+    //Check file type
+    // if (!file.mimetype.startsWith("image"))
+    //     throw createError(400, "This file is not supported");
+
+    //Check file size
+    if (file.size > process.env.FILE_UPLOAD_SIZE)
+        throw createError(
+            400,
+            `Please upload a image of size less than ${process.env.FILE_UPLOAD_SIZE}`
+        );
+
+    console.log(file.preview)
+
+    cloudinary.uploader.upload(
+           "C:\\Users\\Med\\Pictures\\"+file.path,
+           {use_filename: true, folder: "products"},
+           async function (error, result) {
+               console.log(error)
+               if (error) throw createError(409, `failed to create product`);
+               const product = await Product.create({
+                   ...req.body,
+                   color :  JSON.parse(req.body.color),
+                   size : JSON.parse(req.body.size),
+                   productImage: result.url,
+               });
+               console.log("hi !!!!!!!!")
+               res.status(200).send({status: "success", data: product});
+           }
+       );
+
+});
+
+
 
 
 const updateProduct = asyncHandler(async (req,res,next)=>{

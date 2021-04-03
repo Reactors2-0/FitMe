@@ -40,11 +40,6 @@ const BrandSchema = new mongoose.Schema({
     next();
   });
 
-  // BrandSchema.virtual("Products", {
-  //   ref: "Product",
-  //   localField: "_id",
-  //   foreignField: "brandId",
-  //   justOne: false,
-  // });
+
 
   module.exports = mongoose.model("Brand", BrandSchema);
