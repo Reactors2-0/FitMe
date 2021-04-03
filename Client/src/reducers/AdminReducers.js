@@ -1,4 +1,5 @@
 import * as userConstants from "../constants/AdminReducers";
+import * as CategoryConstants from "../constants/categoryConstants";
 
 export const Repondre = (state = { message: "" }, action) => {
   switch (action.type) {
@@ -16,6 +17,29 @@ export const Repondre = (state = { message: "" }, action) => {
         error: action.payload,
       };
     case userConstants.Repondre_SEND_RSET:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
+export const Category = (state = { message: "" }, action) => {
+  switch (action.type) {
+    case CategoryConstants.Category_START:
+      return {
+        loading: true,
+      };
+    case CategoryConstants.Category_SUCCESS:
+      return {
+        success: true,
+        message: action.payload,
+      };
+    case CategoryConstants.Category_FAIL:
+      return {
+        error: action.payload,
+      };
+    case CategoryConstants.Category_RESET:
       return {};
 
     default:

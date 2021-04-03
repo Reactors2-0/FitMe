@@ -24,7 +24,6 @@ export const listBrands = (state = { brands: [] }, action) => {
 };
 
 export const brandByUserIdCall = (state = { brandByUserId: {} }, action) => {
-  console.log("from reducer",state.brandByUserId)
   switch (action.type) {
     case brandConstants.BRAND_FETCH_START:
       return {

@@ -17,8 +17,9 @@ const categoryRouter = require("./routes/category");
 
 const reviewRouter = require("./routes/review");
 const orderRouter = require("./routes/order");
-//!
+//! Sadek
 const adminRouter = require("./routes/Admin");
+const catgoryRouter =require("./routes/Category")
 
 //! Moetaz Routes
 const authRouter = require("./routes/auth");
@@ -34,7 +35,7 @@ app.use(
         useTempFiles: true,
     })
 );
-
+app.use("/api/catgory", catgoryRouter)
 app.use("/api/brands", brandRouter);
 app.use("/api/product", productRouter);
 app.use("/api/category", categoryRouter);

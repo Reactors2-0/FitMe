@@ -35,8 +35,10 @@ const BrandSchema = new mongoose.Schema({
   BrandSchema.pre("remove", async function (next) {
     await this.model("Oder").deleteMany({ brandId: this._id });
     await this.model("Product").deleteMany({ brandId: this._id });
-    await this.model("User").deleteOne({ _id: this.userId });
-    // TODO : Replace above code to set verify = false 
+    const user = await User.findOne({_id:this.userId});
+    console.log(user);
+    user.role = "user";
+    await user.save();
     next();
   });
 

@@ -72,21 +72,21 @@ const createProduct = asyncHandler(async (req,res,next)=>{
     console.log(file.preview)
 
     cloudinary.uploader.upload(
-           "C:\\Users\\Med\\Pictures\\"+file.path,
-           {use_filename: true, folder: "products"},
-           async function (error, result) {
-               console.log(error)
-               if (error) throw createError(409, `failed to create product`);
-               const product = await Product.create({
-                   ...req.body,
-                   color :  JSON.parse(req.body.color),
-                   size : JSON.parse(req.body.size),
-                   productImage: result.url,
-               });
-               console.log("hi !!!!!!!!")
-               res.status(200).send({status: "success", data: product});
-           }
-       );
+        "C:\\Users\\Med\\Pictures\\"+file.path,
+        {use_filename: true, folder: "products"},
+        async function (error, result) {
+            console.log(error)
+            if (error) throw createError(409, `failed to create product`);
+            const product = await Product.create({
+                ...req.body,
+                color :  JSON.parse(req.body.color),
+                size : JSON.parse(req.body.size),
+                productImage: result.url,
+            });
+            console.log("hi !!!!!!!!")
+            res.status(200).send({status: "success", data: product});
+        }
+    );
 
 });
 

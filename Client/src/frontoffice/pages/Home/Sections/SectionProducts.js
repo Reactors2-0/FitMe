@@ -22,11 +22,7 @@ const useStyles = makeStyles(styles);
 
 export default function SectionProducts(props) {
     const classes = useStyles();
-
-
     const {products, loading, count, error, searchProductKey} = useProduct("", "", "", "", "");
-
-
     return (
         <>
             {loading ? (<>
@@ -60,7 +56,6 @@ export default function SectionProducts(props) {
                                         <GridItem md={9} sm={9}>
                                             <ProductList productsLst={products}/>
                                         </GridItem>
-
                                     </GridContainer>
                                 </div>
                             </div>
@@ -70,7 +65,5 @@ export default function SectionProducts(props) {
                 </>)
             }
         </>
-
-
     )
 }

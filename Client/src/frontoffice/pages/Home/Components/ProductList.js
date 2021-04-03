@@ -36,69 +36,69 @@ export default function ProductList(props) {
     const addToCartHandler = (id) => {
         dispatch(addToCart(id, 1));
     };
-return (
-    <GridContainer>
-    {   productsLst.slice(0, 9).map((item,index) => {
-            return (
-                <GridItem md={4} sm={4} key={index}>
-                    <Link to={`/product/${item.id}`}>
-                    <Card plain product >
-                        <CardHeader noShadow image>
-                            <a href="#pablo">
-                                <img src={item.productImage} style={{width :200,height : 300}} alt=".."/>
-                            </a>
-                        </CardHeader>
-                        <CardBody plain>
-                            <a href="#pablo">
-                                {/*<h4 className={classes.cardTitle}>{item.brand}</h4>*/}
-                            </a>
-                            <p className={classes.description}>
-                                {item.description.substring(0, 40)} ...
-                            </p>
-                        </CardBody>
-                        <CardFooter plain
-                                    className={classes.justifyContentBetween}>
-                            <div className={classes.priceContainer}>
-                                <span className={classes.price}> {item.price} TND</span>
-                            </div>
-                            <Tooltip
-                                id="tooltip-top"
-                                title="Saved to Wishlist"
-                                placement="left"
-                                classes={{tooltip: classes.tooltip}}
-                            >
-                                <Button
-                                    justIcon
-                                    simple
-                                    color="rose"
-                                    className={classes.pullRight}
-                                >
-                                    <Favorite/>
-                                </Button>
-                            </Tooltip>
-                            <Link to="/shoppingCart">
-                                <button className="btn btn-outline-dark btn-fitMe-cart" onClick={()=>{addToCartHandler(item.id)}}>Add To Cart</button>
-                            </Link>
-                        </CardFooter>
-                    </Card>
-                    </Link>
+    return (
+        <GridContainer>
+            {   productsLst.slice(0, 9).map((item,index) => {
+                return (
+                    <GridItem md={4} sm={4} key={index}>
+                        <Link to={`/product/${item.id}`}>
+                            <Card plain product >
+                                <CardHeader noShadow image>
+                                    <a href="#pablo">
+                                        <img src={item.productImage} style={{width :200,height : 300}} alt=".."/>
+                                    </a>
+                                </CardHeader>
+                                <CardBody plain>
+                                    <a href="#pablo">
+                                        {/*<h4 className={classes.cardTitle}>{item.brand}</h4>*/}
+                                    </a>
+                                    <p className={classes.description}>
+                                        {item.description.substring(0, 40)} ...
+                                    </p>
+                                </CardBody>
+                                <CardFooter plain
+                                            className={classes.justifyContentBetween}>
+                                    <div className={classes.priceContainer}>
+                                        <span className={classes.price}> {item.price} TND</span>
+                                    </div>
+                                    <Tooltip
+                                        id="tooltip-top"
+                                        title="Saved to Wishlist"
+                                        placement="left"
+                                        classes={{tooltip: classes.tooltip}}
+                                    >
+                                        <Button
+                                            justIcon
+                                            simple
+                                            color="rose"
+                                            className={classes.pullRight}
+                                        >
+                                            <Favorite/>
+                                        </Button>
+                                    </Tooltip>
+                                    <Link to="/shoppingCart">
+                                        <button className="btn btn-outline-dark btn-fitMe-cart" onClick={()=>{addToCartHandler(item.id)}}>Add To Cart</button>
+                                    </Link>
+                                </CardFooter>
+                            </Card>
+                        </Link>
 
-                </GridItem>
+                    </GridItem>
 
-            )
+                )
 
-        })}
-        <GridItem
-            md={3}
-            sm={3}
-            className={classNames(classes.mlAuto, classes.mrAuto)}
-        >
-            <Button round style={{color: "rose"}}>
-                Load more...
-            </Button>
+            })}
+            <GridItem
+                md={3}
+                sm={3}
+                className={classNames(classes.mlAuto, classes.mrAuto)}
+            >
+                <Button round style={{color: "rose"}}>
+                    Load more...
+                </Button>
 
-        </GridItem>
-    </GridContainer>
-        )
+            </GridItem>
+        </GridContainer>
+    )
 
 }

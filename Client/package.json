@@ -84,6 +84,7 @@
         "react-native-inline-datepicker": "^1.2.0",
         "react-paypal-button-v2": "^2.6.2",
         "react-perfect-scrollbar": "^1.5.8",
+        "react-pure-loaders": "^3.0.1",
         "react-rangeslider": "^2.2.0",
         "react-rating": "^2.0.5",
         "react-rating-tooltip": "^1.1.6",
