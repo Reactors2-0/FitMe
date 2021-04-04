@@ -29,9 +29,9 @@ import StarRatings from "react-star-ratings"
 import Breadcrumbs from "@BackOfficeComponents/Common/Breadcrumb";
 
 //Import actions
-import Reviews from "./Reviews"
+import Reviews from "../Ecommerce/EcommerceProducts/Reviews"
 import {useState} from "react";
-import * as productAction from "../../../../actions/productAction";
+import * as productAction from "../../../actions/productAction";
 
 function EcommerceProductDetail ({match,history}) {
 
