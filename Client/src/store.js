@@ -21,7 +21,10 @@ import {
     EditProduct,
 } from "./reducers/productReducers";
 import {cartReducer} from "./reducers/cartReducers";
-
+import {
+  categoryList,
+Repondre,
+} from "./reducers/AdminReducers";
 
 import {
   listBrands,
@@ -44,7 +47,8 @@ import {
 
 
 const rootReducer = combineReducers({
-
+ listcategory:categoryList,
+ listrepondre:Repondre,
   listBrands:listBrands,
   brandByUserId:brandByUserIdCall,
   Brand:Brand,
@@ -72,6 +76,7 @@ const rootReducer = combineReducers({
   userDetails: getUser,
   forgotPasswordDetails: forgotPassword,
   resetPasswordDetails: resetPassword,
+
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

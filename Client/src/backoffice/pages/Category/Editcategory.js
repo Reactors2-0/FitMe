@@ -1,5 +1,6 @@
 import React, {useState} from "react"
-import { Link } from "react-router-dom"
+import { useParams, useHistory } from "react-router-dom";
+
 import MetaTags from 'react-meta-tags';
 import {
   Button,
@@ -20,16 +21,30 @@ import Dropzone from "react-dropzone"
 import {useDispatch} from "react-redux";
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb"
-import {Category} from "../../../actions/AdminAction";
+import {editcategory} from "../../../actions/AdminAction";
 
-const AddProduct = () =>  {
+const EditCategory = () =>  
+
+
+
+
+{
+
+
+  let history = useHistory();
+  var { category_id } = useParams();
+
+console.log('====================================');
+console.log(category_id);
+console.log('====================================');
+
   const [name, setName] = useState("");
  
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(Category({ name}));
+    dispatch(editcategory({ name}));
   };
 
   
@@ -42,7 +57,7 @@ const AddProduct = () =>  {
           </MetaTags>
           <Container fluid>
             {/* Render Breadcrumb */}
-            <Breadcrumbs title="Dashborad" breadcrumbItem="Add Category" />
+            <Breadcrumbs title="Dashborad" breadcrumbItem="Edit Category" />
 
             <Row>
               <Col xs="12">
@@ -101,4 +116,4 @@ const AddProduct = () =>  {
      );
 };
 
-export default AddProduct;
+export default EditCategory;
