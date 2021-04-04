@@ -22,7 +22,7 @@ import UserProfile from "../backoffice/pages/Authentication/UserProfile"
 
 //Ecommerce Pages
 import EcommerceProducts from "../backoffice/pages/Ecommerce/EcommerceProducts/index"
-import EcommerceProductDetail from "../backoffice/pages/Ecommerce/EcommerceProducts/EcommerceProductDetail"
+import ProductDetail from "../backoffice/pages/Products/ProductDetail"
 import EcommerceOrders from "../backoffice/pages/Ecommerce/EcommerceOrders/index"
 //import EcommerceCustomers from "../backoffice/pages/Ecommerce/EcommerceCustomers/index"
 import EcommerceCart from "../backoffice/pages/Ecommerce/EcommerceCart"
@@ -89,9 +89,7 @@ const authProtectedBackRoutes = [
     //chat
 
     //Ecommerce
-    { path: "/product-detail/:id", component: EcommerceProductDetail },
-    // { path: "/ecommerce-products", component: EcommerceProducts },
-    //{ path: "/ecommerce-product-detail/:id", component: EcommerceProductDetail },
+    { path: "/product-detail/:id", component: ProductDetail },
 
     { path: "/ecommerce-orders", component: EcommerceOrders },
     //    { path: "/ecommerce-customers", component: EcommerceCustomers },

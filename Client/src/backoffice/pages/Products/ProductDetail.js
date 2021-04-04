@@ -33,7 +33,7 @@ import Reviews from "../Ecommerce/EcommerceProducts/Reviews"
 import {useState} from "react";
 import * as productAction from "../../../actions/productAction";
 
-function EcommerceProductDetail ({match,history}) {
+function ProductDetail ({match,history}) {
 
   const [activeTab,setActiveTab] =useState("1")
 
@@ -342,17 +342,5 @@ console.log("dsqdsqd",match.params.id)
 
 }
 
-// EcommerceProductDetail.propTypes = {
-//   product: PropTypes.object,
-//   match: PropTypes.object,
-//   onGetProductDetail: PropTypes.func,
-// }
-//
-// const mapStateToProps = ({ ecommerce }) => ({
-//   product: ecommerce.product,
-// })
-//
-// const mapDispatchToProps = dispatch => ({
-// })
 
-export default EcommerceProductDetail
+export default ProductDetail

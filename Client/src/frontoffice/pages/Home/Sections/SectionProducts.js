@@ -22,7 +22,9 @@ const useStyles = makeStyles(styles);
 
 export default function SectionProducts(props) {
     const classes = useStyles();
+    const [productsToFetch,setProductsToFetch] = useState([])
     const {products, loading, count, error, searchProductKey} = useProduct("", "", "", "", "");
+
     return (
         <>
             {loading ? (<>

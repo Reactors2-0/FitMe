@@ -29,6 +29,7 @@ import {addToCart} from "../../../../actions/cartAction";
 import {useDispatch} from "react-redux";
 
 export default function ProductList(props) {
+    console.log(props.productsLst)
     const productsLst =props.productsLst;
     const classes = useStyles();
     const dispatch = useDispatch();

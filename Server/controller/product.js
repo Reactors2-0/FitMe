@@ -23,13 +23,13 @@ const getProducts = asyncHandler(async (req,res,next)=>{
             {price: {$gt: Number(ltORgt.priceMin), $lt: Number(ltORgt.priceMax)}}:
             {};
 
-        const searchProduct = await Product.find(priceRange).populate('category').populate('brand');
+        const searchProduct = await Product.find(priceRange).populate('Category').populate('brand');
         res.status(200).send({
             status: "success",
             data: { results : searchProduct , count: searchProduct.length }
         })
     }else{
-        const products = await Product.find().populate('brand').populate('category');
+        const products = await Product.find().populate('brand').populate('Category');
 
         res.status(200).send({
             status: "success",
@@ -42,7 +42,7 @@ const getProduct =asyncHandler(async (req,res,next)=>{
     const product= await Product.findById(req.params.productId).populate({
         path : "Review",
         select: "title text"
-    }).populate('category').populate('brand');
+    }).populate('Category').populate('brand');
     if(!product)
         throw createError(404,`Product with id ${req.params.productId} not found`);
 
