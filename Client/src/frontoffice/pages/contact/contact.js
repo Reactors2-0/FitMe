@@ -69,15 +69,15 @@ export default function ContactUsPage() {
             <br></br>
             <br></br>
             {error && (
-                <ErrorMessage
-                    header="Please Put All Info"
-                    message={error}
-                />
+                <SuccessMessage
+                header="Message SuccessFully Sent"
+                message={mesage}
+            />
             )}
             {success && (
                 <SuccessMessage
                     header="Message SuccessFully Sent"
-                    message={message}
+                    message={mesage}
                 />
             )}
             <div className={classNames(classes.main, classes.mainRaised)}>

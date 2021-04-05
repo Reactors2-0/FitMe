@@ -25,7 +25,7 @@ import {
   categoryList,
   Repondre,
 } from "./reducers/AdminReducers";
-import { ContactList } from "./reducers/contactReducers"
+import { ContactList,userContact } from "./reducers/contactReducers"
 
 import {
   listBrands,
@@ -49,7 +49,7 @@ import {
 
 const rootReducer = combineReducers({
   ContactList: ContactList,
-
+  userContact:userContact,
   listcategory: categoryList,
   listrepondre: Repondre,
   listBrands: listBrands,

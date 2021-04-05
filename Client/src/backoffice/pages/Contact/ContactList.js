@@ -3,10 +3,10 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../User/Message";
-import { listContactForContact } from "../../../actions/contactAction";
+import { listContactForContact ,deleteContact } from "../../../actions/contactAction";
 
 import Loader from "../User/Loader";
-import {Badge, Card, CardBody, CardTitle, Container} from "reactstrap";
+import {Badge, Card, CardBody, CardTitle, Container,Col} from "reactstrap";
 import {Link} from "react-router-dom";
 import MetaTags from "react-meta-tags";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
@@ -25,7 +25,12 @@ const CategoryList = ({ history }) => {
 
   }, [dispatch,contacts]);
 
-  
+  const deleteHandler = (id) => {
+
+    if (window.confirm("Are you sure want to delete ? ")) {
+      dispatch(deleteContact(id));
+    }
+  };
 
 
   return (
@@ -95,14 +100,43 @@ const CategoryList = ({ history }) => {
         <td>{Contact.name}</td>
         <td>{Contact.email}</td>
         <td>{Contact.phone}</td>
+   <td>
+   <Col xl={4}>
 
-        <td>
+                          <div>
+                            
 
-         
-         
-       
-        </td>
-      
+                            <div>
+                              <div
+                                className="btn-group btn-group-example mb-3"
+                                role="group"
+                              >
+                                
+                                <button
+                                  type="button"
+                                  className="btn btn-danger w-xs"
+                                  onClick={() => deleteHandler(Contact._id)}
+                                >
+            <i className="fas fa-trash"></i>
+                                </button>{" "}
+                                <a
+                                  type="button"
+                                  className="btn btn-primary w-xs"
+                                  href={"/dashboard/admin/Repondre/"+ Contact._id}
+
+                                >
+                                  <i className="bx bx-mail-send"></i>
+                                </a>{" "}
+                              </div>
+                            </div>
+
+                            
+                          </div>
+                      </Col>
+
+                      </td>
+        
+                   
         </tr>
         ))}
         </tbody>

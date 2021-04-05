@@ -106,7 +106,7 @@ class SidebarContent extends Component {
               { userRole === "admin" ? (
                   <>
                     <li>
-                      <Link to="/dashboard/admin/Repondre" className=" waves-effect">
+                      <Link to="/dashboard/admin/Contact" className=" waves-effect">
                         <i className="bx bx-envelope"/>
                         <span>Contact</span>
                       </Link>
@@ -145,7 +145,7 @@ class SidebarContent extends Component {
                       </Link>
                     </li>
                     <li>
-                      <Link to="/dashboard/admin/Repondre" className=" waves-effect">
+                      <Link to="/dashboard/admin/Contact" className=" waves-effect">
                         <i className="bx bx-envelope"/>
                         <span>Contact</span>
                       </Link>

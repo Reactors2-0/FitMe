@@ -57,4 +57,23 @@ export const listContactForContact = (initialLoading) => async (dispatch) => {
         });
     }
   };
+  export const deleteContact = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: userConstants.USER_CONTACT_START });
+        const { userLogin: { userInfo }, } = getState();
+        const config = { headers: { Authorization: `Bearer ${userInfo.token}`, }, };
+        await axios.delete(`/api/contact/contactus/${id}`, config).then((resp) => {
+            dispatch({
+                type: userConstants.USER_CONTACT_SUCCESS,
+            });
+        });
+    } catch (error) {
+        dispatch({
+            type: userConstants.USER_CONTACT_FAIL,
+            payload: error.response && error.response.data.error ?
+                error.response.data.error :
+                error.message,
+        });
+    }
+  };
   
