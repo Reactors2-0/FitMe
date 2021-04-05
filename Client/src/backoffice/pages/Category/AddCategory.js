@@ -23,13 +23,13 @@ import Breadcrumbs from "../../components/Common/Breadcrumb"
 import {Category} from "../../../actions/AdminAction";
 
 const AddProduct = () =>  {
-  const [name, setName] = useState("");
+  const [categoryName, setName] = useState("");
  
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(Category({ name}));
+    dispatch(Category({ categoryName}));
   };
 
   
@@ -61,7 +61,7 @@ const AddProduct = () =>  {
                               name="productname"
                               type="text"
                               className="form-control"
-                              value={name}
+                              value={categoryName}
                              onChange={(e) => setName(e.target.value)}
                             />
                           </FormGroup>

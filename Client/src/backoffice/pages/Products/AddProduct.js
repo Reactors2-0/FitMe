@@ -72,7 +72,7 @@ class AddProduct extends Component {
 
     componentWillMount() {
 
-      fetch("http://localhost:3000/api/category/")
+      fetch("http://localhost:5000/api/category/")
           .then(res => res.json())
           .then(
               (result) => {
@@ -85,7 +85,7 @@ class AddProduct extends Component {
               })
 
 
-      fetch("http://localhost:3000/api/brands")
+      fetch("http://localhost:5000/api/brands")
           .then(res => res.json())
           .then(
               (result) => {

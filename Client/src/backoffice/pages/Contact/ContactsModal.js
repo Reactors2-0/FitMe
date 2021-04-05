@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import PropTypes from "prop-types"
 import {
   Button,
@@ -23,10 +23,25 @@ import {
 import * as userAction from "../../../actions/AdminAction";
 import { Editor } from "react-draft-wysiwyg"
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import ErrorMessage from "@FrontOfficeComponents/Message/errorMessage";
+import SuccessMessage from "@FrontOfficeComponents/Message/successMessage";
+import * as userConstants from "@Constants/AdminConstants";
+
 const EcommerceOrdersModal = props => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const forgotPasswordDetails = useSelector(
+    (state) => state.listrepondre
+  );
+
+  const { loading, error, mesage, success } = forgotPasswordDetails;
+  useEffect(() => {
+    if (success) {
+      console.log('====================================');
+      console.log("helooooooooooooooooooooooooo");
+      console.log('====================================');    }
+  }, [success]);
 
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
@@ -36,6 +51,8 @@ const EcommerceOrdersModal = props => {
 
   const { isOpen, toggle } = props
   return (
+    
+      
     <Modal
       isOpen={isOpen}
       role="dialog"
@@ -45,6 +62,18 @@ const EcommerceOrdersModal = props => {
       tabIndex="-1"
       toggle={toggle}
     >
+      {error && (
+        <ErrorMessage
+          header="Auth Error"
+          message={error}
+        />
+      )}
+      {success && (
+        <SuccessMessage
+          header="Done"
+          message={message}
+        />
+      )}
       <div className="modal-content">
         <ModalHeader toggle={toggle}>Mail Details</ModalHeader>
         <ModalBody>

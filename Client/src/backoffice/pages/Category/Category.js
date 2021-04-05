@@ -16,11 +16,9 @@ const CategoryList = ({ history }) => {
   const dispatch = useDispatch();
 
   const listcategory = useSelector((state) => state.listcategory);
-  const { loading, error, categorys } = listcategory;
+  const { loading, error, categorys ,success} = listcategory;
 
-console.log('====================================');
-console.log(listcategory);
-console.log('====================================');
+
 
   useEffect(() => {
       dispatch(listCategoryForAdmin());
@@ -54,7 +52,7 @@ console.log('====================================');
 
         <Card>
         <CardBody>
-        <CardTitle className="mb-4 h4">List Users <div className="text-sm-end">
+        <CardTitle className="mb-4 h4">List Category <div className="text-sm-end">
                                     <a
                                         href="/dashboard/admin/AddCategory"
                                         className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
@@ -80,7 +78,6 @@ console.log('====================================');
         ></label>
         </div>
         </th>
-        <th className="align-middle">ID</th>
         <th className="align-middle"> Name</th>
  
 
@@ -103,13 +100,8 @@ console.log('====================================');
         ></label>
         </div>
         </td>
-        <td>
-        <Link to="#" className="text-body fw-bold">
-      {" "}
-      {category.uid}{" "}
-        </Link>{" "}
-        </td>
-        <td>{category.name}</td>
+     
+        <td>{category.categoryName}</td>
     
         
         <td>

@@ -18,7 +18,6 @@ const getCategory = asyncHandler(async (req, res, next) => {
     res.status(200).send({ status: "success", data: category });
 });
 const addCategory = asyncHandler(async (req, res, next) => {
-    console.log(req)
     const category = await Category.create(req.body);
 
     res.status(201).send({ status: "success", data: req.body });

@@ -72,7 +72,7 @@ const createProduct = asyncHandler(async (req,res,next)=>{
     console.log(file.preview)
 
     cloudinary.uploader.upload(
-        "C:\\Users\\Med\\Pictures\\"+file.path,
+        "C:\\"+file.path,
         {use_filename: true, folder: "products"},
         async function (error, result) {
             console.log(error)

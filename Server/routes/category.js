@@ -18,12 +18,9 @@ const router = require("express").Router();
 router
     .route("/")
     .get(advanceResults(Category), getCategories)
-    .post(protect, addCategory);
+    .post(addCategory);
 
-router
-    .route("/:categoryId")
-    .get(getCategory)
-    .put(protect, permission("admin"), updateCategory)
-    .delete(protect, permission("admin"), removeCategory);
+
+    router.route("/:id").get(getCategory).put(updateCategory).delete(removeCategory);
 
 module.exports = router;
