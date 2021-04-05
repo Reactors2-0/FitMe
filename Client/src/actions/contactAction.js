@@ -30,3 +30,31 @@ export const Register = (name, email, phone, message) => async (dispatch) => {
         });
     }
 };
+export const listContactForContact = (initialLoading) => async (dispatch) => {
+    try {
+        if (initialLoading) {
+            dispatch({
+                type: userConstants.USER_CONTACT_START
+            });
+        }
+        await axios.get(`/api/contact/`).then((resp) => {
+            const categoryList = resp.data.data.results;
+            const totalcategory = resp.data.data.count;
+            dispatch({
+                type: userConstants.USER_CONTACT_SUCCESS,
+                payload: {
+                  categoryList,
+                    totalcategory
+                } ,
+            });
+        });
+    } catch (error) {
+        dispatch({
+            type: userConstants.USER_CONTACT_FAIL,
+            payload: error.response && error.response.data.error ?
+                error.response.data.error :
+                error.message,
+        });
+    }
+  };
+  
