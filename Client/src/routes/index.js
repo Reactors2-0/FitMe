@@ -14,6 +14,7 @@ import EditCategory from "../backoffice/pages/Category/Editcategory"
 
 /** SADEK Imports END*/
 
+import ContactUsPage from "../frontoffice/pages/contact/contact"
 
 
 // User profile
@@ -67,7 +68,7 @@ const authProtectedBackRoutes = [
     { path: "/add-product", component: AddProduct },
 
 
- 
+
 
     // this route should be at the end of all other routes
     { path: "*", exact: true, component: () => <Redirect to="/dashboard" /> },
@@ -75,6 +76,7 @@ const authProtectedBackRoutes = [
 ]
 
 const publicFrontRoutes = [
+    { path: "/contact", component: ContactUsPage },
 
     { path: "/brandSignup", component: BrandSignup },
     { path: "/", component: Home },

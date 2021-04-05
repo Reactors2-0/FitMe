@@ -12,19 +12,20 @@ import {
   resetPassword,
 } from "./reducers/userReducers";
 import {
-    listProducts,
-    Product,
-    // productReview,
-    // createReview,
-    deleteProduct,
-    createProduct,
-    EditProduct,
+  listProducts,
+  Product,
+  // productReview,
+  // createReview,
+  deleteProduct,
+  createProduct,
+  EditProduct,
 } from "./reducers/productReducers";
-import {cartReducer} from "./reducers/cartReducers";
+import { cartReducer } from "./reducers/cartReducers";
 import {
   categoryList,
-Repondre,
+  Repondre,
 } from "./reducers/AdminReducers";
+import { userContact } from "./reducers/contactReducers"
 
 import {
   listBrands,
@@ -47,14 +48,16 @@ import {
 
 
 const rootReducer = combineReducers({
- listcategory:categoryList,
- listrepondre:Repondre,
-  listBrands:listBrands,
-  brandByUserId:brandByUserIdCall,
-  Brand:Brand,
-  deleteBrand:deleteBrand,
-  createBrand:createBrand,
-  editBrand:editBrand,
+  userContact: userContact,
+
+  listcategory: categoryList,
+  listrepondre: Repondre,
+  listBrands: listBrands,
+  brandByUserId: brandByUserIdCall,
+  Brand: Brand,
+  deleteBrand: deleteBrand,
+  createBrand: createBrand,
+  editBrand: editBrand,
   createOrder: createOrderReducer,
   orderDetails: getOrder,
   authOrders: authOrders,
@@ -80,19 +83,19 @@ const rootReducer = combineReducers({
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
-    ? JSON.parse(localStorage.getItem("userInfo"))
-    : null;
+  ? JSON.parse(localStorage.getItem("userInfo"))
+  : null;
 const cartItemsFromStorage = localStorage.getItem("cartItems")
-    ? JSON.parse(localStorage.getItem("cartItems"))
-    : [];
+  ? JSON.parse(localStorage.getItem("cartItems"))
+  : [];
 
 const shippingAddressFromStorage = localStorage.getItem("shippingAddress")
-    ? JSON.parse(localStorage.getItem("shippingAddress"))
-    : {};
+  ? JSON.parse(localStorage.getItem("shippingAddress"))
+  : {};
 
 const paymentMethodAddressFromStorage = localStorage.getItem("paymentMethod")
-    ? JSON.parse(localStorage.getItem("paymentMethod"))
-    : "";
+  ? JSON.parse(localStorage.getItem("paymentMethod"))
+  : "";
 const initialState = {
   cart: {
     cartItems: cartItemsFromStorage,
