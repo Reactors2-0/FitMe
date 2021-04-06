@@ -147,7 +147,7 @@ const forgotPassword = asyncHandler(async (req, res, next) => {
     await user.save({ validateBeforeSave: false });
 
     try {
-        const resetUrl = `http://localhost:4000/resetPassword/?token=${resetToken}`;
+        const resetUrl = `http://localhost:5000/resetPassword/?token=${resetToken}`;
 
         const message = `You are receiving this email because you (or someone else ) has
     requested the reset of a password.`;

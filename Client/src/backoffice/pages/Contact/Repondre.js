@@ -1,5 +1,6 @@
-import React, {useState} from "react"
+import React, {useState,useEffect} from "react"
 import { useParams, useHistory } from "react-router-dom";
+import { useDispatch, useSelector} from "react-redux"
 
 import MetaTags from 'react-meta-tags';
 import {
@@ -18,25 +19,43 @@ import {
 } from "reactstrap"
 import Select from "react-select"
 import Dropzone from "react-dropzone"
-import {useDispatch} from "react-redux";
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb"
 import * as userAction from "../../../actions/AdminAction";
+import * as contactAction from "../../../actions/contactAction";
 
-const EditCategory = ( ) =>  
+const Repnodre = ( {match, history}) =>  
 {
 
-  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState("");
   const [email, setEmail] = useState("");
+  const redirect = location.search ? location.search.split("=")[1] : "/";
+  const productData = useSelector((state) => state.Contact);
 
+  console.log("dsqdsqd",match.params.id)
+      const { loading, contacts, error } = productData;
  
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    dispatch(contactAction.Contactid(match.params.id));
+    // eslint-disable-next-line
+}, [dispatch, match]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(userAction.Repondre({email},{ message }));
-  };
+    if (window.confirm("Are you sure Send ? ")) {
+    dispatch(userAction.Repondre({email},{messages}));
+    history.push(redirect + "dashboard/admin/Contact");
 
+
+  }
+  };
+  
+  const handleChange = (e) => {
+    setEmail({
+      ...contacts,
+      [e.target.email]: e.target.value,
+    });
+  }
   
 
     return (
@@ -65,8 +84,8 @@ const EditCategory = ( ) =>
                               name="productname"
                               type="text"
                               className="form-control"
-                              value={email}
-                             onChange={(e) => setEmail(e.target.value)}
+                              onChange={handleChange}
+                                defaultValue={contacts.email}
                             />
                            
                            
@@ -76,8 +95,9 @@ const EditCategory = ( ) =>
                               name="productname"
                               type="text"
                               className="form-control"
-                              value={message}
-                             onChange={(e) => setMessage(e.target.value)}
+                             
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                           </FormGroup>
                          
@@ -116,4 +136,4 @@ const EditCategory = ( ) =>
      );
 };
 
-export default EditCategory;
+export default Repnodre;

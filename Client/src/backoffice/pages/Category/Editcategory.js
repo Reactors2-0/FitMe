@@ -21,21 +21,33 @@ import Dropzone from "react-dropzone"
 import { useDispatch, useSelector} from "react-redux"
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb"
-import {editcategory,categoryid} from "../../../actions/AdminAction";
+import * as CategoryAction from "../../../actions/AdminAction";
 
-function EditCategory  () {
+function EditCategory  ({match, history}) {
 
-  const [name, setName] = useState("");
+  const [categoryName, setName] = useState("");
  
-  
-  const dispatch = useDispatch();
+  const redirect = location.search ? location.search.split("=")[1] : "/";
 
+  const dispatch = useDispatch();
+  const productData = useSelector((state) => state.category);
+
+  console.log("dsqdsqd",match.params.id)
+      const { loading, categoryi, error } = productData;
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(editcategory({ name}));
+    dispatch(CategoryAction.editcategory( categoryName));
   };
-
-
+  useEffect(() => {
+    dispatch(CategoryAction.categoryid(match.params.id));
+    // eslint-disable-next-line
+}, [dispatch, match]);
+const handleChange = (e) => {
+  setName({
+    ...categoryi,
+    [e.target.categoryName]: e.target.value,
+  });}
     return (
       <React.Fragment>
         <div className="page-content">
@@ -63,9 +75,8 @@ function EditCategory  () {
                               name="productname"
                               type="text"
                               className="form-control"
-                              value={name}
-
-                             onChange={(e) => setName(e.target.value)}
+                              onChange={handleChange}
+                                defaultValue={categoryi.categoryName}
                             />
                           </FormGroup>
                          

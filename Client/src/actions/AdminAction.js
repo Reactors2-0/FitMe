@@ -2,12 +2,13 @@ import axios from "axios";
 import * as userConstants from "../constants/AdminConstants";
 import * as categoryConstants from "../constants/categoryConstants";
 
-export const Repondre = (email,message) => async (dispatch) => {
+export const Repondre = (email,messages) => async (dispatch) => {
   try {
     dispatch({ type: userConstants.Repondre_SEND_START });
 
-    await axios.post(`/api/v1/admin/Repondre`, email,message).then((resp) => {
+    await axios.post(`/api/v1/admin/Repondre`, email,messages).then((resp) => {
       const confirmMessage = resp.data.message;
+    
       dispatch({
         type: userConstants.Repondre_SEND_SUCCESS,
         payload: confirmMessage,

@@ -19,13 +19,12 @@ const Repondre = asyncHandler(async (req, res, next) => {
 
     try {
 
-        const message = ` ${req.body.message}.`;
 
         const options = {
             email: user.email,
             subject: "Repondre reclamtion",
-            message:message,
-            url: message,
+            name:req.body.messages,
+        
         };
 
         await sendEmailadmin(options);
