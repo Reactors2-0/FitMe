@@ -27,13 +27,14 @@ const EditCategory = ( ) =>
 {
 
   const [message, setMessage] = useState("");
+  const [email, setEmail] = useState("");
 
  
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(userAction.Repondre({ email },{ message }));
+    dispatch(userAction.Repondre({email},{ message }));
   };
 
   
@@ -64,7 +65,18 @@ const EditCategory = ( ) =>
                               name="productname"
                               type="text"
                               className="form-control"
-                              value={name}
+                              value={email}
+                             onChange={(e) => setEmail(e.target.value)}
+                            />
+                           
+                           
+                           
+                            <Input
+                              id="productname"
+                              name="productname"
+                              type="text"
+                              className="form-control"
+                              value={message}
                              onChange={(e) => setMessage(e.target.value)}
                             />
                           </FormGroup>

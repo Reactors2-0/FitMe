@@ -127,3 +127,26 @@ export const listCategoryForAdmin = (initialLoading) => async (dispatch) => {
       });
   }
 };
+export const categoryid = (id) => async (dispatch) => {
+  try {
+      dispatch({ type: categoryConstants.Category_START });
+
+      await axios.get(`/api/category/${id}`).then((resp) => {
+          const categoryi = resp.data.data;
+        
+          dispatch({
+              type: categoryConstants.Category_SUCCESS,
+              payload: categoryi,
+              
+          });
+      });
+  } catch (error) {
+      dispatch({
+          type: categoryConstants.Category_FAIL,
+          payload:
+              error.response && error.response.data.error
+                  ? error.response.data.error
+                  : error.message,
+      });
+  }
+};

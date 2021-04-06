@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useState,useEffect} from "react"
 import { useParams, useHistory } from "react-router-dom";
 
 import MetaTags from 'react-meta-tags';
@@ -18,28 +18,16 @@ import {
 } from "reactstrap"
 import Select from "react-select"
 import Dropzone from "react-dropzone"
-import {useDispatch} from "react-redux";
+import { useDispatch, useSelector} from "react-redux"
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb"
-import {editcategory} from "../../../actions/AdminAction";
+import {editcategory,categoryid} from "../../../actions/AdminAction";
 
-const EditCategory = () =>  
-
-
-
-
-{
-
-
-  let history = useHistory();
-  var { category_id } = useParams();
-
-console.log('====================================');
-console.log(category_id);
-console.log('====================================');
+function EditCategory  () {
 
   const [name, setName] = useState("");
  
+  
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -47,7 +35,6 @@ console.log('====================================');
     dispatch(editcategory({ name}));
   };
 
-  
 
     return (
       <React.Fragment>
@@ -77,13 +64,13 @@ console.log('====================================');
                               type="text"
                               className="form-control"
                               value={name}
+
                              onChange={(e) => setName(e.target.value)}
                             />
                           </FormGroup>
                          
                         </Col>
 
-                        
                       </Row>
                       <div className="d-flex flex-wrap gap-2">
                       <Button

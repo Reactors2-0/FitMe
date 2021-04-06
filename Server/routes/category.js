@@ -20,7 +20,7 @@ router
     .get(advanceResults(Category), getCategories)
     .post(addCategory);
 
-
+  
     router.route("/:id").get(getCategory).put(updateCategory).delete(removeCategory);
 
 module.exports = router;

@@ -24,6 +24,7 @@ import { cartReducer } from "./reducers/cartReducers";
 import {
   categoryList,
   Repondre,
+  category,
 } from "./reducers/AdminReducers";
 import { ContactList,userContact } from "./reducers/contactReducers"
 
@@ -51,6 +52,7 @@ const rootReducer = combineReducers({
   ContactList: ContactList,
   userContact:userContact,
   listcategory: categoryList,
+  category:category ,
   listrepondre: Repondre,
   listBrands: listBrands,
   brandByUserId: brandByUserIdCall,
