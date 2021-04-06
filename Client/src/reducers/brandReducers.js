@@ -22,7 +22,7 @@ export const listBrands = (state = { brands: [] }, action) => {
       return state;
   }
 };
-export const toggleVerify = (state , action) => {
+export const toggleVerify = (state={} , action) => {
   switch (action.type) {
     case brandConstants.BRAND_TOGGLEVERIFY_START:
       return {
