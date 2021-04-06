@@ -12,13 +12,14 @@ const expressListRoutes = require('express-list-routes');
 dotenv.config({ path: ".env" });
 
 connectDb();
-//! Moetaz Routes
 const productRouter = require("./routes/product");
+const categoryRouter = require("./routes/category");
+
 const reviewRouter = require("./routes/review");
 const orderRouter = require("./routes/order");
 //! Sadek
 const adminRouter = require("./routes/Admin");
-const catgoryRouter =require("./routes/Category")
+const contactRoute = require("./routes/contact")
 
 //! Moetaz Routes
 const authRouter = require("./routes/auth");
@@ -34,9 +35,12 @@ app.use(
         useTempFiles: true,
     })
 );
-app.use("/api/catgory", catgoryRouter)
+app.use("/api/contact", contactRoute);
+
 app.use("/api/brands", brandRouter);
 app.use("/api/product", productRouter);
+app.use("/api/category", categoryRouter);
+
 app.use("/api/review", reviewRouter);
 app.use("/api/v1/order", orderRouter);
 app.use("/api/v1/admin", adminRouter);

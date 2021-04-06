@@ -11,19 +11,25 @@ const ProductSchema = new mongoose.Schema(
             type: String,
             required: [true, "Image is required"],
         },
-        brand: {
-            type: String,
-            required: [true, "Brand is required"],
-            trim: true,
-        },
+        brand:
+            { type: mongoose.Schema.Types.ObjectId, ref: 'Brand' }
+        ,
         price: {
             type: Number,
             required: [true, "Price is required"],
         },
-        category: {
-            type: String,
-            required: [true, "Category is required"],
-        },
+        category:
+            { type: mongoose.Schema.Types.ObjectId, ref: 'category' }
+        ,
+        color:[{
+            value:String,
+            color : String,
+            label: String
+        }],
+        size:[{
+            value:String,
+            label:String
+        }],
         countInStock: {
             type: Number,
             default: 0,
@@ -37,6 +43,12 @@ const ProductSchema = new mongoose.Schema(
             type: Number,
             min: [1, "Rating must be at least 1"],
             max: [10, "Rating must can not be more than 10"],
+        },
+        isDiscounted: {
+            type: Boolean,
+        },
+        discount: {
+            type: Number,
         },
         createdAt: {
             type: Date,
@@ -59,5 +71,6 @@ ProductSchema.virtual("Reviews", {
     foreignField: "productId",
     justOne: false,
 });
+
 
 module.exports = mongoose.model("Product", ProductSchema);

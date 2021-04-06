@@ -3,138 +3,156 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../User/Message";
-import { userList, userDelete, userblock } from "../../../actions/userAction";
+import { deleteCategory,listCategoryForAdmin,editcategory } from "../../../actions/AdminAction";
 
 import Loader from "../User/Loader";
-import { Badge, Card, CardBody, CardTitle ,Col, Container, Row} from "reactstrap";
-import { Link } from "react-router-dom";
+import {Badge, Card, CardBody, CardTitle, Container,Col} from "reactstrap";
+import {Link} from "react-router-dom";
 import MetaTags from "react-meta-tags";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
-import CategoryModal from "../Category/CategoryModal"
 
 
-const Category = ({ history }) => {
+const CategoryList = ({ history }) => {
   const dispatch = useDispatch();
 
-  const userListBack = useSelector((state) => state.userListBack);
-  const { loading, error, users } = userListBack;
+  const listcategory = useSelector((state) => state.listcategory);
+  const { loading, error, categorys ,success} = listcategory;
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
 
-  const userDeleteDetails = useSelector((state) => state.userDeleteDetails);
-  const { success: successDelete } = userDeleteDetails;
 
   useEffect(() => {
-    dispatch(userList());
+      dispatch(listCategoryForAdmin());
 
-  }, [dispatch, history, successDelete, userInfo]);
+  }, [dispatch,categorys]);
 
   const deleteHandler = (id) => {
 
     if (window.confirm("Are you sure want to delete ? ")) {
-      dispatch(userDelete(id));
+      dispatch(deleteCategory(id));
     }
   };
-  const blockHandler = (id) => {
 
-    if (window.confirm("Are you sure want to block.? ")) {
-      dispatch(userblock(id));
-    }
-  };
 
 
   return (
-    <React.Fragment>
-      <div className="page-content">
+      <React.Fragment>
+        <div className="page-content">
+
+          <Container fluid>
+            <Breadcrumbs title="Dashborad" breadcrumbItem="CategoryList" />
+
+
+            <>
+
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant="danger">{error}</Message>
+      ) : (
+
+        <Card>
+        <CardBody>
+        <CardTitle className="mb-4 h4">List Category <div className="text-sm-end">
+                                    <a
+                                        href="/dashboard/admin/AddCategory"
+                                        className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                                    >
+                                      <i className="fa fa-plus fa-sm text-white-50"></i> Add New Category
+                                    </a>
+                                  </div></CardTitle>
+        
+        <div className="table-responsive">
+        <table className="table align-middle table-nowrap mb-0">
+        <thead className="table-light">
+        <tr>
+        <th style={{ width: "20px" }}>
+        <div className="form-check font-size-16 align-middle" style={{ width: '24px' }}>
+        <input
+        type="checkbox"
+        className="form-check-input"
+        id="transactionCheck01"
+        />
+        <label
+        className="form-check-label"
+        htmlFor="transactionCheck01"
+        ></label>
+        </div>
+        </th>
+        <th className="align-middle"> Name</th>
+ 
+
+            <th className="align-middle">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+      {categorys.map((category) => (
+        <tr key={"_tr_" + category}>
+        <td>
+        <div className="form-check font-size-16">
+        <input
+        type="checkbox"
+        className="form-check-input"
+        id={category._id}
+        />
+        <label
+        className="form-check-label"
+        htmlFor={category._id}
+        ></label>
+        </div>
+        </td>
+     
+        <td>{category.categoryName}</td>
+    
+        
+        <td>
+        <Col xl={4}>
+
+<div>
   
-                             
-        <Container fluid>
-          <Breadcrumbs title="Dashborad" breadcrumbItem="UserList" />
+
+  <div>
+    <div
+      className="btn-group btn-group-example mb-3"
+      role="group"
+    >
       
+      <button
+        type="button"
+        className="btn btn-danger w-xs"
+        onClick={() => deleteHandler(category._id)}
+        >
+<i className="fas fa-trash"></i>
+      </button>{" "}
+      <Link
+        type="button"
+        className="btn btn-primary w-xs"
+        to={"/dashboard/admin/EditCategory/" + category._id}
 
-          <>
+      >
+        <i className="mdi mdi-pencil d-block font-size-16"></i>
+      </Link>{" "}
+    </div>
+  </div>
 
-            {loading ? (
-              <Loader />
-            ) : error ? (
-              <Message variant="danger">{error}</Message>
-            ) : (
-
-              <Card>
-                <CardBody>
-                  <CardTitle className="mb-4 h4">List Users</CardTitle>
-                  <div className="table-responsive">
-                    <table className="table align-middle table-nowrap mb-0">
-                      <thead className="table-light">
-                        <tr>
-                          <th style={{ width: "20px" }}>
-                            <div className="form-check font-size-16 align-middle" style={{ width: '24px' }}>
-                              <input
-                                type="checkbox"
-                                className="form-check-input"
-                                id="transactionCheck01"
-                              />
-                              <label
-                                className="form-check-label"
-                                htmlFor="transactionCheck01"
-                              ></label>
-                            </div>
-                          </th>
-                          <th className="align-middle">ID</th>
-                          <th className="align-middle"> Name</th>
-                         
-
-                          <th className="align-middle">Delete</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {users.map((user) => (
-                          <tr key={"_tr_" + user}>
-                            <td>
-                              <div className="form-check font-size-16">
-                                <input
-                                  type="checkbox"
-                                  className="form-check-input"
-                                  id={user.uid}
-                                />
-                                <label
-                                  className="form-check-label"
-                                  htmlFor={user.uid}
-                                ></label>
-                              </div>
-                            </td>
-                            <td>
-                              <Link to="#" className="text-body fw-bold">
-                                {" "}
-                                {user.uid}{" "}
-                              </Link>{" "}
-                            </td>
-                            <td>{user.name}</td>
-                           
-                            <td>
-
-                              <Button
-                                variant="danger"
-                                className="btn-sm"
-                                onClick={() => deleteHandler(user._id)}
-                              >
-                                <i className="fas fa-trash"></i>
-                              </Button>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </CardBody>
-              </Card>
-            )}
-          </>
-        </Container>
-      </div>
-    </React.Fragment>
+  
+</div>
+</Col>
+         
+        </td>
+      
+        </tr>
+        ))}
+        </tbody>
+        </table>
+        </div>
+        </CardBody>
+        </Card>
+      )}
+    </>
+          </Container>
+        </div>
+      </React.Fragment>
   );
 };
 
-export default Category;
+export default CategoryList;

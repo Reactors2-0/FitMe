@@ -9,20 +9,19 @@ import Tooltip from "@material-ui/core/Tooltip";
 // @material-ui icons
 import Favorite from "@material-ui/icons/Favorite";
 import styles from "@FrontOfficeAssets/jss/material-kit-pro-react/views/ecommerceStyle.js";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 import Card from "@FrontOfficeComponents/ui/Card/Card.js";
 import CardHeader from "@FrontOfficeComponents/ui/Card/CardHeader.js";
 import CardBody from "@FrontOfficeComponents/ui/Card/CardBody.js";
 import CardFooter from "@FrontOfficeComponents/ui/Card/CardFooter.js";
 import Button from "@FrontOfficeComponents/ui/CustomButtons/Button.js";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 import suit1 from "@FrontOfficeAssets/img/examples/suit-1.jpg";
 import GridItem from "../../../components/frontoffice/ui/Grid/GridItem";
 import GridContainer from "../../../components/frontoffice/ui/Grid/GridContainer";
-
 const useStyles = makeStyles(styles);
 import "../../../assets/css/style.css"
 import {useCart} from "../../../../hook/useCartHook";
@@ -30,7 +29,8 @@ import {addToCart} from "../../../../actions/cartAction";
 import {useDispatch} from "react-redux";
 
 export default function ProductList(props) {
-    const productsLst = props.productsLst;
+    console.log(props.productsLst)
+    const productsLst =props.productsLst;
     const classes = useStyles();
     const dispatch = useDispatch();
 
@@ -39,16 +39,20 @@ export default function ProductList(props) {
     };
     return (
         <GridContainer>
-            {productsLst.slice(0, 9).map((item, index) => {
+            {   productsLst.slice(0, 9).map((item,index) => {
                 return (
                     <GridItem md={4} sm={4} key={index}>
                         <Link to={`/product/${item.id}`}>
-                            <Card plain product>
+                            <Card plain product >
                                 <CardHeader noShadow image>
-                                        <img src={item.productImage} style={{width: 200, height: 300}} alt=".."/>
+                                    <a href="#pablo">
+                                        <img src={item.productImage} style={{width :200,height : 300}} alt=".."/>
+                                    </a>
                                 </CardHeader>
                                 <CardBody plain>
-                                    <h4 className={classes.cardTitle}>{item.brand}</h4>
+                                    <a href="#pablo">
+                                        {/*<h4 className={classes.cardTitle}>{item.brand}</h4>*/}
+                                    </a>
                                     <p className={classes.description}>
                                         {item.description.substring(0, 40)} ...
                                     </p>
@@ -74,10 +78,7 @@ export default function ProductList(props) {
                                         </Button>
                                     </Tooltip>
                                     <Link to="/shoppingCart">
-                                        <button className="btn btn-outline-dark btn-fitMe-cart" onClick={() => {
-                                            addToCartHandler(item.id)
-                                        }}>Add To Cart
-                                        </button>
+                                        <button className="btn btn-outline-dark btn-fitMe-cart" onClick={()=>{addToCartHandler(item.id)}}>Add To Cart</button>
                                     </Link>
                                 </CardFooter>
                             </Card>

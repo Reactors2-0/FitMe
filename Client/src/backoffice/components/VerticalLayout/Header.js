@@ -8,7 +8,6 @@ import { Link } from "react-router-dom"
 import { Row, Col, Dropdown, DropdownToggle, DropdownMenu } from "reactstrap"
 
 // Import menuDropdown
-import NotificationDropdown from "../CommonForBoth/TopbarDropdown/NotificationDropdown"
 import ProfileMenu from "../CommonForBoth/TopbarDropdown/ProfileMenu"
 
 
@@ -16,6 +15,7 @@ import logo from "./../../assets/images/logo-sm-light.png"
 import logoLight from "../../assets/images/logo-light.png"
 import logoLightSvg from "../../assets/images/logo-light.svg"
 import logoDark from "../../assets/images/logo-dark.png"
+
 
 
 class Header extends Component {

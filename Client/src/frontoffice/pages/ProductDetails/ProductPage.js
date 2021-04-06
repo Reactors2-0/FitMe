@@ -53,6 +53,11 @@ import { Link } from "react-router-dom";
 const useStyles = makeStyles(productStyle);
 
 export default function ProductPage({ match }) {
+    React.useEffect(() => {
+        window.scrollTo(0, 0);
+        document.body.scrollTop = 0;
+    });
+
     const [colorSelect, setColorSelect] = React.useState("0");
     const [sizeSelect, setSizeSelect] = React.useState("0");
     const productData = useSelector((state) => state.Product);

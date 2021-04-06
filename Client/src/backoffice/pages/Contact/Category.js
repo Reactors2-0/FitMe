@@ -3,10 +3,10 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../User/Message";
-import { listContactForContact ,deleteContact } from "../../../actions/contactAction";
+import { deleteCategory,listCategoryForAdmin,editcategory } from "../../../actions/AdminAction";
 
 import Loader from "../User/Loader";
-import {Badge, Card, CardBody, CardTitle, Container,Col} from "reactstrap";
+import {Badge, Card, CardBody, CardTitle, Container} from "reactstrap";
 import {Link} from "react-router-dom";
 import MetaTags from "react-meta-tags";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
@@ -15,22 +15,23 @@ import Breadcrumbs from "../../components/Common/Breadcrumb";
 const CategoryList = ({ history }) => {
   const dispatch = useDispatch();
 
-  const listcategory = useSelector((state) => state.ContactList);
-  const { loading, error, contacts ,success} = listcategory;
+  const listcategory = useSelector((state) => state.listcategory);
+  const { loading, error, categorys ,success} = listcategory;
 
 
 
   useEffect(() => {
-      dispatch(listContactForContact());
+      dispatch(listCategoryForAdmin());
 
-  }, [dispatch,contacts]);
+  }, [dispatch,categorys]);
 
   const deleteHandler = (id) => {
 
     if (window.confirm("Are you sure want to delete ? ")) {
-      dispatch(deleteContact(id));
+      dispatch(deleteCategory(id));
     }
   };
+
 
 
   return (
@@ -51,8 +52,13 @@ const CategoryList = ({ history }) => {
 
         <Card>
         <CardBody>
-        <CardTitle className="mb-4 h4">List Contact <div className="text-sm-end">
-                                  
+        <CardTitle className="mb-4 h4">List Category <div className="text-sm-end">
+                                    <a
+                                        href="/dashboard/admin/AddCategory"
+                                        className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                                    >
+                                      <i className="fa fa-plus fa-sm text-white-50"></i> Add New Category
+                                    </a>
                                   </div></CardTitle>
         
         <div className="table-responsive">
@@ -74,69 +80,50 @@ const CategoryList = ({ history }) => {
         </th>
         <th className="align-middle"> Name</th>
  
-        <th className="align-middle">Email</th>
-        <th className="align-middle">Phone</th>
 
             <th className="align-middle">Action</th>
         </tr>
         </thead>
         <tbody>
-      {contacts.map((Contact) => (
-        <tr key={"_tr_" + Contact}>
+      {categorys.map((category) => (
+        <tr key={"_tr_" + category}>
         <td>
         <div className="form-check font-size-16">
         <input
         type="checkbox"
         className="form-check-input"
-        id={Contact._id}
+        id={category._id}
         />
         <label
         className="form-check-label"
-        htmlFor={Contact._id}
+        htmlFor={category._id}
         ></label>
         </div>
         </td>
      
-        <td>{Contact.name}</td>
-        <td>{Contact.email}</td>
-        <td>{Contact.phone}</td>
-   <td>
-   <Col xl={4}>
-
-                          <div>
-                            
-
-                            <div>
-                              <div
-                                className="btn-group btn-group-example mb-3"
-                                role="group"
-                              >
-                                
-                                <button
-                                  type="button"
-                                  className="btn btn-danger w-xs"
-                                  onClick={() => deleteHandler(Contact._id)}
-                                >
-            <i className="fas fa-trash"></i>
-                                </button>{" "}
-                                <a
-                                  type="button"
-                                  className="btn btn-primary w-xs"
-                                  href={"/dashboard/admin/Repondre/"+ Contact._id}
-
-                                >
-                                  <i className="bx bx-mail-send"></i>
-                                </a>{" "}
-                              </div>
-                            </div>
-
-                            
-                          </div>
-                      </Col>
-
-                      </td>
+        <td>{category.categoryName}</td>
+    
         
-                   
+        <td>
+
+          <Button
+              variant="primary"
+              className="btn btn-danger mr-2"
+              onClick={() => deleteHandler(category._id)}
+          >
+                        <i className="fas fa-trash"></i>
+
+          </Button>
+          <Link
+                          to={"/dashboard/admin/EditCategory/" + category._id}
+                          className="btn btn-primary mr-2"
+                        >
+                                      <i className="fas fa-edit"></i>
+
+                        </Link>
+       
+        </td>
+      
         </tr>
         ))}
         </tbody>

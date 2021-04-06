@@ -110,8 +110,8 @@ const Order = ({ match }) => {
       tAmt: order.totalPrice,
       pid: resultId,
       scd: "EPAYTEST",
-      su: `http://localhost:3000/order/${orderId}`,
-      fu: `http://localhost:3000/order/${orderId}`,
+      su: `http://localhost:5000/order/${orderId}`,
+      fu: `http://localhost:5000/order/${orderId}`,
     };
     var form = document.createElement("form");
     form.setAttribute("method", "POST");

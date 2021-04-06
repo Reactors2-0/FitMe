@@ -28,6 +28,7 @@
         "bootstrap": "^5.0.0-beta2",
         "chart.js": "^2.9.4",
         "chartist": "^0.11.4",
+        "chroma-js": "^2.1.1",
         "classnames": "^2.2.6",
         "cloudinary-react": "^1.7.0",
         "create-react-class": "^15.7.0",

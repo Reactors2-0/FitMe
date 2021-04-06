@@ -1,5 +1,6 @@
 import React, {useState} from "react"
-import { Link } from "react-router-dom"
+import { useParams, useHistory } from "react-router-dom";
+
 import MetaTags from 'react-meta-tags';
 import {
   Button,
@@ -20,16 +21,19 @@ import Dropzone from "react-dropzone"
 import {useDispatch} from "react-redux";
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb"
-import {Category} from "../../../actions/AdminAction";
+import * as userAction from "../../../actions/AdminAction";
 
-const AddProduct = () =>  {
-  const [categoryName, setName] = useState("");
+const EditCategory = ( ) =>  
+{
+
+  const [message, setMessage] = useState("");
+
  
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(Category({ categoryName}));
+    dispatch(userAction.Repondre({ email },{ message }));
   };
 
   
@@ -38,29 +42,30 @@ const AddProduct = () =>  {
       <React.Fragment>
         <div className="page-content">
         <MetaTags>
-            <title>Category Product</title>
+            <title>Mail Details</title>
           </MetaTags>
           <Container fluid>
             {/* Render Breadcrumb */}
-            <Breadcrumbs title="Dashborad" breadcrumbItem="Add Category" />
+            <Breadcrumbs title="Dashborad" breadcrumbItem="Repondre" />
 
             <Row>
               <Col xs="12">
                 <Card>
                   <CardBody>
+                    
 
                     <Form>
                       <Row>
                         <Col sm="6">
                           <FormGroup className="mb-3">
-                            <Label htmlFor="productname">Category Name</Label>
+                            <Label htmlFor="productname">Reponse</Label>
                             <Input
                               id="productname"
                               name="productname"
                               type="text"
                               className="form-control"
-                              value={categoryName}
-                             onChange={(e) => setName(e.target.value)}
+                              value={name}
+                             onChange={(e) => setMessage(e.target.value)}
                             />
                           </FormGroup>
                          
@@ -75,7 +80,7 @@ const AddProduct = () =>  {
                         className="waves-effect waves-light"
                         onClick={handleSubmit}
                       >
-                        Save Changes
+                        Envoyer
                       </Button>
                       <Button
                         type="submit"
@@ -99,4 +104,4 @@ const AddProduct = () =>  {
      );
 };
 
-export default AddProduct;
+export default EditCategory;

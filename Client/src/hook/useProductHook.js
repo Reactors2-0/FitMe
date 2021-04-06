@@ -9,7 +9,6 @@ export const useProduct = (sort,category,searchProductKey,ltORgt,init) => {
     const productList = useSelector((state) => state.products);
 
     const {loading, products, count, error, success} = productList;
-
     //use Effect for price range change value
     useEffect(()=>{
         setInitialLoading(true)

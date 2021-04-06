@@ -1,7 +1,7 @@
-import React, { Component } from "react"
+import React, {Component, useEffect} from "react"
 import PropTypes from "prop-types"
 import MetaTags from 'react-meta-tags';
-import { connect } from "react-redux"
+import { useDispatch, useSelector} from "react-redux"
 import { Link } from "react-router-dom"
 import {
   Container,
@@ -24,58 +24,46 @@ import { isEmpty } from "lodash"
 import StarRatings from "react-star-ratings"
 
 //Import Product Images
-import { productImages } from "@BackOfficeAssets/images/product/"
 
 //Import Breadcrumb
 import Breadcrumbs from "@BackOfficeComponents/Common/Breadcrumb";
 
 //Import actions
-//import { getProductDetail } from "../../../store/e-commerce/actions"
-import RecentProducts from "./RecentProducts"
-import Reviews from "./Reviews"
+import Reviews from "../Ecommerce/EcommerceProducts/Reviews"
+import {useState} from "react";
+import * as productAction from "../../../actions/productAction";
 
-class EcommerceProductDetail extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      activeTab: "1",
-      product: {},
-    }
-    this.toggleTab = this.toggleTab.bind(this)
-    this.imageShow = this.imageShow.bind(this)
-  }
+function ProductDetail ({match,history}) {
 
-  componentDidMount() {
-    const {
-      match: { params },
-      onGetProductDetail,
-    } = this.props
-    if (params && params.id) {
-      onGetProductDetail(params.id)
-    }
-  }
+  const [activeTab,setActiveTab] =useState("1")
 
-  toggleTab(tab) {
-    if (this.state.activeTab !== tab) {
-      this.setState({
-        activeTab: tab,
-      })
+    const productData = useSelector((state) => state.Product);
+
+console.log("dsqdsqd",match.params.id)
+    const { loading, product, error } = productData;
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(productAction.product(match.params.id));
+        // eslint-disable-next-line
+    }, [dispatch, match]);
+    const toggleTab =(tab)=> {
+    if (activeTab !== tab) {
+      setActiveTab(tab)
     }
   }
 
-  imageShow(img, id) {
+  const imageShow=(img, id)=> {
     const expandImg = document.getElementById("expandedImg" + id)
     expandImg.src = img
   }
 
-  render() {
-    const { product } = this.props
 
     return (
       <React.Fragment>
         <div className="page-content">
           <MetaTags>
-            <title>Products Details | Skote - Responsive Bootstrap 5 Admin Dashboard</title>
+            <title>Products Details | FitMe!</title>
           </MetaTags>
           <Container fluid>
             <Breadcrumbs title="Ecommerce" breadcrumbItem="Product Details" />
@@ -93,18 +81,18 @@ class EcommerceProductDetail extends Component {
                                   <NavItem>
                                     <NavLink
                                       className={classnames({
-                                        active: this.state.activeTab === "1",
+                                        active: activeTab === "1",
                                       })}
                                       onClick={() => {
-                                        this.toggleTab("1")
+                                        toggleTab("1")
                                       }}
                                     >
                                       <img
-                                        src={productImages[product.image]}
+                                        src={product.productImage}
                                         alt=""
                                         onClick={() => {
-                                          this.imageShow(
-                                            productImages[product.image],
+                                          imageShow(
+                                            product.productImage,
                                             1
                                           )
                                         }}
@@ -115,18 +103,18 @@ class EcommerceProductDetail extends Component {
                                   <NavItem>
                                     <NavLink
                                       className={classnames({
-                                        active: this.state.activeTab === "2",
+                                        active: activeTab === "2",
                                       })}
                                       onClick={() => {
-                                        this.toggleTab("2")
+                                        toggleTab("2")
                                       }}
                                     >
                                       <img
-                                        src={productImages[product.image]}
+                                        src={product.productImage}
                                         alt=""
                                         onClick={() => {
-                                          this.imageShow(
-                                            productImages[product.image],
+                                            imageShow(
+                                                product.productImage,
                                             2
                                           )
                                         }}
@@ -137,18 +125,18 @@ class EcommerceProductDetail extends Component {
                                   <NavItem>
                                     <NavLink
                                       className={classnames({
-                                        active: this.state.activeTab === "3",
+                                        active: activeTab === "3",
                                       })}
                                       onClick={() => {
-                                        this.toggleTab("3")
+                                        toggleTab("3")
                                       }}
                                     >
                                       <img
-                                        src={productImages[product.image]}
+                                        src={product.productImage}
                                         alt=""
                                         onClick={() => {
-                                          this.imageShow(
-                                            productImages[product.image],
+                                          imageShow(
+                                              product.productImage,
                                             3
                                           )
                                         }}
@@ -159,11 +147,12 @@ class EcommerceProductDetail extends Component {
                                 </Nav>
                               </Col>
                               <Col md={{ size: 7, offset: 1 }} xs="9">
-                                <TabContent activeTab={this.state.activeTab}>
+
+                                <TabContent activeTab={activeTab}>
                                   <TabPane tabId="1">
                                     <div>
                                       <img
-                                        src={productImages[product.image]}
+                                        src={product.productImage}
                                         alt=""
                                         id="expandedImg1"
                                         className="img-fluid mx-auto d-block"
@@ -173,7 +162,7 @@ class EcommerceProductDetail extends Component {
                                   <TabPane tabId="2">
                                     <div>
                                       <img
-                                        src={productImages[product.image]}
+                                        src={product.productImage}
                                         id="expandedImg2"
                                         alt=""
                                         className="img-fluid mx-auto d-block"
@@ -183,7 +172,7 @@ class EcommerceProductDetail extends Component {
                                   <TabPane tabId="3">
                                     <div>
                                       <img
-                                        src={productImages[product.image]}
+                                        src={product.productImage}
                                         id="expandedImg3"
                                         alt=""
                                         className="img-fluid mx-auto d-block"
@@ -193,7 +182,7 @@ class EcommerceProductDetail extends Component {
                                   <TabPane tabId="4">
                                     <div>
                                       <img
-                                        src={productImages[product.image]}
+                                        src={product.productImage}
                                         id="expandedImg4"
                                         alt=""
                                         className="img-fluid mx-auto d-block"
@@ -202,22 +191,18 @@ class EcommerceProductDetail extends Component {
                                   </TabPane>
                                 </TabContent>
                                 <div className="text-center">
-                                  <Button
-                                    type="button"
-                                    color="primary"
-                                    className="btn waves-effect waves-light mt-2 me-1"
+                                  <button
+                                    className="btn  btn-outline-dark mt-2 btn-fitMe-cart"
                                   >
                                     <i className="bx bx-cart me-2" /> Add to
                                     cart
-                                  </Button>
-                                  <Button
-                                    type="button"
-                                    color="success"
-                                    className="ml-1 btn waves-effect  mt-2 waves-light"
+                                  </button>
+                                  <button
+                                    className=" btn btn-outline-success mx-2 mt-2 "
                                   >
                                     <i className="bx bx-shopping-bag me-2" />
                                     Buy now
-                                  </Button>
+                                  </button>
                                 </div>
                               </Col>
                             </Row>
@@ -227,7 +212,7 @@ class EcommerceProductDetail extends Component {
                         <Col xl="6">
                           <div className="mt-4 mt-xl-3">
                             <Link to="#" className="text-primary">
-                              {product.category}
+                              {product.category[0]}
                             </Link>
                             <h4 className="mt-1 mb-3">{product.name}</h4>
 
@@ -243,25 +228,23 @@ class EcommerceProductDetail extends Component {
                               />
                             </div>
                             <p className="text-muted mb-4">
-                              ( {product.reviews} Customers Review )
+                              {/*( {product.reviews} Customers Review )*/}
                             </p>
 
-                            {!!product.isOffer && (
+                            {!!product.isDiscounted && (
                               <h6 className="text-success text-uppercase">
-                                {product.offer} % Off
+                                {product.discount} % Off
                               </h6>
                             )}
                             <h5 className="mb-4">
                               Price :{" "}
                               <span className="text-muted me-2">
-                                <del>${product.oldPrice} USD</del>
+                                <del>${product.price} TND</del>
                               </span>{" "}
-                              <b>${product.newPrice} USD</b>
+                              <b>{product.price-((product.price*product.discount)/100)} TND</b>
                             </h5>
                             <p className="text-muted mb-4">
-                              To achieve this, it would be necessary to have
-                              uniform grammar pronunciation and more common
-                              words If several languages coalesce
+                                {product.description}
                             </p>
                             <Row className="mb-3">
                               <Col md="6">
@@ -302,12 +285,12 @@ class EcommerceProductDetail extends Component {
 
                             <div className="product-color">
                               <h5 className="font-size-15">Color :</h5>
-                              {product.colorOptions &&
-                                product.colorOptions.map((option, key) => (
+                              {product.color &&
+                                product.color.map((option, key) => (
                                   <Link to="#" className="active" key={key}>
-                                    <div className="product-color-item border rounded">
+                                    <div className="product-color-item border rounded" style={{backgroundColor : option.color}}>
                                       <img
-                                        src={productImages[option.image]}
+                                        src={product.productImage}
                                         alt=""
                                         className="avatar-md"
                                       />
@@ -351,25 +334,13 @@ class EcommerceProductDetail extends Component {
                 </Col>
               </Row>
             )}
-            <RecentProducts recentProducts={product.recentProducts} />
+            {/*<RecentProducts recentProducts={product} />*/}
           </Container>
         </div>
       </React.Fragment>
     )
-  }
+
 }
 
-EcommerceProductDetail.propTypes = {
-  product: PropTypes.object,
-  match: PropTypes.object,
-  onGetProductDetail: PropTypes.func,
-}
 
-const mapStateToProps = ({ ecommerce }) => ({
-  product: ecommerce.product,
-})
-
-const mapDispatchToProps = dispatch => ({
-})
-
-export default EcommerceProductDetail
+export default ProductDetail
