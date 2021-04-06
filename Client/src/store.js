@@ -35,6 +35,7 @@ import {
   deleteBrand,
   createBrand,
   editBrand,
+  toggleVerify
 } from "./reducers/brandReducers";
 import {
   createOrderReducer,
@@ -49,17 +50,18 @@ import {
 
 
 const rootReducer = combineReducers({
+  toggleVerify:toggleVerify,
+  listBrands:listBrands,
+  brandByUserId:brandByUserIdCall,
+  Brand:Brand,
+  deleteBrand:deleteBrand,
+  createBrand:createBrand,
+  editBrand:editBrand,
   ContactList: ContactList,
   userContact:userContact,
   listcategory: categoryList,
   category:category ,
   listrepondre: Repondre,
-  listBrands: listBrands,
-  brandByUserId: brandByUserIdCall,
-  Brand: Brand,
-  deleteBrand: deleteBrand,
-  createBrand: createBrand,
-  editBrand: editBrand,
   createOrder: createOrderReducer,
   orderDetails: getOrder,
   authOrders: authOrders,

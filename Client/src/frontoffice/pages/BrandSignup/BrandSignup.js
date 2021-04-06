@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Toast from 'react-bootstrap/Toast'
 import Modal from 'react-bootstrap/Modal';
-import("./BrandSignup.css");
+
 import { useDispatch, useSelector } from "react-redux";
 import { TextField, Button, CircularProgress, makeStyles } from "@material-ui/core/";
 
@@ -16,7 +14,7 @@ import ColorPicker from "@Components/ColorPicker/ColorPicker";
 import Home from "@FrontOfficePages/Home/Home";
 import * as brandAction from "../../../actions/brandAction";
 import * as brandConstants from "@Constants/brandConstants";
-
+import("./BrandSignup.css");
 const useStyles = makeStyles((theme) => ({
   prgressColor: {
     color: "#fff",
@@ -36,32 +34,51 @@ const BrandSignup = ({ history }) => {
   const { userInfo } = userLogin;
   // * Styles
   const classes = useStyles();
-  const brandRegisterData = useSelector((state) => state.createBrand);
+
 
   const brandByUserIdSelector = useSelector((state) => state.brandByUserId);
   const { brandByUserId } = brandByUserIdSelector;
+  const brandRegisterData = useSelector((state) => state.createBrand);
   const { error, loading, message, success } = brandRegisterData;
 
   // modal
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
+  // Notification
+  const [redirecting, setRedirecting] = useState(false);
+  const [url, setUrl] = useState("your brands dashboard");
   const handleClose = () => {
     setShow(false);
-    if( userInfo.role === "seller" || userInfo.role === "admin") {
-      setRedirecting(true);
+    setRedirecting(true);
+    if( brandByUserId.verify) {
       setTimeout(() => {
         history.push("/dashboard");
       }, 5000);
-    }
-  };
-  const [redirecting, setRedirecting] = useState(false);
-  useEffect(() => {
-    if (userInfo) {
-      dispatch(brandAction.brandByUserIdCall());
-    }
-    if (success) {
+    } else {
+      setUrl("FitMe's homepage")
       setTimeout(() => {
         history.push("/");
       }, 5000);
+    }
+  };
+
+  useEffect(() => {
+    console.log(brandByUserId)
+    if (userInfo) {
+      dispatch(brandAction.brandByUserIdCall());
+      if(brandByUserId){
+        setShow(true);
+      }
+    } else {
+      alert("Please login / register to register brand!")
+      setTimeout(() => {
+        history.push("/login");
+      }, 6);
+    }
+    if (success) {
+      setTimeout(() => {
+        alert("We will inform you via email upon brand verification")
+        history.push("/");
+      }, 6);
     }
   }, [success, history, dispatch]);
 
@@ -92,7 +109,7 @@ const BrandSignup = ({ history }) => {
       b = "0" + b;
     return "#" + r + g + b;
   }
-  const handelColorChange = (val) => {
+  const handleColorChange = (val) => {
     setBrandColor(RGBToHex(val.r, val.g, val.b));
   };
   return (
@@ -101,16 +118,15 @@ const BrandSignup = ({ history }) => {
         <div aria-live="polite" aria-atomic="true" style={{ position: 'relative', minHeight: '100px', }}>
           <Toast style={{ position: 'absolute', top: 0, right: 0, }}>
             <Toast.Header>
-              <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
               <strong className="mr-auto">FitMe</strong>
             </Toast.Header>
-            <Toast.Body>Redirecting you to your brands dashboard page 😊</Toast.Body>
+            <Toast.Body>Redirecting you to {url} 😊</Toast.Body>
           </Toast>
         </div>
       )}
-      { brandByUserId && (
+      { brandByUserId ? (
         <>
-          <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+          <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} animation={false}>
             <Modal.Header closeButton>
               <Modal.Title>Notice !</Modal.Title>
             </Modal.Header>
@@ -119,15 +135,13 @@ const BrandSignup = ({ history }) => {
                 Your brand is currently {brandByUserId.verify ? "Verified" : "Pending verification"}
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
+              <Button variant="text" onClick={handleClose}>
                 Close
               </Button>
             </Modal.Footer>
           </Modal>
           <Home />
-        </>)}
-      { !brandByUserId &&
-        (
+        </>) : (
           <Container fluid className="verticalHeight">
             <FormContainer>
               <h1>Register brand :</h1>
@@ -190,19 +204,9 @@ const BrandSignup = ({ history }) => {
                   onChange={(e) => setBrandProof(e.target.files[0])}
                 />
                 <div className="ui label"><i aria-hidden="true" className="mail icon" /> Brand primary color :</div>
-                <ColorPicker handelColor={handelColorChange} />
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  onClick={handleSubmit}
-                  disabled={loading}
-                >
-                  {loading ?
-                    (<CircularProgress color="inherit" className={classes.prgressColor} />)
-                    :
-                    (<>Register brand</>)}
+                <ColorPicker handelColor={handleColorChange} />
+                <Button type="submit" variant="contained" color="primary" fullWidth onClick={handleSubmit} disabled={loading}>
+                  {loading ? (<CircularProgress color="inherit" className={classes.prgressColor} />) : (<>Register brand</>)}
                 </Button>
               </Form>
             </FormContainer>
