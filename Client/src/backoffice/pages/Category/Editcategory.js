@@ -30,11 +30,9 @@ function EditCategory  ({match, history}) {
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
   const dispatch = useDispatch();
-  const productData = useSelector((state) => state.category);
-
-  console.log("dsqdsqd",match.params.id)
+  const productData = useSelector((state) => state.categoryi);
+  console.log(productData)
       const { loading, categoryi, error } = productData;
- 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(CategoryAction.editcategory( categoryName));
@@ -42,7 +40,9 @@ function EditCategory  ({match, history}) {
   useEffect(() => {
     dispatch(CategoryAction.categoryid(match.params.id));
     // eslint-disable-next-line
-}, [dispatch, match]);
+    console.log(categoryi)
+
+  }, [dispatch, match]);
 const handleChange = (e) => {
   setName({
     ...categoryi,

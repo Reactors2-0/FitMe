@@ -25,7 +25,7 @@ const getCategory = asyncHandler(async (req, res, next) => {
 
 const createCategory= asyncHandler(async (req, res, next) => {
     //const product = await Product.findById(req.params.productId);
-    // create 
+    // create
     const category = await Category.create(req.body )
     res.status(201).send({ status: "success created", data: category });
 });
@@ -36,7 +36,7 @@ const updateCategory = asyncHandler(async (req, res, next) => {
     if (!editcategory) throw createError(404,`Category is not found with id of ${req.params.id}`);
     const updatedcategory = await Brand.findById(req.params.id);
     res.status(201).send({ status: "success", data: updatedcategory });
-  });
+});
 
 
 
@@ -45,7 +45,7 @@ const deleteCategory = asyncHandler(async (req, res, next) => {
     if (!deletecategory) throw createError(404, `category is not found with id of ${req.params.id}`);
     await deletecategory.remove();
     res.status(204).send({ status: "success", message: "category Deleted Successfully" });
-  });
+});
 
 module.exports = {
     getCategory,
