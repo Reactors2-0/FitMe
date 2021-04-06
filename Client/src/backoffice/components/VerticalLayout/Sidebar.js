@@ -15,11 +15,7 @@ class Sidebar extends Component {
       <React.Fragment>
         <div className="vertical-menu">
           <div data-simplebar className="h-100">
-            {this.props.type !== "condensed" ? (
-              <SidebarContent />
-            ) : (
-              <SidebarContent />
-            )}
+            <SidebarContent />
           </div>
         </div>
       </React.Fragment>

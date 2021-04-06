@@ -6,7 +6,6 @@ import ContactAdmin from "../backoffice/pages/Contact/ContactList"
 import userlists from "../backoffice/pages/User/UserList"
 import OrderAdmin from "../backoffice/pages/Order/Order"
 import ProductsList from "../backoffice/pages/Products/index"
-import BrandList from "../backoffice/pages/Brand/BrandtList"
 import AddProduct from "../backoffice/pages/Products/AddProduct"
 import Category from "../backoffice/pages/Category/Category"
 import AddCategory from "../backoffice/pages/Category/AddCategory"
@@ -38,7 +37,8 @@ import Profile from '../frontoffice/pages/Order/Profile';
 
 // * Chihab's imports
 import BrandSignup from '../frontoffice/pages/BrandSignup/BrandSignup';
-
+import BrandList from "../backoffice/pages/Brand/BrandtList"
+import EditBrand from "../backoffice/pages/Brand/EditBrand"
 
 // * Med Imports *
 
@@ -61,7 +61,7 @@ const authProtectedBackRoutes = [
     { path: "/dashboard/admin/Products", component: ProductsList },
 
     { path: "/dashboard/admin/Order", component: OrderAdmin },
-    { path: "/dashboard/admin/brand", component: BrandList },
+    { path: "/dashboard/admin/brands", component: BrandList },
 
     //profile
 

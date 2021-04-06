@@ -22,7 +22,25 @@ export const listBrands = (state = { brands: [] }, action) => {
       return state;
   }
 };
+export const toggleVerify = (state={} , action) => {
+  switch (action.type) {
+    case brandConstants.BRAND_TOGGLEVERIFY_START:
+      return {
+        loading: true,
+      };
+    case brandConstants.BRAND_TOGGLEVERIFY_SUCCESS:
+      return {
+        success: true,
+      };
 
+    case brandConstants.BRAND_TOGGLEVERIFY_FAIL:
+      return {
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
 export const brandByUserIdCall = (state = { brandByUserId: {} }, action) => {
   switch (action.type) {
     case brandConstants.BRAND_FETCH_START:

@@ -22,16 +22,23 @@ import {useDispatch} from "react-redux";
 import Breadcrumbs from "../../components/Common/Breadcrumb"
 import {Category} from "../../../actions/AdminAction";
 
-const AddProduct = () =>  {
+const AddProduct = ({ history}) =>  {
   const [categoryName, setName] = useState("");
- 
+  const redirect = location.search ? location.search.split("=")[1] : "/";
+
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (window.confirm("Are you sure save ? ")) {
     dispatch(Category({ categoryName}));
+    history.push(redirect + "dashboard/admin/Category");
+
+    
+  }
   };
 
+ 
   
 
     return (

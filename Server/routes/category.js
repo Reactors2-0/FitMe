@@ -1,9 +1,9 @@
 const {
-    getCategories,
+    createCategory,
     getCategory,
-    addCategory,
+    getCategorys,
     updateCategory,
-    removeCategory,
+    deleteCategory,
 } = require("../controller/Category");
 
 //Invoked middleware.
@@ -17,10 +17,10 @@ const router = require("express").Router();
 
 router
     .route("/")
-    .get(advanceResults(Category), getCategories)
-    .post(addCategory);
+    .get(advanceResults(Category), getCategorys)
+    .post(createCategory);
 
-
-    router.route("/:id").get(getCategory).put(updateCategory).delete(removeCategory);
+  
+    router.route("/:id").get(getCategory).put(updateCategory).delete(deleteCategory);
 
 module.exports = router;

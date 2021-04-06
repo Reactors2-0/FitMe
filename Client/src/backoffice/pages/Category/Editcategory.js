@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useState,useEffect} from "react"
 import { useParams, useHistory } from "react-router-dom";
 
 import MetaTags from 'react-meta-tags';
@@ -18,37 +18,36 @@ import {
 } from "reactstrap"
 import Select from "react-select"
 import Dropzone from "react-dropzone"
-import {useDispatch} from "react-redux";
+import { useDispatch, useSelector} from "react-redux"
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb"
-import {editcategory} from "../../../actions/AdminAction";
+import * as CategoryAction from "../../../actions/AdminAction";
 
-const EditCategory = () =>  
+function EditCategory  ({match, history}) {
 
-
-
-
-{
-
-
-  let history = useHistory();
-  var { category_id } = useParams();
-
-console.log('====================================');
-console.log(category_id);
-console.log('====================================');
-
-  const [name, setName] = useState("");
+  const [categoryName, setName] = useState("");
  
-  const dispatch = useDispatch();
+  const redirect = location.search ? location.search.split("=")[1] : "/";
 
+  const dispatch = useDispatch();
+  const productData = useSelector((state) => state.category);
+
+  console.log("dsqdsqd",match.params.id)
+      const { loading, categoryi, error } = productData;
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(editcategory({ name}));
+    dispatch(CategoryAction.editcategory( categoryName));
   };
-
-  
-
+  useEffect(() => {
+    dispatch(CategoryAction.categoryid(match.params.id));
+    // eslint-disable-next-line
+}, [dispatch, match]);
+const handleChange = (e) => {
+  setName({
+    ...categoryi,
+    [e.target.categoryName]: e.target.value,
+  });}
     return (
       <React.Fragment>
         <div className="page-content">
@@ -76,14 +75,13 @@ console.log('====================================');
                               name="productname"
                               type="text"
                               className="form-control"
-                              value={name}
-                             onChange={(e) => setName(e.target.value)}
+                              onChange={handleChange}
+                                defaultValue={categoryi.categoryName}
                             />
                           </FormGroup>
                          
                         </Col>
 
-                        
                       </Row>
                       <div className="d-flex flex-wrap gap-2">
                       <Button
