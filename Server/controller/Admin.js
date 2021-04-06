@@ -2,7 +2,7 @@ const crypto = require("crypto");
 const createError = require("../utilis/createError");
 const asyncHandler = require("../middleware/async");
 
-const sendEmail = require("../utilis/RepondreEmail");
+const sendEmailadmin = require("../utilis/RepondreEmail");
 const cron = require("node-cron");
 const User = require("../models/User");
 
@@ -18,22 +18,20 @@ const Repondre = asyncHandler(async (req, res, next) => {
     await user.save({ validateBeforeSave: false });
 
     try {
-        const resetUrl = `dddd`;
 
-        const message = `You ${req.body.message}.`;
 
         const options = {
             email: user.email,
-            subject: "Repondrereclamtion",
-            message,
-            url: resetUrl,
+            subject: "Repondre reclamtion",
+            name:req.body.messages,
+        
         };
 
-        await sendEmail(options);
+        await sendEmailadmin(options);
 
         res
             .status(200)
-            .send({ status: "success", message: "ResetPassword token Email sent" });
+            .send({ status: "success", message: " Email sent" });
     } catch (error) {
         console.log(error);
 

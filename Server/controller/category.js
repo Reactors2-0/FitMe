@@ -2,7 +2,7 @@ const asyncHandler = require("../middleware/async");
 const createError = require("../utilis/createError");
 const Category = require("../models/category");
 
-const getCategories = asyncHandler(async (req, res, next) => {
+const getCategorys = asyncHandler(async (req, res, next) => {
     res.status(200).send({ status: "success", data: res.advanceResults });
 });
 
@@ -17,7 +17,7 @@ const getCategory = asyncHandler(async (req, res, next) => {
 
     res.status(200).send({ status: "success", data: category });
 });
-const addCategory = asyncHandler(async (req, res, next) => {
+const createCategory = asyncHandler(async (req, res, next) => {
     const category = await Category.create(req.body);
 
     res.status(201).send({ status: "success", data: req.body });
@@ -44,7 +44,7 @@ const updateCategory = asyncHandler(async (req, res, next) => {
     res.status(201).send({ status: "success", data: updatedUser });
 });
 
-const removeCategory = asyncHandler(async (req, res, next) => {
+const deleteCategory = asyncHandler(async (req, res, next) => {
     const findCategory = await Category.findByIdAndDelete(req.params.id);
 
     if (!findCategory)
@@ -58,9 +58,9 @@ const removeCategory = asyncHandler(async (req, res, next) => {
         .send({ status: "success", message: "Category Deleted Successfully" });
 });
 module.exports = {
-    getCategories,
+    getCategorys,
     getCategory,
-    addCategory,
+    createCategory,
     updateCategory,
-    removeCategory,
+    deleteCategory,
 };

@@ -76,4 +76,25 @@ export const listContactForContact = (initialLoading) => async (dispatch) => {
         });
     }
   };
+  export const Contactid = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: userConstants.USER_CONTACT_START });
+
+        await axios.get(`/api/contact/contactus/${id}`).then((resp) => {
+            const contacts = resp.data.data;
+            dispatch({
+                type: userConstants.USER_CONTACT_SUCCESS,
+                payload: contacts,
+            });
+        });
+    } catch (error) {
+        dispatch({
+            type: userConstants.USER_CONTACT_FAIL,
+            payload:
+                error.response && error.response.data.error
+                    ? error.response.data.error
+                    : error.message,
+        });
+    }
+};
   

@@ -46,3 +46,22 @@ export const categoryList = (state = { categorys: [] }, action) => {
       return state;
   }
 };
+export const category  = (state = {categoryi: {}} , action)=>{
+  switch (action.type){
+      case CategoryConstants.Category_START:
+          return {
+              loading : true,
+              categoryi : {}
+          }
+      case CategoryConstants.Category_SUCCESS:
+          return {
+            categoryi: action.payload,
+              success: true
+          }
+      case CategoryConstants.Category_FAIL:
+          return {
+              error : action.payload
+          }
+      default : return state;
+  }
+}
