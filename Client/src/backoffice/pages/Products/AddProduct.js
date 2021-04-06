@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Link } from "react-router-dom"
+import  { Link,Redirect } from "react-router-dom"
 import MetaTags from 'react-meta-tags';
 import {
   Button,
@@ -36,7 +36,6 @@ class AddProduct extends Component {
       isDiscount : false,
       VerificationMessage :""
     }
-    const { dispatch } = props;
   }
 
   handleAcceptedFiles = files => {
@@ -109,7 +108,24 @@ class AddProduct extends Component {
   }
 
    handleSubmit = () => {
-      console.log(this.state.selectedFiles[0])
+
+
+     // e.preventDefault();
+     // this.setState({VerificationMessage : ""});
+     // if (!this.state.formProduct.name) return this.setState({VerificationMessage :"Please provide your product's name"});
+     // if (!this.state.formProduct.price) return this.setState({VerificationMessage :"Please provide your product's price"});
+     // if (!this.state.formProduct.countInStock) return this.setState({VerificationMessage :"Please provide your product's countInStock"});
+     // if (!this.state.formProduct.description) return this.setState({VerificationMessage :"Please provide your product's description"});
+     // if (!this.state.formProduct.color) return this.setState({VerificationMessage :"Please provide your product's color"});
+     // if (!this.state.formProduct.category) return this.setState({VerificationMessage :"Please provide your product's category"});
+     // if (!this.state.formProduct.size) return this.setState({VerificationMessage :"Please provide your product's size"});
+     // if (!this.state.formProduct.brand) return this.setState({VerificationMessage :"Please provide your product's brand"});
+     // if(this.state.isDiscount && !this.state.formProduct.discount) return this.setState({VerificationMessage :"Please provide your product's discount"});
+     //  this.setState({VerificationMessage: ""});
+
+
+
+     console.log(this.state.selectedFiles[0])
      const formData = new FormData();
      formData.append("name", this.state.formProduct.name);
      formData.append("price", this.state.formProduct.price);
@@ -124,23 +140,8 @@ class AddProduct extends Component {
       if(this.state.isDiscount && this.state.formProduct.discount) {
         formData.append("discount", this.state.formProduct.discount);
       }
-
      this.props.dispatch(productAction.createProduct(formData))
-
-     // e.preventDefault();
-    // this.setState({VerificationMessage : ""});
-    // if (!this.state.formProduct.name) return this.setState({VerificationMessage :"Please provide your product's name"});
-    // if (!this.state.formProduct.price) return this.setState({VerificationMessage :"Please provide your product's price"});
-    // if (!this.state.formProduct.countInStock) return this.setState({VerificationMessage :"Please provide your product's countInStock"});
-    // if (!this.state.formProduct.description) return this.setState({VerificationMessage :"Please provide your product's description"});
-    // if (!this.state.formProduct.color) return this.setState({VerificationMessage :"Please provide your product's color"});
-    // if (!this.state.formProduct.category) return this.setState({VerificationMessage :"Please provide your product's category"});
-    // if (!this.state.formProduct.size) return this.setState({VerificationMessage :"Please provide your product's size"});
-    // if (!this.state.formProduct.brand) return this.setState({VerificationMessage :"Please provide your product's brand"});
-    // if(this.state.isDiscount && !this.state.formProduct.discount) return this.setState({VerificationMessage :"Please provide your product's discount"});
-    //  this.setState({VerificationMessage: ""});
-    //  this.props.createProductDetails(this.state.formProduct);
-
+     this.props.history.push('/dashboard/admin/Products')
 
   };
   render() {
@@ -312,73 +313,6 @@ class AddProduct extends Component {
                   </CardBody>
                 </Card>
 
-                <Card>
-                  <CardBody>
-                    <CardTitle className="mb-3 h4">Product Images</CardTitle>
-                    <Form className="dropzone">
-                      <Dropzone
-                        onDrop={acceptedFiles =>
-                          this.handleAcceptedFiles(acceptedFiles)
-                        }
-                      >
-                        {({ getRootProps, getInputProps }) => (
-                          <div>
-                            <div
-                              className="dz-message needsclick"
-                              {...getRootProps()}
-                            >
-                              <input {...getInputProps()} />
-                              <div className="dz-message needsclick">
-                                <div className="mb-3">
-                                  <i className="display-4 text-muted bx bxs-cloud-upload" />
-                                </div>
-                                <h4>Drop files here or click to upload.</h4>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      </Dropzone>
-                      <div
-                        className="dropzone-previews mt-3"
-                        id="file-previews"
-                      >
-                        {this.state.selectedFiles.map((f, i) => {
-                          return (
-                            <Card
-                              className="mt-1 mb-0 shadow-none border dz-processing dz-image-preview dz-success dz-complete"
-                              key={i + "-file"}
-                            >
-                              <div className="p-2">
-                                <Row className="align-items-center">
-                                  <Col className="col-auto">
-                                    <img
-                                      data-dz-thumbnail=""
-                                      height="80"
-                                      className="avatar-sm rounded bg-light"
-                                      alt={f.name}
-                                      src={f.preview}
-                                    />
-                                  </Col>
-                                  <Col>
-                                    <Link
-                                      to="#"
-                                      className="text-muted font-weight-bold"
-                                    >
-                                      {f.name}
-                                    </Link>
-                                    <p className="mb-0">
-                                      <strong>{f.formattedSize}</strong>
-                                    </p>
-                                  </Col>
-                                </Row>
-                              </div>
-                            </Card>
-                          )
-                        })}
-                      </div>
-                    </Form>
-                  </CardBody>
-                </Card>
 
 
               </Col>

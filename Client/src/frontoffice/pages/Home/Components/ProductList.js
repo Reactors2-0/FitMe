@@ -45,6 +45,13 @@ export default function ProductList(props) {
                         <Link to={`/product/${item.id}`}>
                             <Card plain product >
                                 <CardHeader noShadow image>
+                                    {item.isDiscounted ? (
+                                        <div className="avatar-sm product-ribbon">
+                                    <span className="avatar-title rounded-circle  bg-primary fitMe-color">
+                                      {`-${item.discount}%`}
+                                    </span>
+                                        </div>
+                                    ) : null}
                                     <a href="#pablo">
                                         <img src={item.productImage} style={{width :200,height : 300}} alt=".."/>
                                     </a>
