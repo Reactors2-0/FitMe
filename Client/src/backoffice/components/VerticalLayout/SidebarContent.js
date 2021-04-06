@@ -158,21 +158,6 @@ class SidebarContent extends Component {
                       </Link>
                     </li>
                   </>
-              ):(
-                  <>
-                    <li>
-                      <Link to="/dashboard/admin/Products" className=" waves-effect">
-                        <i className="bx bx-store" />
-                        <span>Products</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/dashboard/admin/Order" className=" waves-effect">
-                        <i className="bx bx-file" />
-                        <span>Orders</span>
-                      </Link>
-                    </li>
-                  </>
               )}
             </ul>
           </div>
