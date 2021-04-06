@@ -1,4 +1,8 @@
 const mongoose = require("mongoose");
+const Order = require("../models/Order");
+const Product = require("../models/Product");
+const User = require("../models/User");
+
 const colorValidator = (v) => (/^#([0-9a-f]{3}){1,2}$/i).test(v)
 const BrandSchema = new mongoose.Schema({
     userId: {
@@ -33,8 +37,10 @@ const BrandSchema = new mongoose.Schema({
   });
   
   BrandSchema.pre("remove", async function (next) {
-    await this.model("Oder").deleteMany({ brandId: this._id });
-    await this.model("Product").deleteMany({ brandId: this._id });
+    console.log("Removing ")
+    await Order.deleteMany({ brandId: this._id });
+    await Product.deleteMany({ brandId: this._id });
+    console.log(this.userId)
     const user = await User.findOne({_id:this.userId});
     console.log(user);
     user.role = "user";

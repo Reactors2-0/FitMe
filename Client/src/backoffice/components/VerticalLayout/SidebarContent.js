@@ -139,9 +139,9 @@ class SidebarContent extends Component {
                       </Link>
                     </li>
                     <li>
-                      <Link to="/dashboard/admin/Brand" className=" waves-effect">
+                      <Link to="/dashboard/admin/brands" className=" waves-effect">
                         <i className="bx bxs-user-detail" />
-                        <span>Brand</span>
+                        <span>Brands</span>
                       </Link>
                     </li>
                   </>
