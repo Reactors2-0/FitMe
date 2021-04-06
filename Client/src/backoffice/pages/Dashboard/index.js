@@ -28,10 +28,8 @@ import modalimage2 from "../../assets/images/product/img-4.png"
 // Pages Components
 import WelcomeComp from "./WelcomeComp"
 import MonthlyEarning from "./MonthlyEarning"
-import SocialSource from "./SocialSource"
-import ActivityComp from "./ActivityComp"
-import TopCities from "./TopCities"
-import LatestTranaction from "./LatestTranaction"
+
+
 
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb"
@@ -44,16 +42,31 @@ class Dashboard extends Component {
     super(props)
     this.state = {
       reports: [
-        { title: "Orders", iconClass: "bx-copy-alt", description: "1,235" },
+        { title: "Orders", iconClass: "bx bx-file", description: "5" },
         {
-          title: "Revenue",
-          iconClass: "bx-archive-in",
-          description: "$35, 723",
+          title: "Users",
+          iconClass: "bx bx-user-circle",
+          description: "3",
         },
         {
-          title: "Average Price",
+          title: "Products",
+          iconClass: "bx bx-store",
+          description: "5",
+        },
+        {
+          title: "Category",
+          iconClass: "bx bx-duplicate",
+          description: "2",
+        },
+        {
+          title: "Brands",
+          iconClass: "bx bxs-user-detail",
+          description: "1",
+        },
+        {
+          title: "Contacts",
           iconClass: "bx-purchase-tag-alt",
-          description: "$16.2",
+          description: "3",
         },
       ],
       email: [
@@ -165,24 +178,7 @@ class Dashboard extends Component {
               </Col>
             </Row>
 
-            <Row>
-              <Col xl="4">
-                <SocialSource />
-              </Col>
-              <Col xl="4">
-                <ActivityComp />
-              </Col>
-
-              <Col xl="4">
-                <TopCities />
-              </Col>
-            </Row>
-
-            <Row>
-              <Col lg="12">
-                <LatestTranaction />
-              </Col>
-            </Row>
+          
           </Container>
         </div>
 

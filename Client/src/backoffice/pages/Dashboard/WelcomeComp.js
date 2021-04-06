@@ -21,7 +21,7 @@ class WelcomeComp extends Component {
               <Col xs="7">
                 <div className="text-primary p-3">
                   <h5 className="text-primary">Welcome Back !</h5>
-                  <p>Skote Dashboard</p>
+                  <p>Admin Dashboard</p>
                 </div>
               </Col>
               <Col xs="5" className="align-self-end">
@@ -39,20 +39,17 @@ class WelcomeComp extends Component {
                     className="img-thumbnail rounded-circle"
                   />
                 </div>
-                <h5 className="font-size-15 text-truncate">Henry Price</h5>
-                <p className="text-muted mb-0 text-truncate">UI/UX Designer</p>
+              
               </Col>
 
               <Col sm="8">
                 <div className="pt-4">
                   <Row>
                     <Col xs="6">
-                      <h5 className="font-size-15">125</h5>
-                      <p className="text-muted mb-0">Projects</p>
+                    
                     </Col>
                     <Col xs="6">
-                      <h5 className="font-size-15">$1245</h5>
-                      <p className="text-muted mb-0">Revenue</p>
+               
                     </Col>
                   </Row>
                   <div className="mt-4">
@@ -60,7 +57,7 @@ class WelcomeComp extends Component {
                       to=""
                       className="btn btn-primary waves-effect waves-light btn-sm"
                     >
-                      View Profile {" "}<i className="mdi mdi-arrow-right ms-1"/>
+                      View  {" "}<i className="mdi mdi-arrow-right ms-1"/>
                     </Link>
                   </div>
                 </div>
