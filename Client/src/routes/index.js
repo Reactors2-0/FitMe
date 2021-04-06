@@ -59,23 +59,14 @@ const authProtectedBackRoutes = [
     { path: "/dashboard/admin/EditCategory/:id", component: EditCategory },
 
     { path: "/dashboard/admin/Products", component: ProductsList },
-
     { path: "/dashboard/admin/Order", component: OrderAdmin },
-    { path: "/dashboard/admin/brand", component: BrandList },
-
+    { path: "/dashboard/admin/brands", component: BrandList },
+    { path: "/dashboard/admin/brand:brandId", component: EditBrand },
     //profile
-
     { path: "/product-detail/:id", component: ProductDetail },
-
-
     { path: "/add-product", component: AddProduct },
-
-
-
-
     // this route should be at the end of all other routes
     { path: "*", exact: true, component: () => <Redirect to="/dashboard" /> },
-
 ]
 
 const publicFrontRoutes = [

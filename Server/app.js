@@ -13,7 +13,7 @@ dotenv.config({ path: ".env" });
 
 connectDb();
 const productRouter = require("./routes/product");
-const categoryRouter = require("./routes/category");
+const categoryRouter = require("./routes/Category");
 
 const reviewRouter = require("./routes/review");
 const orderRouter = require("./routes/order");

@@ -1,6 +1,7 @@
 import React, { useEffect , useState} from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button, Pagination, PageItem   } from "react-bootstrap";
+import { TextField, CircularProgress } from "@material-ui/core/";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../User/Message";
 import { Switch } from '@material-ui/core';
@@ -11,9 +12,10 @@ import Breadcrumbs from "../../components/Common/Breadcrumb";
 import * as brandAction from "@Actions/brandAction";
 import Toast from 'react-bootstrap/Toast'
 import Modal from 'react-bootstrap/Modal';
-import {Image, Transformation, CloudinaryContext} from 'cloudinary-react';
 import fileDownload from "js-file-download";
 import axios from "axios";
+import Form from "react-bootstrap/Form";
+
 import ("./BrandList.css");
 const BrandList = ({ history }) => {
   const dispatch = useDispatch();
@@ -22,16 +24,8 @@ const BrandList = ({ history }) => {
   const { brands , count , loading, error} = fetchBrands;
   const [brandsList, setBrandsList] = useState(brands);
   const [showModal, setShowModal] = useState(false);
+  const [message, setMessage] = useState("");
   const handleClose = () => setShowModal(false);
-  let active = 1;
-  let items = [];
-  for (let number = count; number <= 5; number++) {
-    items.push(
-        <Pagination.Item key={number} active={number === active}>
-          {number}
-        </Pagination.Item>,
-    );
-  }
 
   useEffect(() => {
     const brandInfo = {
@@ -46,21 +40,36 @@ const BrandList = ({ history }) => {
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure want to delete ? ")) {
       dispatch(brandAction.deleteBrand(id));
+      var array = [...brandsList];
+      var index = array.find(x => x.id === id);
+      array.splice(index,1);
+      setBrandsList(array);
     }
   };
  useEffect(()=>{
    setBrandsList(brands);
  }, [brands])
-
+  const toggle = (key) => {
+      setShowModal(false);
+      let prevBrands = [...brandsList];
+      let prevBrand = {...prevBrands[key]};
+      prevBrand.verify = !prevBrand.verify;
+      prevBrands[key] = prevBrand;
+      if(prevBrand.verify){
+          console.log(prevBrand)
+          dispatch(brandAction.toggleVerify(prevBrand._id));
+          setBrandsList(prevBrands);
+      } else {
+          if(message.trim()==="") alert("Please specify a reason")
+          else {
+              dispatch(brandAction.toggleVerify(prevBrand._id,message));
+              setBrandsList(prevBrands);
+          }
+      }
+      setMessage("");
+  }
   function toggleVerify(event,key) {
-    // event.target.checked
-    console.log(showModal)
     setShowModal(true);
-    let prevBrands = [...brandsList];
-    let prevBrand = {...prevBrands[key]};
-    prevBrand.verify = event.target.checked;
-    prevBrands[key] = prevBrand;
-    setBrandsList(prevBrands);
   }
 
     const handleDownload = (url, filename) => {
@@ -73,7 +82,7 @@ const BrandList = ({ history }) => {
     <React.Fragment>
           <div className="page-content">
         <Container fluid>
-          <Breadcrumbs title="Dashborad list brands" breadcrumbItem="List of brands " />
+          <Breadcrumbs title="Dashborad" breadcrumbItem="List of brands " link={"/dashboard/admin/brands"}/>
           <>
             {loading ? (
               <Loader />
@@ -82,14 +91,15 @@ const BrandList = ({ history }) => {
             ) : (
               <Card>
                 <CardBody>
-                  <CardTitle className="mb-4 h4">Brands list :</CardTitle>
                   <div className="table-responsive">
-                    <table className="table align-middle table-nowrap mb-0">
+                    <Table className="table align-middle table-nowrap mb-0" striped bordered hover size="sm" responsive>
                       <thead className="table-light">
                         <tr>
                           <th className="align-middle">Name</th>
                           <th className="align-middle">Verify</th>
                           <th className="align-middle">status</th>
+                          <th className="align-middle">User profile</th>
+                          <th className="align-middle">Edit</th>
                           <th className="align-middle">Delete</th>
                         </tr>
                       </thead>
@@ -98,11 +108,11 @@ const BrandList = ({ history }) => {
                           <tr key={"_tr_" + brand._id}>
                             <td>{brand.brandName}</td>
                             <td>
-                              <Switch checked={brandsList[key].verify} onChange={(e) => {toggleVerify(e,key);}}/>
+                              <Switch checked={brandsList[key].verify} value={brandsList[key].verify} onChange={(e) => {toggleVerify();}}/>
                               { showModal && (
-                                  <Modal show={showModal} onHide={handleClose} backdrop="static" keyboard={true} animation={true}>
+                                  <Modal show={showModal} onHide={() =>handleClose} backdrop="static" keyboard={true} animation={true}>
                                     <Modal.Header closeButton>
-                                      <Modal.Title>Confirm {brand.verify ? "verifying" : "refuting"} {brand.brandName}!</Modal.Title>
+                                      <Modal.Title>Confirm {!brandsList[key].verify ? "verifying" : "refuting"} {brand.brandName}!</Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
                                       <div className="container">
@@ -122,11 +132,23 @@ const BrandList = ({ history }) => {
                                             </div>
                                           </div>
                                       </div>
-                                      {brand.verify ? ("") : (<> Reason for refuting ! <input/></>)}
+                                      {!brandsList[key].verify ? ("") : (<TextField
+                                          variant="outlined"
+                                          type="text"
+                                          margin="normal"
+                                          required
+                                          fullWidth
+                                          id="message"
+                                          label="Reason for refuting"
+                                          name="brandName"
+                                          autoFocus
+                                          value={message}
+                                          onChange={(e) => setMessage(e.target.value)}
+                                      />)}
                                     </Modal.Body>
                                     <Modal.Footer>
-                                      <Button variant="primary" onClick={handleClose}>
-                                        Yes {brand.verify ? "verify" : "refute"}
+                                      <Button variant="primary" onClick={() =>toggle(key)}>
+                                        Yes {!brandsList[key].verify ? "verify" : "refute"}
                                       </Button>
                                       <Button variant="text" onClick={handleClose}>
                                         Close
@@ -147,6 +169,21 @@ const BrandList = ({ history }) => {
                               </td>
                             )}
                             <td>
+                              <Link to={`/profile${brand.userId}`} className=" waves-effect">
+                                 <i className="fas fa-user"/>
+                                 <span>User profile</span>
+                              </Link>
+                            </td>
+                              <td>
+                                  <Button
+                                      variant="light"
+                                      className="btn-lg"
+                                      onClick={() => deleteHandler(brand._id)}
+                                  >
+                                      <i className="fas fa-edit"/>
+                                  </Button>
+                              </td>
+                              <td>
                               <Button
                                 variant="danger"
                                 className="btn-sm"
@@ -158,16 +195,9 @@ const BrandList = ({ history }) => {
                           </tr>
                         ))}
                       </tbody>
-                    </table>
+                    </Table>
                   </div>
                 </CardBody>
-                <Pagination>
-                  <Pagination.First />
-                  <Pagination.Prev />
-                  <Pagination>{items}</Pagination>
-                  <Pagination.Next />
-                  <Pagination.Last />
-                </Pagination>
               </Card>
             )}
           </>

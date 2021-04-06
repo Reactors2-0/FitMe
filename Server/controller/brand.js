@@ -1,7 +1,6 @@
 const asyncHandler = require("../middleware/async");
 const createError = require("../utilis/createError");
-const sendEmail = require("../utilis/sendEmail");
-const cron = require("node-cron");
+const sendBrandEmail = require("../utilis/sendEmail");
 const Brand = require("../models/Brand");
 const User = require("../models/User");
 const cloudinary = require("cloudinary").v2;
@@ -97,25 +96,29 @@ const deleteBrand = asyncHandler(async (req, res, next) => {
 });
 
 const toggleVerify = asyncHandler(async (req, res, next) => {
-  if(req.body.brandId) throw createError(409, "Please provide brand's id");
+  if(!req.body.brandId) throw createError(409, "Please provide brand's id");
   const toToggle = await Brand.findById(req.body.brandId);
   if(!toToggle) throw createError(409, "Brand not found");
   const user = await User.findById(toToggle.userId);
-  const currentState = toToggle.verify;
-  console.log("Toggling verification "+ toToggle.brandName);
+
+  toToggle.verify = !toToggle.verify;
+  await toToggle.save();
+  if(toToggle.verify){
+    user.role = "seller";
+  }else {
+    user.role = "user";
+  }
+  await user.save();
   try {
-    const message = `You are receiving this email because your brand's account has been `+ currentState ? "refuted" : "verified" +`because `+ req.body.message ? req.body.message : "" +`.`;
-    const options = {email: user.email, subject: "Brand " + toToggle.brandName + currentState ? " refuted" : " verified", message};
-    toToggle.verify = !toToggle.verify;
-    await toToggle.save();
-    const test = await Brand.findById(req.body.brandId);
-    console.log("After"+test.verify);
-    await sendEmail(options);
+    // * Mail part
+    const message = `You are receiving this email because your brand's account has been `+ toToggle.verify ? "refuted" : "verified" +`because `+ req.body.message ? req.body.message : "" +`.`;
+    const options = {email: user.email, subject: "Brand " + toToggle.brandName + toToggle.verify ? " refuted" : " verified", message};
+    await sendBrandEmail(options);
+
     res.status(200).send({ status: "success", message: toToggle.verify ? "verification" : "refutation" +" successful" });
   } catch (error) {
     throw createError(500, "Verification / Refutation email cound't be sent");
   }
-  res.status(204).send({ status: "success", message: "Brand Deleted Successfully" });
 });
 
 module.exports = {
