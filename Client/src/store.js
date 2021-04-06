@@ -34,6 +34,7 @@ import {
   deleteBrand,
   createBrand,
   editBrand,
+  toggleVerify
 } from "./reducers/brandReducers";
 import {
   createOrderReducer,
