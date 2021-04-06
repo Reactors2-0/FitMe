@@ -68,7 +68,6 @@ export const listBrandsForAdmin = (initialLoading) => async (dispatch) => {
         });
     }
 };
-
 export const brand = (id) => async (dispatch) => {
     try {
         dispatch({
@@ -132,6 +131,29 @@ export const deleteBrand = (id) => async (dispatch, getState) => {
         });
     }
 };
+export const toggleVerify = (brandId,message = "") => async (dispatch, getState) => {
+    try {
+        const data = {
+            message : message,
+            brandId : brandId
+        }
+        dispatch({
+            type: brandConstants.BRAND_TOGGLEVERIFY_START
+        });
+        const { userLogin: { userInfo }, } = getState();
+        const config = { headers: {Authorization: `Bearer ${userInfo.token}`, }, };
+
+        await axios.post("/api/brands/verify", data, config).then((resp) => {
+            dispatch({ type: brandConstants.BRAND_TOGGLEVERIFY_SUCCESS, });
+        });
+    } catch (error) {
+        dispatch({
+            type: brandConstants.BRAND_TOGGLEVERIFY_FAIL,
+            payload: error.response && error.response.data.error ? error.response.data.error : error.message,
+        });
+    }
+};
+
 
 export const createBrand = (formData) => async (dispatch, getState) => {
     try {

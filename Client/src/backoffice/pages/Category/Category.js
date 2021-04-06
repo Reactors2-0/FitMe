@@ -6,7 +6,7 @@ import Message from "../User/Message";
 import { deleteCategory,listCategoryForAdmin,editcategory } from "../../../actions/AdminAction";
 
 import Loader from "../User/Loader";
-import {Badge, Card, CardBody, CardTitle, Container} from "reactstrap";
+import {Badge, Card, CardBody, CardTitle, Container,Col} from "reactstrap";
 import {Link} from "react-router-dom";
 import MetaTags from "react-meta-tags";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
@@ -16,11 +16,9 @@ const CategoryList = ({ history }) => {
   const dispatch = useDispatch();
 
   const listcategory = useSelector((state) => state.listcategory);
-  const { loading, error, categorys } = listcategory;
+  const { loading, error, categorys ,success} = listcategory;
 
-console.log('====================================');
-console.log(listcategory);
-console.log('====================================');
+
 
   useEffect(() => {
       dispatch(listCategoryForAdmin());
@@ -54,7 +52,7 @@ console.log('====================================');
 
         <Card>
         <CardBody>
-        <CardTitle className="mb-4 h4">List Users <div className="text-sm-end">
+        <CardTitle className="mb-4 h4">List Category <div className="text-sm-end">
                                     <a
                                         href="/dashboard/admin/AddCategory"
                                         className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
@@ -80,7 +78,6 @@ console.log('====================================');
         ></label>
         </div>
         </th>
-        <th className="align-middle">ID</th>
         <th className="align-middle"> Name</th>
  
 
@@ -103,31 +100,44 @@ console.log('====================================');
         ></label>
         </div>
         </td>
-        <td>
-        <Link to="#" className="text-body fw-bold">
-      {" "}
-      {category.uid}{" "}
-        </Link>{" "}
-        </td>
-        <td>{category.name}</td>
+     
+        <td>{category.categoryName}</td>
     
         
         <td>
+        <Col xl={4}>
 
-          <Button
-              variant="primary"
-              className="btn btn-danger mr-2"
-              onClick={() => deleteHandler(category._id)}
-          >
-            Delete
-          </Button>
-          <Link
-                          to={"/dashboard/admin/EditCategory/" + category._id}
-                          className="btn btn-primary mr-2"
-                        >
-                          Show
-                        </Link>
-       
+<div>
+  
+
+  <div>
+    <div
+      className="btn-group btn-group-example mb-3"
+      role="group"
+    >
+      
+      <button
+        type="button"
+        className="btn btn-danger w-xs"
+        onClick={() => deleteHandler(category._id)}
+        >
+<i className="fas fa-trash"></i>
+      </button>{" "}
+      <Link
+        type="button"
+        className="btn btn-primary w-xs"
+        to={"/dashboard/admin/EditCategory/" + category._id}
+
+      >
+        <i className="mdi mdi-pencil d-block font-size-16"></i>
+      </Link>{" "}
+    </div>
+  </div>
+
+  
+</div>
+</Col>
+         
         </td>
       
         </tr>

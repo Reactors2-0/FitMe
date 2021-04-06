@@ -6,49 +6,23 @@ import ContactAdmin from "../backoffice/pages/Contact/ContactList"
 import userlists from "../backoffice/pages/User/UserList"
 import OrderAdmin from "../backoffice/pages/Order/Order"
 import ProductsList from "../backoffice/pages/Products/index"
-import BrandList from "../backoffice/pages/Brand/BrandtList"
 import AddProduct from "../backoffice/pages/Products/AddProduct"
 import Category from "../backoffice/pages/Category/Category"
 import AddCategory from "../backoffice/pages/Category/AddCategory"
 import EditCategory from "../backoffice/pages/Category/Editcategory"
+import Repondre from "../backoffice/pages/Contact/Repondre"
 
 /** SADEK Imports END*/
 
-// Pages Component
-//import Chat from "../backoffice/pages/Chat/Chat"
+import ContactUsPage from "../frontoffice/pages/contact/contact"
 
 
 // User profile
 import UserProfile from "../backoffice/pages/Authentication/UserProfile"
 
-//Ecommerce Pages
-import EcommerceProducts from "../backoffice/pages/Ecommerce/EcommerceProducts/index"
 import ProductDetail from "../backoffice/pages/Products/ProductDetail"
-import EcommerceOrders from "../backoffice/pages/Ecommerce/EcommerceOrders/index"
-//import EcommerceCustomers from "../backoffice/pages/Ecommerce/EcommerceCustomers/index"
-import EcommerceCart from "../backoffice/pages/Ecommerce/EcommerceCart"
-import EcommerceCheckout from "../backoffice/pages/Ecommerce/EcommerceCheckout"
-import EcommerceShops from "../backoffice/pages/Ecommerce/EcommerceShops/index"
-import EcommerceAddProduct from "../backoffice/pages/Ecommerce/EcommerceAddProduct"
 
-// Inner Authentication
-import LockScreen from "../backoffice/pages/AuthenticationInner/auth-lock-screen"
-import LockScreen2 from "../backoffice/pages/AuthenticationInner/auth-lock-screen-2"
-import ConfirmMail from "../backoffice/pages/AuthenticationInner/page-confirm-mail"
-import ConfirmMail2 from "../backoffice/pages/AuthenticationInner/page-confirm-mail-2"
-import TwostepVerification from "../backoffice/pages/AuthenticationInner/auth-two-step-verification"
-import TwostepVerification2 from "../backoffice/pages/AuthenticationInner/auth-two-step-verification-2"
 
-// Dashboard
-
-// Charts
-import ChartApex from "../backoffice/pages/Charts/Apexcharts"
-import ChartistChart from "../backoffice/pages/Charts/ChartistChart"
-import ChartjsChart from "../backoffice/pages/Charts/ChartjsChart"
-import EChart from "../backoffice/pages/Charts/EChart"
-import SparklineChart from "../backoffice/pages/Charts/SparklineChart"
-import ToastUIChart from "../backoffice/pages/Charts/ToastUIChart"
-import ChartsKnob from "../backoffice/pages/Charts/charts-knob"
 
 
 /** Moetaz Brayek Imports */
@@ -63,7 +37,8 @@ import Profile from '../frontoffice/pages/Order/Profile';
 
 // * Chihab's imports
 import BrandSignup from '../frontoffice/pages/BrandSignup/BrandSignup';
-
+import BrandList from "../backoffice/pages/Brand/BrandtList"
+import EditBrand from "../backoffice/pages/Brand/EditBrand"
 
 // * Med Imports *
 
@@ -76,45 +51,26 @@ const authProtectedBackRoutes = [
     { path: "/dashboard", component: Dashboard },
     { path: "/dashboard/admin/userlist", component: userlists },
 
-    { path: "/dashboard/admin/Repondre", component: ContactAdmin },
+    { path: "/dashboard/admin/Contact", component: ContactAdmin },
+    { path: "/dashboard/admin/Repondre/:id", component: Repondre },
+
     { path: "/dashboard/admin/Category", component: Category },
     { path: "/dashboard/admin/AddCategory", component: AddCategory },
     { path: "/dashboard/admin/EditCategory/:id", component: EditCategory },
 
     { path: "/dashboard/admin/Products", component: ProductsList },
-
     { path: "/dashboard/admin/Order", component: OrderAdmin },
-    { path: "/dashboard/admin/brand", component: BrandList },
-    { path: "/dashboard/admin/AddProducts", component:  AddProduct},
-
+    { path: "/dashboard/admin/brands", component: BrandList },
+    { path: "/dashboard/admin/brand:brandId", component: EditBrand },
     //profile
-    //chat
-
-    //Ecommerce
     { path: "/product-detail/:id", component: ProductDetail },
-
-    { path: "/ecommerce-orders", component: EcommerceOrders },
-    //    { path: "/ecommerce-customers", component: EcommerceCustomers },
-    { path: "/ecommerce-cart", component: EcommerceCart },
-    //{ path: "/ecommerce-shops", component: EcommerceShops },
     { path: "/add-product", component: AddProduct },
-
-
-    //Charts
-    { path: "/apex-charts", component: ChartApex },
-    { path: "/chartist-charts", component: ChartistChart },
-    { path: "/chartjs-charts", component: ChartjsChart },
-    { path: "/e-charts", component: EChart },
-    { path: "/sparkline-charts", component: SparklineChart },
-    { path: "/tui-charts", component: ToastUIChart },
-    { path: "/charts-knob", component: ChartsKnob },
-
     // this route should be at the end of all other routes
     { path: "*", exact: true, component: () => <Redirect to="/dashboard" /> },
-
 ]
 
 const publicFrontRoutes = [
+    { path: "/contact", component: ContactUsPage },
 
     { path: "/brandSignup", component: BrandSignup },
     { path: "/", component: Home },
@@ -127,13 +83,7 @@ const publicFrontRoutes = [
     { path: "/resetPassword", component: ResetPassword },
     { path: "/Profile", component: Profile },
     // Authentication Inner
-    { path: "/auth-lock-screen", component: LockScreen },
-    { path: "/auth-lock-screen-2", component: LockScreen2 },
-    { path: "/page-confirm-mail", component: ConfirmMail },
-    { path: "/page-confirm-mail-2", component: ConfirmMail2 },
-    { path: "/auth-two-step-verification", component: TwostepVerification },
-    { path: "/auth-two-step-verification-2", component: TwostepVerification2 },
-    { path: "/ecommerce-checkout", component: EcommerceCheckout },
+
 
     //Product path
     { path: "/product/:id", component: ProductPage },

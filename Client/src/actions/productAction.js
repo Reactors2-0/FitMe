@@ -28,7 +28,7 @@ export const listProducts = (productInfo) => async (dispatch) =>{
 
         ];
 
-        await axios.get(`http://localhost:3000/api/product/?${queryString.join("")}`).then((res)=>{
+        await axios.get(`http://localhost:5000/api/product/?${queryString.join("")}`).then((res)=>{
             const productList = res.data.data.results;
             const totProduct = res.data.data.count;
             dispatch({
@@ -50,7 +50,7 @@ export const product = (id) => async (dispatch) => {
     try {
         dispatch({ type: productConstants.PRODUCT_FETCH_START });
 
-        await axios.get(`http://localhost:3000/api/product/${id}`).then((resp) => {
+        await axios.get(`http://localhost:5000/api/product/${id}`).then((resp) => {
             const product = resp.data.data;
             dispatch({
                 type: productConstants.PRODUCT_FETCH_SUCCESS,
@@ -83,7 +83,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
             },
         };
 
-        await axios.delete(`/api/product/${id}`, config).then((resp) => {
+        await axios.delete(`http://localhost:5000/api/product/${id}`, config).then((resp) => {
             dispatch({
                 type: productConstants.DELETE_PRODUCT_SUCCESS,
             });
@@ -114,7 +114,7 @@ export const createProduct = (formData) => async (dispatch, getState) => {
             },
         };
 
-        await axios.post("/api/product/", formData, config).then((resp) => {
+        await axios.post("http://localhost:5000/api/product/", formData, config).then((resp) => {
             dispatch({
                 type: productConstants.CREATE_PRODUCT_SUCCESS,
             });
@@ -145,7 +145,7 @@ export const EditProduct = (id, UpdatedData) => async (dispatch, getState) => {
         };
 
         await axios
-            .put(`/api/product/${id}`, UpdatedData, config)
+            .put(`http://localhost:5000/api/product/${id}`, UpdatedData, config)
             .then((resp) => {
                 dispatch({
                     type: productConstants.EDIT_PRODUCT_SUCCESS,

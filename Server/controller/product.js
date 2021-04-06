@@ -2,7 +2,7 @@ const asyncHandler = require("../middleware/async");
 const createError = require("../utilis/createError");
 const path = require("path");
 const Product = require("../models/Product");
-const categoryRouter = require("../models/category");
+const categoryRouter = require("../models/Category");
 
 const cloudinary = require("cloudinary").v2;
 
@@ -79,7 +79,7 @@ const createProduct = asyncHandler(async (req,res,next)=>{
     console.log(file.preview)
 
     cloudinary.uploader.upload(
-        "C:\\Users\\Med\\Pictures\\"+file.path,
+        "C:\\"+file.path,
         {use_filename: true, folder: "products"},
         async function (error, result) {
             console.log(error)

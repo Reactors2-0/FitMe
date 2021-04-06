@@ -2,12 +2,13 @@ import axios from "axios";
 import * as userConstants from "../constants/AdminConstants";
 import * as categoryConstants from "../constants/categoryConstants";
 
-export const Repondre = (email,message) => async (dispatch) => {
+export const Repondre = (email,messages) => async (dispatch) => {
   try {
     dispatch({ type: userConstants.Repondre_SEND_START });
 
-    await axios.post(`/api/v1/admin/Repondre`, email,message).then((resp) => {
+    await axios.post(`/api/v1/admin/Repondre`, email,messages).then((resp) => {
       const confirmMessage = resp.data.message;
+    
       dispatch({
         type: userConstants.Repondre_SEND_SUCCESS,
         payload: confirmMessage,
@@ -24,11 +25,11 @@ export const Repondre = (email,message) => async (dispatch) => {
   }
 };
 
-export const Category = (name) => async (dispatch) => {
+export const Category = (categoryName) => async (dispatch) => {
   try {
     dispatch({ type: categoryConstants.Category_START });
 
-    await axios.post(`/api/catgory/createcatgory`,name).then((resp) => {
+    await axios.post(`/api/category/`,categoryName).then((resp) => {
       const confirmMessage = resp.data.message;
       dispatch({
         type: categoryConstants.Category_SUCCESS,
@@ -50,7 +51,7 @@ export const deleteCategory = (id) => async (dispatch, getState) => {
       dispatch({ type: categoryConstants.Category_START });
       const { userLogin: { userInfo }, } = getState();
       const config = { headers: { Authorization: `Bearer ${userInfo.token}`, }, };
-      await axios.delete(`/api/catgory/${id}`, config).then((resp) => {
+      await axios.delete(`/api/category/${id}`, config).then((resp) => {
           dispatch({
               type: categoryConstants.Category_SUCCESS,
           });
@@ -84,7 +85,7 @@ export const editcategory = (id, UpdatedData) => async (dispatch, getState) => {
       };
 
       await axios
-          .put(`/api/Catgory/${id}`, UpdatedData, config)
+          .put(`/api/category/${id}`, UpdatedData, config)
           .then((resp) => {
               dispatch({
                   type: categoryConstants.Category_SUCCESS,
@@ -107,7 +108,7 @@ export const listCategoryForAdmin = (initialLoading) => async (dispatch) => {
               type: categoryConstants.Category_START
           });
       }
-      await axios.get(`/api/catgory/`).then((resp) => {
+      await axios.get(`/api/category/`).then((resp) => {
           const categoryList = resp.data.data.results;
           const totalcategory = resp.data.data.count;
           dispatch({
@@ -124,6 +125,29 @@ export const listCategoryForAdmin = (initialLoading) => async (dispatch) => {
           payload: error.response && error.response.data.error ?
               error.response.data.error :
               error.message,
+      });
+  }
+};
+export const categoryid = (id) => async (dispatch) => {
+  try {
+      dispatch({ type: categoryConstants.Category_START });
+
+      await axios.get(`/api/category/${id}`).then((resp) => {
+          const categoryi = resp.data.data;
+        
+          dispatch({
+              type: categoryConstants.Category_SUCCESS,
+              payload: categoryi,
+              
+          });
+      });
+  } catch (error) {
+      dispatch({
+          type: categoryConstants.Category_FAIL,
+          payload:
+              error.response && error.response.data.error
+                  ? error.response.data.error
+                  : error.message,
       });
   }
 };
