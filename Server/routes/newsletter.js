@@ -1,18 +1,19 @@
 const router = require("express").Router();
+const advanceResults = require("../middleware/advanceResults");
+const news = require("../models/newsletter");
 
 
 const {
-     getNewsletters,
-    getNewsletter,
+    getNewsletters,
     createNewsletter,
+    getNewsletter,
     updateNewsletter,
-    deleteNewsletter,
+    deleteNewsletter
 }= require("../controller/newsletter");
 
-router.route("/").post(createNewsletter);
 
-router.route("/").get(getNewsletters);
-
-router.route("/:id").get(getNewsletter).put(updateNewsletter).delete(deleteNewsletter);
+router.route("/").get(advanceResults(news), getNewsletters).post(createNewsletter);
+router.route("/:id").get(getNewsletter).put(updateNewsletter);
+router.route("/:id").delete(deleteNewsletter);
 module.exports = router;
 
