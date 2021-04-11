@@ -1,6 +1,6 @@
+const mongoose = require("mongoose");
 
-
-const NewsletterSchema = {
+const NewsletterSchema =  new mongoose.Schema({
     email: {
         type: String,
         required: [true, "Please add an email"],
@@ -10,8 +10,7 @@ const NewsletterSchema = {
         ],
     },
 
-};
-
+});
 
 
 

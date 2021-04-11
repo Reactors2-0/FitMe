@@ -13,14 +13,16 @@ dotenv.config({ path: ".env" });
 
 connectDb();
 const productRouter = require("./routes/product");
-const categoryRouter = require("./routes/category");
-
-const reviewRouter = require("./routes/review");
+const categoryRouter = require("./routes/Category");
+//! Cyrine's routes 
 const orderRouter = require("./routes/order");
+const contactRoute = require("./routes/contact")
+const newsletterRoute = require("./routes/newsletter");
+
 //! Sadek
 const adminRouter = require("./routes/Admin");
-const contactRoute = require("./routes/contact")
 
+const reviewRouter = require("./routes/review");
 //! Moetaz Routes
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
@@ -36,13 +38,15 @@ app.use(
     })
 );
 app.use("/api/contact", contactRoute);
+app.use("/api/v1/order", orderRouter);
+app.use("/api/newsletter", newsletterRoute);
 
 app.use("/api/brands", brandRouter);
 app.use("/api/product", productRouter);
 app.use("/api/category", categoryRouter);
 
 app.use("/api/review", reviewRouter);
-app.use("/api/v1/order", orderRouter);
+
 app.use("/api/v1/admin", adminRouter);
 
 

@@ -6,11 +6,11 @@ import ContactAdmin from "../backoffice/pages/Contact/ContactList"
 import userlists from "../backoffice/pages/User/UserList"
 import OrderAdmin from "../backoffice/pages/Order/Order"
 import ProductsList from "../backoffice/pages/Products/index"
-import BrandList from "../backoffice/pages/Brand/BrandtList"
 import AddProduct from "../backoffice/pages/Products/AddProduct"
 import Category from "../backoffice/pages/Category/Category"
 import AddCategory from "../backoffice/pages/Category/AddCategory"
 import EditCategory from "../backoffice/pages/Category/Editcategory"
+import Repondre from "../backoffice/pages/Contact/Repondre"
 
 /** SADEK Imports END*/
 
@@ -37,42 +37,37 @@ import Profile from '../frontoffice/pages/Order/Profile';
 
 // * Chihab's imports
 import BrandSignup from '../frontoffice/pages/BrandSignup/BrandSignup';
-
+import BrandList from "../backoffice/pages/Brand/BrandtList"
+import EditBrand from "../backoffice/pages/Brand/EditBrand"
 
 // * Med Imports *
 
 import Home from "../frontoffice/pages/Home/Home";
 import ProductPage from "../frontoffice/pages/ProductDetails/ProductPage";
 import ShoppingCart from "../frontoffice/pages/ProductShoppingCart/ShoppingCart";
+import EcommerceCheckout from "../frontoffice/pages/Order/Order";
 
 
 const authProtectedBackRoutes = [
     { path: "/dashboard", component: Dashboard },
     { path: "/dashboard/admin/userlist", component: userlists },
 
-    { path: "/dashboard/admin/Repondre", component: ContactAdmin },
+    { path: "/dashboard/admin/Contact", component: ContactAdmin },
+    { path: "/dashboard/admin/Repondre/:id", component: Repondre },
+
     { path: "/dashboard/admin/Category", component: Category },
     { path: "/dashboard/admin/AddCategory", component: AddCategory },
     { path: "/dashboard/admin/EditCategory/:id", component: EditCategory },
 
     { path: "/dashboard/admin/Products", component: ProductsList },
-
     { path: "/dashboard/admin/Order", component: OrderAdmin },
-    { path: "/dashboard/admin/brand", component: BrandList },
-
+    { path: "/dashboard/admin/brands", component: BrandList },
+    { path: "/dashboard/admin/brand:brandId", component: EditBrand },
     //profile
-
     { path: "/product-detail/:id", component: ProductDetail },
-
-
     { path: "/add-product", component: AddProduct },
-
-
-
-
     // this route should be at the end of all other routes
     { path: "*", exact: true, component: () => <Redirect to="/dashboard" /> },
-
 ]
 
 const publicFrontRoutes = [
@@ -90,13 +85,13 @@ const publicFrontRoutes = [
     { path: "/Profile", component: Profile },
     // Authentication Inner
 
-
     //Product path
     { path: "/product/:id", component: ProductPage },
     { path: "/shoppingCart", component: ShoppingCart },
 
 ]
 const authProtectedFrontRoutes = [
+    { path: "/ecommerce-checkout", component: EcommerceCheckout },
 
 
 ]

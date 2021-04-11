@@ -21,13 +21,11 @@ class MonthlyEarning extends Component {
             <Row>
               <Col sm="6">
                 <p className="text-muted">This month</p>
-                <h3>$34,252</h3>
                 <p className="text-muted">
                   <span className="text-success me-2">
                     {" "}
                     12% <i className="mdi mdi-arrow-up"></i>{" "}
                   </span>{" "}
-                  From previous period
                 </p>
                 <div className="mt-4">
                   <Link
@@ -44,9 +42,7 @@ class MonthlyEarning extends Component {
                 </div>
               </Col>
             </Row>
-            <p className="text-muted mb-0">
-              We craft digital, graphic and dimensional thinking.
-            </p>
+     
           </CardBody>
         </Card>
       </React.Fragment>

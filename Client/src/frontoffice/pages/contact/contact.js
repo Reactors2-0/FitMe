@@ -12,6 +12,7 @@ import ListItem from "@material-ui/core/ListItem";
 import Favorite from "@material-ui/icons/Favorite";
 import PinDrop from "@material-ui/icons/PinDrop";
 import Phone from "@material-ui/icons/Phone";
+import Mail from "@material-ui/icons/Mail";
 import BusinessCenter from "@material-ui/icons/BusinessCenter";
 import GridContainer from "@FrontOfficeComponents/ui/Grid/GridContainer";
 import GridItem from "@FrontOfficeComponents/ui/Grid/GridItem";
@@ -69,15 +70,15 @@ export default function ContactUsPage() {
             <br></br>
             <br></br>
             {error && (
-                <ErrorMessage
-                    header="Please Put All Info"
-                    message={error}
-                />
+                <SuccessMessage
+                header="Message SuccessFully Sent"
+                message={mesage}
+            />
             )}
             {success && (
                 <SuccessMessage
                     header="Message SuccessFully Sent"
-                    message={message}
+                    message={mesage}
                 />
             )}
             <div className={classNames(classes.main, classes.mainRaised)}>
@@ -155,8 +156,8 @@ export default function ContactUsPage() {
                                     title="Find us at the office"
                                     description={
                                         <p>
-                                            Bld Mihail Kogalniceanu, nr. 8, <br /> 7652 Bucharest,{" "}
-                                            <br /> Romania
+                                            Ariana Soghra, <br /> {" "}
+                                            <br /> Tunis
                     </p>
                                     }
                                     icon={PinDrop}
@@ -167,8 +168,8 @@ export default function ContactUsPage() {
                                     title="Give us a ring"
                                     description={
                                         <p>
-                                            Michael Jordan <br /> +40 762 321 762 <br /> Mon - Fri,
-                      8:00-22:00
+                                            Reactors <br /> +216 25 678 659 <br /> Mon - Fri,
+                      8:00-20:00
                     </p>
                                     }
                                     icon={Phone}
@@ -176,14 +177,13 @@ export default function ContactUsPage() {
                                 />
                                 <InfoArea
                                     className={classes.info}
-                                    title="Legal Information"
+                                    title="Send us an email"
                                     description={
                                         <p>
-                                            Creative Tim Ltd. <br /> VAT · EN2341241 <br /> IBAN ·
-                      EN8732ENGB2300099123 <br /> Bank · Great Britain Bank
+                                         Reactors5@gmail.com   
                     </p>
                                     }
-                                    icon={BusinessCenter}
+                                    icon={Mail}
                                     iconColor="primary"
                                 />
                             </GridItem>

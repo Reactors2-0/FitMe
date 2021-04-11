@@ -86,8 +86,9 @@ class SidebarContent extends Component {
   }
 
   render() {
-    const userRole = localStorage.getItem("userInfo").role;
+    const userRole = JSON.parse(localStorage.getItem("userInfo")).role;
     const redirectTo = userRole === "admin" ? "admin" : "seller";
+    console.log(userRole)
     return (
       <React.Fragment>
         <SimpleBar style={{ maxHeight: "100%" }} ref={this.refDiv}>
@@ -106,7 +107,7 @@ class SidebarContent extends Component {
               { userRole === "admin" ? (
                   <>
                     <li>
-                      <Link to="/dashboard/admin/Repondre" className=" waves-effect">
+                      <Link to="/dashboard/admin/Contact" className=" waves-effect">
                         <i className="bx bx-envelope"/>
                         <span>Contact</span>
                       </Link>
@@ -117,15 +118,6 @@ class SidebarContent extends Component {
                         <span>Category</span>
                       </Link>
                     </li>
-                    <li>
-                      <Link to="/dashboard/admin/userlist" className=" waves-effect">
-                        <i className="bx bx-user-circle" />
-                        <span>Users</span>
-                      </Link>
-                    </li>
-                  </>
-              ):(
-                  <>
                     <li>
                       <Link to="/dashboard/admin/Products" className=" waves-effect">
                         <i className="bx bx-store" />
@@ -139,32 +131,41 @@ class SidebarContent extends Component {
                       </Link>
                     </li>
                     <li>
-                      <Link to="/dashboard/admin/Brand" className=" waves-effect">
-                        <i className="bx bxs-user-detail" />
-                        <span>Brand</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/dashboard/admin/Repondre" className=" waves-effect">
-                        <i className="bx bx-envelope"/>
-                        <span>Contact</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/dashboard/admin/Category" className=" waves-effect">
-                        <i className="bx bx-duplicate" />
-                        <span>Category</span>
-                      </Link>
-                    </li>
-                    <li>
                       <Link to="/dashboard/admin/userlist" className=" waves-effect">
                         <i className="bx bx-user-circle" />
                         <span>Users</span>
                       </Link>
                     </li>
+                    <li>
+                      <Link to="/dashboard/admin/brands" className=" waves-effect">
+                        <i className="bx bxs-user-detail" />
+                        <span>Brands</span>
+                      </Link>
+                    </li>
+                  </>
+              ):(
+                  <>
+
+                    <li>
+                      <Link to="/dashboard/admin/Products" className=" waves-effect">
+                        <i className="bx bx-store" />
+                        <span>Products</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/dashboard/admin/Order" className=" waves-effect">
+                        <i className="bx bx-file" />
+                        <span>Orders</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/dashboard/admin/brands" className=" waves-effect">
+                        <i className="bx bxs-user-detail" />
+                        <span>Brands</span>
+                      </Link>
+                    </li>
                   </>
               )}
-              {}
             </ul>
           </div>
         </SimpleBar>

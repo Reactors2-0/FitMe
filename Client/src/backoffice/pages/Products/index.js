@@ -1,7 +1,7 @@
 import React, {Component, useEffect} from "react"
 import PropTypes from "prop-types"
 import MetaTags from 'react-meta-tags';
-import { connect } from "react-redux"
+import {connect, useSelector, useStore} from "react-redux"
 import { Link, withRouter } from "react-router-dom"
 import {
   Card,
@@ -34,19 +34,17 @@ import "nouislider/distribute/nouislider.css"
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb"
 
-//Import data
-// import { discountData, productsList } from "common/data"
 
 //Import actions
 import {useState} from "react";
 import {useProduct} from "../../../hook/useProductHook";
+import Filter from "../../../frontoffice/pages/Home/Components/Filter";
 // import ProductPage from "../../../frontoffice/pages/ProductDetails/ProductPage";
 // import ProductList from "../../../frontoffice/pages/Home/Components/ProductList";
 
 function EcommerceProducts(props) {
 
-  const {products,loading,count,error,searchProductKey} = useProduct("","","","","");
-
+  const {products, loading, count, error, searchProductKey} = useProduct("", "", "", "", "");
   const  [productsList,setProductsList] = useState(products)
   const [FilterClothes,setFilterClothes] = useState([
     { id: 1, name: "T-shirts", link: "#" },
@@ -54,6 +52,8 @@ function EcommerceProducts(props) {
     { id: 3, name: "Jeans", link: "#" },
     { id: 4, name: "Jackets", link: "#" },
   ]);
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   const [activeTab,setActiveTab] = useState("1");
   const [discountData,setDiscountData] = useState([
     { label: "Less than 10%", value: 0 },
@@ -72,8 +72,13 @@ function EcommerceProducts(props) {
   const [totalPage,setTotalPage] = useState(5);
 
 useEffect(()=>{
-  setProductsList(products)
-  console.log(productsList)
+  console.log(userInfo.role)
+  userInfo.role !== "admin" ?
+  setProductsList(products.filter((val)=> {
+    return val.brand.userId === userInfo.id
+  }))
+      : setProductsList(products)
+
 },[products])
 
   const toggleTab=(tab)=> {
@@ -112,33 +117,6 @@ useEffect(()=>{
     setProductsList(filteredProducts)
   }
 
-  const onUpdate = (render, handle, value) => {
-
-    setProductsList(productsList.filter(product => product.price >= value[0] && product.price <= value[1]))
-
-  }
-
-  /*
-  on change rating checkbox method
-  */
-  const onChangeRating = value => {
-
-    setProductsList(productsList.filter(product => product.rating >= value))
-  }
-
-  const onSelectRating = value => {
-
-    setProductsList(products.filter(product => product.rating === value))
-
-  }
-
-  const onUncheckMark = () => {
-
-    setProductsList(productsList)
-
-
-  }
-
   const handlePageClick = page => {
     setPage(page)
   }
@@ -156,145 +134,7 @@ useEffect(()=>{
             <Row>
               <Col lg="3">
                 <Card>
-                  <CardBody>
-                    <CardTitle className="mb-4">Filter</CardTitle>
-                    <div>
-                      <h5 className="font-size-14 mb-3">Clothes</h5>
-                      {/* Render Cloth Categories */}
-                      <ul className="list-unstyled product-list">
-                        {FilterClothes.map((cloth, key) => (
-                            <li key={"_li_" + key}>
-                              <Link to={cloth.link}>
-                                <i className="mdi mdi-chevron-right me-1" />{" "}
-                                {cloth.name}
-                              </Link>
-                            </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className="mt-4 pt-3">
-                      <h5 className="font-size-14 mb-4">Price</h5>
-                      <br />
-
-                      <Nouislider
-                          range={{ min: 0, max: 600 }}
-                          tooltips={true}
-                          start={[100, 500]}
-                          connect
-                          onSlide={onUpdate}
-                      />
-
-                    </div>
-
-                    <div className="mt-4 pt-3">
-                      <h5 className="font-size-14 mb-3">Discount</h5>
-                      {discountData.map((discount, i) => (
-                          <div
-                              className="form-check mt-2"
-                              key={i}
-                          >
-                            <Input
-                                type="checkbox"
-                                value={discount.value}
-                                className="form-check-input"
-                                id={i}
-                                onChange={(e)=> {
-                                  onSelectDiscount(e)
-                                }}
-                            />{" "}
-                            <Label className="form-check-label" htmlFor={i}>
-                              {discount.label}
-                            </Label>
-                          </div>
-                      ))}
-                    </div>
-
-                    <div className="mt-4 pt-3">
-                      <h5 className="font-size-14 mb-3">Customer Rating</h5>
-                      <div>
-                        <div className="form-check mt-2">
-                          <Input
-                              type="checkbox"
-                              className="form-check-input"
-                              id="productratingCheck1"
-                              onChange={e => {
-                                if (e.target.checked) {
-                                  onChangeRating(4)
-                                } else {
-                                  onUncheckMark(4)
-                                }
-                              }}
-                          />{" "}
-                          <Label
-                              className="form-check-label"
-                              htmlFor="productratingCheck1"
-                          >
-                            4 <i className="bx bxs-star text-warning" /> & Above
-                          </Label>
-                        </div>
-                        <div className="form-check mt-2">
-                          <Input
-                              type="checkbox"
-                              className="form-check-input"
-                              id="productratingCheck2"
-                              onChange={e => {
-                                if (e.target.checked) {
-                                  onChangeRating(3)
-                                } else {
-                                  onUncheckMark(3)
-                                }
-                              }}
-                          />{" "}
-                          <Label
-                              className="form-check-label"
-                              htmlFor="productratingCheck2"
-                          >
-                            3 <i className="bx bxs-star text-warning" /> & Above
-                          </Label>
-                        </div>
-                        <div className="form-check mt-2">
-                          <Input
-                              type="checkbox"
-                              className="form-check-input"
-                              id="productratingCheck3"
-                              onChange={e => {
-                                if (e.target.checked) {
-                                  onChangeRating(2)
-                                } else {
-                                  onUncheckMark(2)
-                                }
-                              }}
-                          />{" "}
-                          <Label
-                              className="form-check-label"
-                              htmlFor="productratingCheck3"
-                          >
-                            2 <i className="bx bxs-star text-warning" /> & Above
-                          </Label>
-                        </div>
-                        <div className="form-check mt-2">
-                          <Input
-                              type="checkbox"
-                              className="form-check-input"
-                              id="productratingCheck4"
-                              onChange={e => {
-                                if (e.target.checked) {
-                                  onSelectRating(1)
-                                } else {
-                                  onUncheckMark(1)
-                                }
-                              }}
-                          />{" "}
-                          <Label
-                              className="form-check-label"
-                              htmlFor="productratingCheck4"
-                          >
-                            1 <i className="bx bxs-star text-warning" />
-                          </Label>
-                        </div>
-                      </div>
-                    </div>
-                  </CardBody>
+                  <Filter/>
                 </Card>
               </Col>
 
@@ -350,7 +190,7 @@ useEffect(()=>{
                 </Row>
                 <Row>
                   {!isEmpty(products) &&
-                  productsList.map((product, key) => (
+                  products.map((product, key) => (
                       <Col xl="4" sm="6" key={"_col_" + key}>
                         <Card onClick={() =>
                             history.push(

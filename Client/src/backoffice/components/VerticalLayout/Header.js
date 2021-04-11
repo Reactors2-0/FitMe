@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import PropTypes from 'prop-types'
-
+import { connect } from "react-redux"
 
 import { Link } from "react-router-dom"
 
@@ -10,7 +10,8 @@ import { Row, Col, Dropdown, DropdownToggle, DropdownMenu } from "reactstrap"
 // Import menuDropdown
 import ProfileMenu from "../CommonForBoth/TopbarDropdown/ProfileMenu"
 
-import logo from "../../assets/images/logo-sm-light.png"
+
+import logo from "./../../assets/images/logo-sm-light.png"
 import logoLight from "../../assets/images/logo-light.png"
 import logoLightSvg from "../../assets/images/logo-light.svg"
 import logoDark from "../../assets/images/logo-dark.png"
@@ -137,11 +138,15 @@ class Header extends Component {
 Header.propTypes = {
   openLeftMenuCallBack: PropTypes.func,
   t: PropTypes.any,
-  toggleRightSidebar: PropTypes.func
 }
 
-const mapStatetoProps = state => {
-  const { layoutType } = state.Layout
-  return { layoutType }
+
+export default connect()(
+    (Header)
+)
+
+Header.propTypes = {
+  t: PropTypes.any,
+  toggleMenuCallback: PropTypes.any,
+  toggleRightSidebar: PropTypes.func
 }
-export default Header;

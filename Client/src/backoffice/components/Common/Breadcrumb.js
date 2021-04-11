@@ -14,10 +14,10 @@ class Breadcrumbs extends Component {
               <div className="page-title-right">
                 <Breadcrumb listClassName="m-0">
                   <BreadcrumbItem>
-                    <Link to="#">{this.props.title}</Link>
+                    <Link to="/dashboard">{this.props.title}</Link>
                   </BreadcrumbItem>
                   <BreadcrumbItem active>
-                    <Link to="#">{this.props.breadcrumbItem}</Link>
+                    <Link to={this.props.link ? this.props.link : "#"}>{this.props.breadcrumbItem}</Link>
                   </BreadcrumbItem>
                 </Breadcrumb>
               </div>
@@ -31,7 +31,8 @@ class Breadcrumbs extends Component {
 
 Breadcrumbs.propTypes = {
   breadcrumbItem: PropTypes.string,
-  title: PropTypes.string
+  title: PropTypes.string,
+  link: PropTypes.string
 }
 
 export default Breadcrumbs

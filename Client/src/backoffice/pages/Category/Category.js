@@ -6,7 +6,7 @@ import Message from "../User/Message";
 import { deleteCategory,listCategoryForAdmin,editcategory } from "../../../actions/AdminAction";
 
 import Loader from "../User/Loader";
-import {Badge, Card, CardBody, CardTitle, Container} from "reactstrap";
+import {Badge, Card, CardBody, CardTitle, Container,Col} from "reactstrap";
 import {Link} from "react-router-dom";
 import MetaTags from "react-meta-tags";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
@@ -105,21 +105,39 @@ const CategoryList = ({ history }) => {
     
         
         <td>
+        <Col xl={4}>
 
-          <Button
-              variant="primary"
-              className="btn btn-danger mr-2"
-              onClick={() => deleteHandler(category._id)}
-          >
-            Delete
-          </Button>
-          <Link
-                          to={"/dashboard/admin/EditCategory/" + category._id}
-                          className="btn btn-primary mr-2"
-                        >
-                          Show
-                        </Link>
-       
+<div>
+  
+
+  <div>
+    <div
+      className="btn-group btn-group-example mb-3"
+      role="group"
+    >
+      
+      <button
+        type="button"
+        className="btn btn-danger w-xs"
+        onClick={() => deleteHandler(category._id)}
+        >
+<i className="fas fa-trash"></i>
+      </button>{" "}
+      <Link
+        type="button"
+        className="btn btn-primary w-xs"
+        to={"/dashboard/admin/EditCategory/" + category._id}
+
+      >
+        <i className="mdi mdi-pencil d-block font-size-16"></i>
+      </Link>{" "}
+    </div>
+  </div>
+
+  
+</div>
+</Col>
+         
         </td>
       
         </tr>

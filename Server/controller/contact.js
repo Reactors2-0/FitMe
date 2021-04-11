@@ -26,8 +26,14 @@ const getMsg = asyncHandler(async (req, res, next) => {
 
     res.status(200).send({ status: "success", data: contact });
 });
+
+const getContacts = asyncHandler(async (req, res, next) => {
+    res.status(200).send({ status: "success", data: res.advanceResults });
+});
 module.exports = {
     createContact,
     deletemsg,
-    getMsg
+    getMsg,
+    getContacts,
 };
+

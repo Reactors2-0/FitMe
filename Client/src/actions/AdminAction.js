@@ -2,12 +2,13 @@ import axios from "axios";
 import * as userConstants from "../constants/AdminConstants";
 import * as categoryConstants from "../constants/categoryConstants";
 
-export const Repondre = (email,message) => async (dispatch) => {
+export const Repondre = (email,messages) => async (dispatch) => {
   try {
     dispatch({ type: userConstants.Repondre_SEND_START });
 
-    await axios.post(`/api/v1/admin/Repondre`, email,message).then((resp) => {
+    await axios.post(`/api/v1/admin/Repondre`, email,messages).then((resp) => {
       const confirmMessage = resp.data.message;
+    
       dispatch({
         type: userConstants.Repondre_SEND_SUCCESS,
         payload: confirmMessage,
@@ -124,6 +125,29 @@ export const listCategoryForAdmin = (initialLoading) => async (dispatch) => {
           payload: error.response && error.response.data.error ?
               error.response.data.error :
               error.message,
+      });
+  }
+};
+export const categoryid = (id) => async (dispatch) => {
+  try {
+      dispatch({ type: categoryConstants.Category_START });
+
+      await axios.get(`/api/Category/${id}`).then((resp) => {
+          const categoryi = resp.data.data;
+
+          dispatch({
+              type: categoryConstants.Category_SUCCESS,
+              payload: categoryi,
+              
+          });
+      });
+  } catch (error) {
+      dispatch({
+          type: categoryConstants.Category_FAIL,
+          payload:
+              error.response && error.response.data.error
+                  ? error.response.data.error
+                  : error.message,
       });
   }
 };

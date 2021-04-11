@@ -1,5 +1,7 @@
-import React, {useState} from "react"
-import { Link } from "react-router-dom"
+import React, {useState,useEffect} from "react"
+import { useParams, useHistory } from "react-router-dom";
+import { useDispatch, useSelector} from "react-redux"
+
 import MetaTags from 'react-meta-tags';
 import {
   Button,
@@ -17,57 +19,85 @@ import {
 } from "reactstrap"
 import Select from "react-select"
 import Dropzone from "react-dropzone"
-import {useDispatch} from "react-redux";
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb"
-import {Category} from "../../../actions/AdminAction";
+import * as userAction from "../../../actions/AdminAction";
+import * as contactAction from "../../../actions/contactAction";
 
-const AddProduct = ({ history}) =>  {
-  const [categoryName, setName] = useState("");
+const Repnodre = ( {match, history}) =>  
+{
+
+  const [messages, setMessages] = useState("");
+  const [email, setEmail] = useState("");
   const redirect = location.search ? location.search.split("=")[1] : "/";
+  const productData = useSelector((state) => state.Contact);
 
+  console.log("dsqdsqd",match.params.id)
+      const { loading, contacts, error } = productData;
+ 
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    dispatch(contactAction.Contactid(match.params.id));
+    // eslint-disable-next-line
+}, [dispatch, match]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (window.confirm("Are you sure save ? ")) {
-    dispatch(Category({ categoryName}));
-    history.push(redirect + "dashboard/admin/Category");
+    if (window.confirm("Are you sure Send ? ")) {
+    dispatch(userAction.Repondre({email},{messages}));
+    history.push(redirect + "dashboard/admin/Contact");
 
-    
+
   }
   };
-
- 
+  
+  const handleChange = (e) => {
+    setEmail({
+      ...contacts,
+      [e.target.email]: e.target.value,
+    });
+  }
   
 
     return (
       <React.Fragment>
         <div className="page-content">
         <MetaTags>
-            <title>Category Product</title>
+            <title>Mail Details</title>
           </MetaTags>
           <Container fluid>
             {/* Render Breadcrumb */}
-            <Breadcrumbs title="Dashborad" breadcrumbItem="Add Category" />
+            <Breadcrumbs title="Dashborad" breadcrumbItem="Repondre" />
 
             <Row>
               <Col xs="12">
                 <Card>
                   <CardBody>
+                    
 
                     <Form>
                       <Row>
                         <Col sm="6">
                           <FormGroup className="mb-3">
-                            <Label htmlFor="productname">Category Name</Label>
+                            <Label htmlFor="productname">Reponse</Label>
                             <Input
                               id="productname"
                               name="productname"
                               type="text"
                               className="form-control"
-                              value={categoryName}
-                             onChange={(e) => setName(e.target.value)}
+                              onChange={handleChange}
+                                defaultValue={contacts.email}
+                            />
+                           
+                           
+                           
+                            <Input
+                              id="productname"
+                              name="productname"
+                              type="text"
+                              className="form-control"
+                             
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                           </FormGroup>
                          
@@ -82,7 +112,7 @@ const AddProduct = ({ history}) =>  {
                         className="waves-effect waves-light"
                         onClick={handleSubmit}
                       >
-                        Save Changes
+                        Envoyer
                       </Button>
                       <Button
                         type="submit"
@@ -106,4 +136,4 @@ const AddProduct = ({ history}) =>  {
      );
 };
 
-export default AddProduct;
+export default Repnodre;

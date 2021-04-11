@@ -1,26 +1,29 @@
 const {
-    getCategories,
+    createCategory,
     getCategory,
-    addCategory,
+    getCategorys,
     updateCategory,
-    removeCategory,
+    deleteCategory,
 } = require("../controller/Category");
 
-//Invoked middleware.
-const advanceResults = require("../middleware/advanceResults");
-const { protect, permission } = require("../middleware/auth");
 
-//User model
+
+//Category model
 const Category = require("../models/Category");
+
+const { protect } = require("../middleware/auth");
 
 const router = require("express").Router();
 
+
+const advanceResults = require("../middleware/advanceResults");
+
+router.route("/").post(createCategory);
+router.route("/").get(advanceResults(Category), getCategorys)
 router
-    .route("/")
-    .get(advanceResults(Category), getCategories)
-    .post(addCategory);
-
-
-    router.route("/:id").get(getCategory).put(updateCategory).delete(removeCategory);
+    .route("/:id")
+    .get(getCategory)
+    .put(updateCategory)
+    .delete(deleteCategory);
 
 module.exports = router;

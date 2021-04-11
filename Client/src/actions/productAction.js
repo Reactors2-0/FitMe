@@ -8,7 +8,8 @@ export const listProducts = (productInfo) => async (dispatch) =>{
         sort,
         category,
         initialLoading,
-        ltORgt
+        ltORgt,
+        brand
     } = productInfo;
 
     try{
@@ -19,7 +20,9 @@ export const listProducts = (productInfo) => async (dispatch) =>{
         const queryString = [
             sort.length > 0 ? `sort=${sort.join(",")}` : "",
             searchProductKey !== "" ?`&keyword=${searchProductKey}` : "",
-            category !== "" ? `&category=${category}` : "",
+             category !== [] ? `&Category=${category}` : "",
+              brand !== [] ? `&Brand=${brand}` : "",
+
             `&priceMin=${ltORgt[0]}`,
             `&priceMax=${ltORgt[1]}`,
 
