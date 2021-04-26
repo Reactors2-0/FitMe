@@ -25,7 +25,7 @@ import {
   categoryList,
   Repondre,
   category,
- 
+
 } from "./reducers/AdminReducers";
 import { ContactList,userContact, Contact } from "./reducers/contactReducers"
 
@@ -46,11 +46,18 @@ import {
   authOrders,
   listOrders,
 } from "./reducers/orderReducers";
-
+import {
+News,
+NewsList,
+Newsuser
+} from "./reducers/newsletterReducers";
 
 
 
 const rootReducer = combineReducers({
+  News:News,
+  NewsList:NewsList,
+  Newsuser:Newsuser,
   toggleVerify:toggleVerify,
   Contact:Contact,
   listBrands:listBrands,

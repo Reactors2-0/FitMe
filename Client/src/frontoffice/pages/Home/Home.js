@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./home.css"
 import Parallax from "@FrontOfficeComponents/ui/Parallax/Parallax";
@@ -19,17 +19,29 @@ import CardBody from "@FrontOfficeComponents/ui/Card/CardBody";
 import Card from "@FrontOfficeComponents/ui/Card/Card";
 import ecommerceHeader from "@FrontOfficeAssets/img/examples/ecommerce-header.jpg";
 import Meta from "../../components/Meta/Meta";
+import * as newsAction from "@Actions/newsletterAction";
+import { useDispatch } from "react-redux";
+
 
 
 const useStyles = makeStyles(styles);
 
 const Home = () => {
-    React.useEffect(() => {
-        window.scrollTo(0, 0);
-        document.body.scrollTop = 0;
-    });
+    // dear mohamed this makes problems check it
+     //React.useEffect(() => {
+       // window.scrollTo(0, 0);
+       // document.body.scrollTop = 0;
+   // });
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const [email, setEmail] = useState("");
 
+
+    const handle =(e) =>{
+        e.preventDefault();
+        console.log("wslna lena !");
+        dispatch(newsAction.Register(email));
+    }
     return (
                 <>
                         <Meta/>
@@ -89,7 +101,7 @@ const Home = () => {
                                             </div>
                                             <Card raised className={classes.card}>
                                                 <CardBody className={classes.cardBody}>
-                                                    <form>
+                                                    <form onSubmit={handle}>
                                                         <GridContainer>
                                                             <GridItem xs={12} sm={6} md={6} lg={8}>
                                                                 <CustomInput
@@ -98,12 +110,11 @@ const Home = () => {
                                                                         fullWidth: true,
                                                                         className: classes.cardForm
                                                                     }}
+                                                                    // this type of costume input 
+
                                                                     inputProps={{
-                                                                        startAdornment: (
-                                                                            <InputAdornment position="start">
-                                                                                <Mail />
-                                                                            </InputAdornment>
-                                                                        ),
+                                                                        onChange: (e) => setEmail(e.target.value),
+                                                                       
                                                                         placeholder: "Your Email..."
                                                                     }}
                                                                 />
@@ -112,6 +123,7 @@ const Home = () => {
                                                                 <Button
                                                                     color={"primary"}
                                                                     block={"true"}
+                                                                    type="submit"
                                                                     className={classes.subscribeButton}
                                                                 >
                                                                     subscribe
