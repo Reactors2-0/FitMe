@@ -130,6 +130,18 @@ class SidebarContent extends Component {
                         <span>Brands</span>
                       </Link>
                     </li>
+                    <li>
+                      <Link to="/dashboard/admin/Products" className=" waves-effect">
+                        <i className="bx bx-store" />
+                        <span>Products</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/dashboard/admin/Order" className=" waves-effect">
+                        <i className="bx bx-file" />
+                        <span>Orders</span>
+                      </Link>
+                    </li>
                   </>
               ):(
                   <>
@@ -151,12 +163,7 @@ class SidebarContent extends Component {
                         <span>Orders</span>
                       </Link>
                     </li>
-                    <li>
-                      <Link to="/dashboard/admin/brands" className=" waves-effect">
-                        <i className="bx bxs-user-detail" />
-                        <span>Brands</span>
-                      </Link>
-                    </li>
+                
                   </>
               )}
             </ul>
