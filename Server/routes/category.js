@@ -18,7 +18,9 @@ const router = require("express").Router();
 
 const advanceResults = require("../middleware/advanceResults");
 
+router.route("/createcatgory").post(createCategory);
 router.route("/").post(createCategory);
+
 router.route("/").get(advanceResults(Category), getCategorys)
 router
     .route("/:id")
