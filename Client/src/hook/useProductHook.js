@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import * as productAction from "../actions/productAction";
 
-export const useProduct = (sort,category,searchProductKey,ltORgt,init) => {
+export const useProduct = (sort,category,searchProductKey,ltORgt,init,brand) => {
     const dispatch = useDispatch();
     const [initialLoading, setInitialLoading] = useState(init);
 
@@ -19,7 +19,8 @@ export const useProduct = (sort,category,searchProductKey,ltORgt,init) => {
         } else {
             fetchProductList();
         }
-    }, [dispatch, searchProductKey, sort, category,ltORgt]);
+    }, [dispatch, searchProductKey,category,brand, sort,ltORgt,brand]);
+
 
     const fetchProductList = () => {
         dispatch(
@@ -28,11 +29,11 @@ export const useProduct = (sort,category,searchProductKey,ltORgt,init) => {
                 sort,
                 category,
                 initialLoading,
-                ltORgt
+                ltORgt,
+                brand
             })
 
         );
     };
-
     return {products,loading,count,error,searchProductKey,fetchProductList,init};
 }

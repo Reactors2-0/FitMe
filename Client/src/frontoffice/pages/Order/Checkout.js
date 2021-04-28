@@ -25,18 +25,18 @@ import { Link } from "react-router-dom"
 import classnames from "classnames"
 
 //Import Breadcrumb
-import Breadcrumbs from "../../components/Common/Breadcrumb"
+import Breadcrumbs from "../../../backoffice/components/Common/Breadcrumb"
 import { makeStyles } from "@material-ui/core/styles";
 
 //Import Images
-import img1 from "../../assets/images/product/img-1.png"
-import img7 from "../../assets/images/product/img-7.png"
-import Parallax from "../../../frontoffice/components/frontoffice/ui/Parallax/Parallax";
-import GridContainer from "../../../frontoffice/components/frontoffice/ui/Grid/GridContainer";
-import GridItem from "../../../frontoffice/components/frontoffice/ui/Grid/GridItem";
-import Button from "../../../frontoffice/components/frontoffice/ui/CustomButtons/Button";
+import img1 from "../../../backoffice/assets/images/product/img-1.png"
+import img7 from "../../../backoffice/assets/images/product/img-7.png"
+import Parallax from "../../components/frontoffice/ui/Parallax/Parallax";
+import GridContainer from "../../components/frontoffice/ui/Grid/GridContainer";
+import GridItem from "../../components/frontoffice/ui/Grid/GridItem";
+import Button from "../../components/frontoffice/ui/CustomButtons/Button";
 import ShoppingCart from "@material-ui/icons/ShoppingCart";
-import productStyle from "../../../frontoffice/assets/jss/material-kit-pro-react/views/productStyle.js";
+import productStyle from "../../assets/jss/material-kit-pro-react/views/productStyle.js";
 import {useCart} from "../../../hook/useCartHook";
 import {useState} from "react";
 
@@ -60,7 +60,7 @@ const optionGroup = [
 ]
 const useStyles = makeStyles(productStyle);
 
-function EcommerceCheckout(){
+function Checkout(){
   React.useEffect(() => {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
@@ -94,7 +94,7 @@ function EcommerceCheckout(){
             {/* Render Breadcrumb */}
             {/*<Breadcrumbs title="Ecommerce" breadcrumbItem="Checkout" />*/}
             <Parallax
-                image={require("../../../frontoffice/assets/img/bg10.jpg")}
+                image={require("../../assets/img/bg10.jpg")}
                 filter="blue"
                 style={{
                   minHeight: "60vh",
@@ -806,4 +806,4 @@ function EcommerceCheckout(){
 
 }
 
-export default EcommerceCheckout
+export default Checkout
