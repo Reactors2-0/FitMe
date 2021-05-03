@@ -32,36 +32,36 @@ to try their clothes on and see how they fit them in real time using increased/i
 
 
 ## Features
--> `Suggest System` ✨✨
--> `FitRoom` ✨
--Full featured shopping cart
--Product reviews and ratings
--Filtering (short by, category, & price range)
--Account Verification (2 factor authentication using email)
--Password Reset (Forget Password)
--Token based authentication
--Product search feature
--User profile with orders
--Save Cart
--Delete Cart
--Choose quantity (No of items to be order)
--Checkout process (shipping, payment method, etc)
--Order summary
--PayPal / credit card integration
--Esewa payment integration (Nepali payment gateway)
--Database seeder (products, users, reviews, & orders)
--New features (Added)
+-> `Suggest System` ✨✨ <br />
+-> `FitRoom` ✨<br />
+-Full featured shopping cart <br />
+-Product reviews and ratings <br />
+-Filtering (short by, category, & price range) <br />
+-Account Verification (2 factor authentication using email) <br />
+-Password Reset (Forget Password) <br />
+-Token based authentication  <br />
+-Product search feature <br />
+-User profile with orders <br />
+-Save Cart <br />
+-Delete Cart <br />
+-Choose quantity (No of items to be order) <br />
+-Checkout process (shipping, payment method, etc) <br />
+-Order summary <br />
+-PayPal / credit card integration <br />
+-Esewa payment integration (Nepali payment gateway) <br />
+-Database seeder (products, users, reviews, & orders) <br />
+-New features (Added) <br />
 
--Print User orders as pdf
--Print UserList as pdf
--Print OrderList as pdf
--Admin features
+-Print User orders as pdf <br />
+-Print UserList as pdf <br />
+-Print OrderList as pdf <br />
+-Admin features <br />
 
--Product management
--User management
--Order management
--Order details page
--Mark orders as delivered option
+-Product management <br />
+-User management <br />
+-Order management <br />
+-Order details page <br />
+-Mark orders as delivered option <br />
 
 ## Screnshoots
 
@@ -77,22 +77,22 @@ to try their clothes on and see how they fit them in real time using increased/i
 
 ## Tech Stack 💻
 
-> [React.js](https://reactjs.org/)
-> [Node.js](https://nodejs.org/en/)
-> [Express.js](https://expressjs.com/)
-> [MongoDB ](https://www.mongodb.com/cloud/atlas)
-> [Material UI](https://material-ui.com/)
-> [React Bootstrap](https://react-bootstrap.github.io/)
-> [Redux](https://redux.js.org/)
+> [React.js](https://reactjs.org/) <br />
+> [Node.js](https://nodejs.org/en/) <br />
+> [Express.js](https://expressjs.com/) <br />
+> [MongoDB ](https://www.mongodb.com/cloud/atlas) <br />
+> [Material UI](https://material-ui.com/) <br />
+> [React Bootstrap](https://react-bootstrap.github.io/) <br />
+> [Redux](https://redux.js.org/) <br />
 
 
 
 ## API Externe 👨‍💻
 
-> [PayPal API](https://developer.paypal.com/)
-> [Esewa API](https://developer.esewa.com.np)
-> [Send Grid API](https://sendgrid.com/)
-> [Cloudinary API](https://cloudinary.com/)
+> [PayPal API](https://developer.paypal.com/) <br />
+> [Esewa API](https://developer.esewa.com.np) <br />
+> [Send Grid API](https://sendgrid.com/) <br />
+> [Cloudinary API](https://cloudinary.com/) <br />
 
 ## Our API ‍
 
@@ -101,9 +101,9 @@ to try their clothes on and see how they fit them in real time using increased/i
 
 ## Installation
 
-Dillinger requires [Node.js](https://nodejs.org/) v12+ to run.
+Dillinger requires [Node.js](https://nodejs.org/) v12+ to run. <br />
 
-Install the dependencies and devDependencies and start the Client.
+Install the dependencies and devDependencies and start the Client. 
 
 ```sh
 cd FitMe
@@ -161,6 +161,6 @@ FROM_NAME=ShoppingPoint
 
 ## Conclusion
 
-Beta version of advanced feature
-Implementation of mockups and designs
+Beta version of advanced feature <br />
+Implementation of mockups and designs <br />
 Clearer vision of the final product
