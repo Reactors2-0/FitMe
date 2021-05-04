@@ -9,12 +9,12 @@ import Remove from "@material-ui/icons/Remove";
 import Add from "@material-ui/icons/Add";
 // core components
 
-import Parallax from "../../components/frontoffice/ui/Parallax/Parallax.js";
-import GridContainer from "../../components/frontoffice/ui/Grid/GridContainer.js";
-import GridItem from "../../components/frontoffice/ui/Grid/GridItem.js";
-import Button from "../../components/frontoffice/ui/CustomButtons/Button.js";
-import Card from "../../components/frontoffice/ui/Card/Card.js";
-import CardBody from "../../components/frontoffice/ui/Card/CardBody.js";
+import Parallax from "../../components/ui/Parallax/Parallax.js";
+import GridContainer from "../../components/ui/Grid/GridContainer.js";
+import GridItem from "../../components/ui/Grid/GridItem.js";
+import Button from "../../components/ui/CustomButtons/Button.js";
+import Card from "../../components/ui/Card/Card.js";
+import CardBody from "../../components/ui/Card/CardBody.js";
 
 import shoppingCartStyle from "../../assets/jss/material-kit-pro-react/views/shoppingCartStyle.js";
 

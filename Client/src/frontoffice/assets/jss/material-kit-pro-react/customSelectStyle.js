@@ -79,7 +79,7 @@ const customSelectStyle = {
     color: grayColor[8],
     paddingRight: "30px",
     "&:hover": {
-      backgroundColor: primaryColor[0],
+      backgroundColor: "#7E69BA",
       color: whiteColor,
       ...primaryBoxShadow
     }

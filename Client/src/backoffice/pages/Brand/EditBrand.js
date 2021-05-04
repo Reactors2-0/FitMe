@@ -109,90 +109,90 @@ const EditBrand = ({ match }) => {
     };
     return (
         <Container fluid className="verticalHeight">
-        <>
-            {Success && <Redirect to="/dashboard/admin/brands" />}
-            {EditBrandError && (
-                <ErrorMessage
-                    header="Something went wrong"
-                    message={EditBrandError}
-                    reset={brandConstants.EDIT_BRAND_RESET}
-                />
-            )}
-            <Link to="/dashboard/admin/brands" className="btn btn-light my-3">
-                Go Back
-            </Link>
-            {loading ? (
-                <h4>Loading...</h4>
-            ) : error ? (
-                <ErrorMessage header="Something went wrong" message={error} />
-            ) : (
-                <>
-                    <FormContainer>
-                        <h1>Edit Brand:</h1>
-                        <Image src={brand.brandImage} fluid  />
-                        <Form onSubmit={submitHandler}>
-                            <TextField
-                                variant="outlined"
-                                type="text"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="name"
-                                label="Name"
-                                name="name"
-                                autoComplete="name"
-                                autoFocus
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                            />
-                            Change image
-                            <TextField
-                                variant="outlined"
-                                type="file"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="file"
-                                name="file"
-                                autoComplete="file"
-                                autoFocus
-                                onChange={(e) => setBrandImage(e.target.files[0])}
-                            />
-                            Change proof
-                            <TextField
-                                variant="outlined"
-                                type="file"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="proof"
-                                name="proof"
-                                autoComplete="proof"
-                                autoFocus
-                                onChange={(e) => setProof(e.target.files[0])}
-                            />
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                color="primary"
-                                fullWidth
-                                disabled={EditBrandLoading}
-                            >
-                                {EditBrandLoading ? (
-                                    <CircularProgress
-                                        color="inherit"
-                                        className={classes.prgressColor}
-                                    />
-                                ) : (
-                                    <>Update</>
-                                )}
-                            </Button>
-                        </Form>
-                    </FormContainer>
-                    {ConfirmedAlert()}
-                </>
-            )}
-        </>
+            <>
+                {Success && <Redirect to="/dashboard/admin/brands" />}
+                {EditBrandError && (
+                    <ErrorMessage
+                        header="Something went wrong"
+                        message={EditBrandError}
+                        reset={brandConstants.EDIT_BRAND_RESET}
+                    />
+                )}
+                <Link to="/dashboard/admin/brands" className="btn btn-light my-3">
+                    Go Back
+                </Link>
+                {loading ? (
+                    <h4>Loading...</h4>
+                ) : error ? (
+                    <ErrorMessage header="Something went wrong" message={error} />
+                ) : (
+                    <>
+                        <FormContainer>
+                            <h1>Edit Brand:</h1>
+                            <Image src={brand.brandImage} fluid  />
+                            <Form onSubmit={submitHandler}>
+                                <TextField
+                                    variant="outlined"
+                                    type="text"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="name"
+                                    label="Name"
+                                    name="name"
+                                    autoComplete="name"
+                                    autoFocus
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                                Change image
+                                <TextField
+                                    variant="outlined"
+                                    type="file"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="file"
+                                    name="file"
+                                    autoComplete="file"
+                                    autoFocus
+                                    onChange={(e) => setBrandImage(e.target.files[0])}
+                                />
+                                Change proof
+                                <TextField
+                                    variant="outlined"
+                                    type="file"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="proof"
+                                    name="proof"
+                                    autoComplete="proof"
+                                    autoFocus
+                                    onChange={(e) => setProof(e.target.files[0])}
+                                />
+                                <Button
+                                    type="submit"
+                                    variant="contained"
+                                    color="primary"
+                                    fullWidth
+                                    disabled={EditBrandLoading}
+                                >
+                                    {EditBrandLoading ? (
+                                        <CircularProgress
+                                            color="inherit"
+                                            className={classes.prgressColor}
+                                        />
+                                    ) : (
+                                        <>Update</>
+                                    )}
+                                </Button>
+                            </Form>
+                        </FormContainer>
+                        {ConfirmedAlert()}
+                    </>
+                )}
+            </>
         </Container>
     );
 };

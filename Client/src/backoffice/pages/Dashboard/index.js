@@ -1,291 +1,291 @@
-import React, { Component } from "react"
-import PropTypes from 'prop-types'
-import MetaTags from 'react-meta-tags';
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Card,
-  CardBody,
-  CardTitle,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Media,
-  Table,
-  Input
-} from "reactstrap"
-import { Link } from "react-router-dom"
 
-//import Charts
-import StackedColumnChart from "./StackedColumnChart"
+      import React, { useEffect } from "react";
 
-import modalimage1 from "../../assets/images/product/img-7.png"
-import modalimage2 from "../../assets/images/product/img-4.png"
+      import PropTypes from 'prop-types'
+      import MetaTags from 'react-meta-tags';
+      import {
+        Container,
+        Row,
+        Col,
+        Button,
+        Card,
+        CardBody,
+        CardTitle,
+        Modal,
+        ModalHeader,
+        ModalBody,
+        ModalFooter,
+        Media,
+        Table,
+        Input
+      } from "reactstrap"
+      import { Link } from "react-router-dom"
+      
+      //import Charts
+      import StackedColumnChart from "./StackedColumnChart"
+      
+      import modalimage1 from "../../assets/images/product/img-7.png"
+      import modalimage2 from "../../assets/images/product/img-4.png"
+      import { deleteCategory,listCategoryForAdmin,editcategory } from "../../../actions/AdminAction";
 
-// Pages Components
-import WelcomeComp from "./WelcomeComp"
-import MonthlyEarning from "./MonthlyEarning"
+      // Pages Components
+      import WelcomeComp from "./WelcomeComp"
+      import MonthlyEarning from "./MonthlyEarning"
+      
+      import { useDispatch, useSelector } from "react-redux";
+      import Message from "../User/Message";
+      import { userList, userDelete,userblock } from "../../../actions/userAction";
+      
+      //Import Breadcrumb
+      import Breadcrumbs from "../../components/Common/Breadcrumb"
+      import { listContactForContact  } from "../../../actions/contactAction";
+      import {listBrandsForAdmin} from "../../../actions/brandAction";
 
+      //i18n
+      //import { withTranslation } from "react-i18next"
+      
+      const Dashboard = () => {
+       
+        const dispatch = useDispatch();
+      
+        const userListBack = useSelector((state) => state.userListBack);
+        const {  countusers } = userListBack;
+ 
+        const contactss = useSelector((state) => state.ContactList);
+        const {  countcontact } = contactss;
+      
+        const brandds = useSelector((state) => state.listBrands);
+        const {  totalBrands } = brandds;
+      
+      
+        
+        useEffect(() => {
+            dispatch(listBrandsForAdmin());
+      
+        }, [dispatch,totalBrands]);
+      
+        useEffect(() => {
+            dispatch(listContactForContact());
+      
+        }, [dispatch,countcontact]);
+      
+      
+      
+        useEffect(() => {
+          dispatch(userList());
+      
+      }, [dispatch, countusers]);
+      
+      const listcategory = useSelector((state) => state.listcategory);
+  const { countcat } = listcategory;
 
+  console.log('====================================');
+  console.log("counttt "+countcat);
+  console.log('====================================');
 
-//Import Breadcrumb
-import Breadcrumbs from "../../components/Common/Breadcrumb"
+  useEffect(() => {
+      dispatch(listCategoryForAdmin());
 
-//i18n
-//import { withTranslation } from "react-i18next"
-
-class Dashboard extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      reports: [
-        { title: "Orders", iconClass: "bx bx-file", description: "5" },
-        {
-          title: "Users",
-          iconClass: "bx bx-user-circle",
-          description: "3",
-        },
-        {
-          title: "Products",
-          iconClass: "bx bx-store",
-          description: "5",
-        },
-        {
-          title: "Category",
-          iconClass: "bx bx-duplicate",
-          description: "2",
-        },
-        {
-          title: "Brands",
-          iconClass: "bx bxs-user-detail",
-          description: "1",
-        },
-        {
-          title: "Contacts",
-          iconClass: "bx-purchase-tag-alt",
-          description: "3",
-        },
-      ],
-      email: [
-        { title: "Week", linkto: "#", isActive: false },
-        { title: "Month", linkto: "#", isActive: false },
-        { title: "Year", linkto: "#", isActive: true },
-      ],
-      modal: false,
-      subscribemodal: false,
-    }
-
-    this.togglemodal.bind(this)
-    this.togglesubscribemodal.bind(this)
-  }
-
-  componentDidMount() {
-    setTimeout(() => this.setState({ subscribemodal: true }), 2000);
-  }
-
-  togglemodal = () => {
-    this.setState(prevState => ({
-      modal: !prevState.modal,
-    }))
-  }
-
-  togglesubscribemodal = () => {
-    this.setState(prevState => ({
-      subscribemodal: !prevState.subscribemodal,
-    }))
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <div className="page-content">
-          <MetaTags>
-            <title>Dashboard | FitMe</title>
-          </MetaTags>
-          <Container fluid>
-            {/* Render Breadcrumb */}
-            <Breadcrumbs
-              title="Dashboard"
-              breadcrumbItem="Dashboard"
-            />
-
-            <Row>
-              <Col xl="4">
-                <WelcomeComp />
-                <MonthlyEarning />
-              </Col>
-              <Col xl="8">
-                <Row>
-                  {/* Reports Render */}
-                  {this.state.reports.map((report, key) => (
-                    <Col md="4" key={"_col_" + key}>
-                      <Card className="mini-stats-wid">
+  }, [dispatch,countcat]);
+      
+          return (
+            <React.Fragment>
+              <div className="page-content">
+                <MetaTags>
+                  <title>Dashboard | FitMe</title>
+                </MetaTags>
+                <Container fluid>
+                  <Breadcrumbs
+                    title="Dashboard"
+                    breadcrumbItem="Dashboard"
+                  />
+      
+                  <Row>
+                    <Col xl="4">
+                      <WelcomeComp />
+                    </Col>
+                    <Col xl="8">
+                      <Row>
+                      <Col md="4" >
+                            <Card className="mini-stats-wid">
+                              <CardBody>
+                                <Media>
+                                  <Media body>
+                                    <p className="text-muted fw-medium">
+                                   Users
+                                    </p>
+                                    <h4 className="mb-0">{countusers||0}</h4>
+                                  </Media>
+                                  <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
+                                    <span className="avatar-title">
+                                      <i
+                                        className={
+                                          "bx " + "bx bx-user-circle" + " font-size-24"
+                                        }
+                                      />
+                                    </span>
+                                  </div>
+                                </Media>
+                              </CardBody>
+                            </Card>
+                          </Col>
+                          <Col md="4" >
+                            <Card className="mini-stats-wid">
+                              <CardBody>
+                                <Media>
+                                  <Media body>
+                                    <p className="text-muted fw-medium">
+                                   Category
+                                    </p>
+                                    <h4 className="mb-0">{countcat ||0 }</h4>
+                                  </Media>
+                                  <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
+                                    <span className="avatar-title">
+                                      <i
+                                        className={
+                                          "bx " + "bx bx-duplicate" + " font-size-24"
+                                        }
+                                      />
+                                    </span>
+                                  </div>
+                                </Media>
+                              </CardBody>
+                            </Card>
+      
+                          </Col>
+                          <Col md="4" >
+                            <Card className="mini-stats-wid">
+                              <CardBody>
+                                <Media>
+                                  <Media body>
+                                    <p className="text-muted fw-medium">
+                                   Contact 
+                                    </p>
+                                    <h4 className="mb-0">{countcontact||0}</h4>
+                                  </Media>
+                                  <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
+                                    <span className="avatar-title">
+                                      <i
+                                        className={
+                                          "bx " + " bx-purchase-tag-alt" + " font-size-24"
+                                        }
+                                      />
+                                    </span>
+                                  </div>
+                                </Media>
+                              </CardBody>
+                            </Card>
+                          </Col>
+                          <Col md="4" >
+                            <Card className="mini-stats-wid">
+                              <CardBody>
+                                <Media>
+                                  <Media body>
+                                    <p className="text-muted fw-medium">
+                                   Brands 
+                                    </p>
+                                    <h4 className="mb-0">{totalBrands||0}</h4>
+                                  </Media>
+                                  <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
+                                    <span className="avatar-title">
+                                      <i
+                                        className={
+                                          "bx " + "bx bxs-user-detail" + " font-size-24"
+                                        }
+                                      />
+                                    </span>
+                                  </div>
+                                </Media>
+                              </CardBody>
+                            </Card>
+                          </Col>
+                          <Col md="4" >
+                            <Card className="mini-stats-wid">
+                              <CardBody>
+                                <Media>
+                                  <Media body>
+                                    <p className="text-muted fw-medium">
+                                   Products
+                                    </p>
+                                    <h4 className="mb-0">{totalBrands|0}</h4>
+                                  </Media>
+                                  <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
+                                    <span className="avatar-title">
+                                      <i
+                                        className={
+                                          "bx " + "bx bx-store" + " font-size-24"
+                                        }
+                                      />
+                                    </span>
+                                  </div>
+                                </Media>
+                              </CardBody>
+                            </Card>
+                          </Col>
+                          <Col md="4" >
+                            <Card className="mini-stats-wid">
+                              <CardBody>
+                                <Media>
+                                  <Media body>
+                                    <p className="text-muted fw-medium">
+                                   Orders
+                                    </p>
+                                    <h4 className="mb-0">{totalBrands||0}</h4>
+                                  </Media>
+                                  <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
+                                    <span className="avatar-title">
+                                      <i
+                                        className={
+                                          "bx " + "bx-purchase-tag-alt" + " font-size-24"
+                                        }
+                                      />
+                                    </span>
+                                  </div>
+                                </Media>
+                              </CardBody>
+                            </Card>
+                          </Col>
+      
+      
+      
+                      </Row>
+      
+                      <Card>
                         <CardBody>
-                          <Media>
-                            <Media body>
-                              <p className="text-muted fw-medium">
-                                {report.title}
-                              </p>
-                              <h4 className="mb-0">{report.description}</h4>
-                            </Media>
-                            <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
-                              <span className="avatar-title">
-                                <i
-                                  className={
-                                    "bx " + report.iconClass + " font-size-24"
-                                  }
-                                />
-                              </span>
+                          <div className="d-sm-flex flex-wrap">
+                            <CardTitle className="card-title mb-4 h4">
+                              Email Sent
+                          </CardTitle>
+                            <div className="ms-auto">
+                              <ul className="nav nav-pills">
+                             
+                                  <li className="nav-item" >
+                                    <Link
+                                     
+                                    >
+                                    </Link>
+                                  </li>
+                              </ul>
                             </div>
-                          </Media>
+                          </div>
+                          <div className="clearfix" />
+                          <StackedColumnChart />
+      
                         </CardBody>
                       </Card>
                     </Col>
-                  ))}
-                </Row>
-
-                <Card>
-                  <CardBody>
-                    <div className="d-sm-flex flex-wrap">
-                      <CardTitle className="card-title mb-4 h4">
-                        Email Sent
-                    </CardTitle>
-                      <div className="ms-auto">
-                        <ul className="nav nav-pills">
-                          {this.state.email.map((mail, key) => (
-                            <li className="nav-item" key={"_li_" + key}>
-                              <Link
-                                className={
-                                  mail.isActive ? "nav-link active" : "nav-link"
-                                }
-                                to={mail.linkto}
-                              >
-                                {mail.title}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                    <div className="clearfix" />
-                    <StackedColumnChart />
-
-                  </CardBody>
-                </Card>
-              </Col>
-            </Row>
-
-          
-          </Container>
-        </div>
-
-
-
-        <Modal
-          isOpen={this.state.modal}
-          role="dialog"
-          autoFocus={true}
-          centered={true}
-          className="exampleModal"
-          tabindex="-1"
-          toggle={this.togglemodal}
-        >
-          <div className="modal-content">
-            <ModalHeader toggle={this.togglemodal}>Order Details</ModalHeader>
-            <ModalBody>
-              <p className="mb-2">
-                Product id: <span className="text-primary">#SK2540</span>
-              </p>
-              <p className="mb-4">
-                Billing Name:{" "}
-                <span className="text-primary">Neal Matthews</span>
-              </p>
-
-              <div className="table-responsive">
-                <Table className="table align-middle table-nowrap">
-                  <thead>
-                    <tr>
-                      <th scope="col">Product</th>
-                      <th scope="col">Product Name</th>
-                      <th scope="col">Price</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">
-                        <div>
-                          <img src={modalimage1} alt="" className="avatar-sm" />
-                        </div>
-                      </th>
-                      <td>
-                        <div>
-                          <h5 className="text-truncate font-size-14">
-                            Wireless Headphone (Black)
-                          </h5>
-                          <p className="text-muted mb-0">$ 225 x 1</p>
-                        </div>
-                      </td>
-                      <td>$ 255</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">
-                        <div>
-                          <img src={modalimage2} alt="" className="avatar-sm" />
-                        </div>
-                      </th>
-                      <td>
-                        <div>
-                          <h5 className="text-truncate font-size-14">
-                            Hoodie (Blue)
-                          </h5>
-                          <p className="text-muted mb-0">$ 145 x 1</p>
-                        </div>
-                      </td>
-                      <td>$ 145</td>
-                    </tr>
-                    <tr>
-                      <td colSpan="2">
-                        <h6 className="m-0 text-right">Sub Total:</h6>
-                      </td>
-                      <td>$ 400</td>
-                    </tr>
-                    <tr>
-                      <td colSpan="2">
-                        <h6 className="m-0 text-right">Shipping:</h6>
-                      </td>
-                      <td>Free</td>
-                    </tr>
-                    <tr>
-                      <td colSpan="2">
-                        <h6 className="m-0 text-right">Total:</h6>
-                      </td>
-                      <td>$ 400</td>
-                    </tr>
-                  </tbody>
-                </Table>
+                  </Row>
+      
+                
+                </Container>
               </div>
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                type="button"
-                color="secondary"
-                onClick={this.togglemodal}
-              >
-                Close
-              </Button>
-            </ModalFooter>
-          </div>
-        </Modal>
-      </React.Fragment>
-    )
-  }
-}
-
-Dashboard.propTypes = {
-  t: PropTypes.any
-}
-
-export default Dashboard
+      
+      
+      
+              
+            </React.Fragment>
+       );
+      };
+      
+      export default Dashboard;
+      

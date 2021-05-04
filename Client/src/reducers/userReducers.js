@@ -55,7 +55,7 @@ export const userList = (state = { users: [] }, action) => {
     case userConstants.USERLIST_FETCH_SUCCESS:
       return {
         users: action.payload.userList,
-        count: action.payload.totalUser,
+        countusers: action.payload.totalUser,
         success: true,
       };
     case userConstants.USERLIST_FETCH_FAIL:

@@ -88,7 +88,6 @@ class SidebarContent extends Component {
   render() {
     const userRole = JSON.parse(localStorage.getItem("userInfo")).role;
     const redirectTo = userRole === "admin" ? "admin" : "seller";
-    console.log(userRole)
     return (
       <React.Fragment>
         <SimpleBar style={{ maxHeight: "100%" }} ref={this.refDiv}>
@@ -119,27 +118,6 @@ class SidebarContent extends Component {
                       </Link>
                     </li>
                     <li>
-                      <Link to="/dashboard/admin/userlist" className=" waves-effect">
-                        <i className="bx bx-user-circle" />
-                        <span>Users</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/dashboard/admin/brands" className=" waves-effect">
-                        <i className="bx bxs-user-detail" />
-                        <span>Brands</span>
-                      </Link>
-                    </li>
-                  </>
-              ):(
-                  <>
-                    <li>
-                      <Link to="/dashboard/admin/brands" className=" waves-effect">
-                        <i className="bx bxs-user-detail" />
-                        <span>Brands</span>
-                      </Link>
-                    </li>
-                    <li>
                       <Link to="/dashboard/admin/Products" className=" waves-effect">
                         <i className="bx bx-store" />
                         <span>Products</span>
@@ -152,11 +130,41 @@ class SidebarContent extends Component {
                       </Link>
                     </li>
                     <li>
+                      <Link to="/dashboard/admin/userlist" className=" waves-effect">
+                        <i className="bx bx-user-circle" />
+                        <span>Users</span>
+                      </Link>
+                    </li>
+                    <li>
                       <Link to="/dashboard/admin/brands" className=" waves-effect">
                         <i className="bx bxs-user-detail" />
                         <span>Brands</span>
                       </Link>
                     </li>
+                   
+                  </>
+              ):(
+                  <>
+                    <li>
+                      <Link to="/dashboard/admin/brand" className=" waves-effect">
+                        <i className="bx bx-file" />
+                        <span>My brand</span>
+                      </Link>
+                    </li>
+
+                    <li>
+                      <Link to="/dashboard/admin/Products" className=" waves-effect">
+                        <i className="bx bx-store" />
+                        <span>Products</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/dashboard/admin/Order" className=" waves-effect">
+                        <i className="bx bx-file" />
+                        <span>Orders</span>
+                      </Link>
+                    </li>
+                
                   </>
               )}
             </ul>

@@ -10,7 +10,7 @@ export const ContactList = (state = { contacts: [] }, action) => {
       case userConstants.USER_CONTACT_SUCCESS:
         return {
           contacts: action.payload.categoryList,
-          count: action.payload.totalcategory,
+          countcontact: action.payload.totalcategory,
           
           success: true,
         };

@@ -14,7 +14,7 @@ const {
     process.env.BUNDLE_VISUALIZE == 1 && addBundleVisualizer(),
     addWebpackAlias({
       ['@Components']: path.resolve(__dirname, './src/frontoffice/components'),
-      ['@FrontOfficeComponents']: path.resolve(__dirname, './src/frontoffice/components/frontoffice'),
+      ['@FrontOfficeComponents']: path.resolve(__dirname, './src/frontoffice/components'),
       ['@BackOfficeComponents']: path.resolve(__dirname, './src/backoffice/components'),
       ['@FrontOfficePages']: path.resolve(__dirname, './src/frontoffice/pages'),
       ['@BackOfficePages']: path.resolve(__dirname, './src/backoffice/pages'),

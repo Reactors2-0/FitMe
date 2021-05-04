@@ -20,8 +20,8 @@ import { Link } from 'react-router-dom';
 
 
 import suit1 from "@FrontOfficeAssets/img/examples/suit-1.jpg";
-import GridItem from "../../../components/frontoffice/ui/Grid/GridItem";
-import GridContainer from "../../../components/frontoffice/ui/Grid/GridContainer";
+import GridItem from "../../../components/ui/Grid/GridItem";
+import GridContainer from "../../../components/ui/Grid/GridContainer";
 const useStyles = makeStyles(styles);
 import "../../../assets/css/style.css"
 import {useCart} from "../../../../hook/useCartHook";

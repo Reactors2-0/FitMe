@@ -13,7 +13,7 @@ import {
   ORDER_PAY_RESET,
   ORDER_DELIVER_RESET,
 } from "@Constants/orderConstants";
-import OrderLoader from "@Components/Loader/OrderLoader";
+import OrderLoader from "./../../../components/Loader/OrderLoader";
 
 const Order = ({ match }) => {
   const orderId = match.params.orderId;

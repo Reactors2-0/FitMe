@@ -2,8 +2,8 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import GridContainer from "../frontoffice/ui/Grid/GridContainer";
-import GridItem from "../frontoffice/ui/Grid/GridItem";
+import GridContainer from "../ui/Grid/GridContainer";
+import GridItem from "../ui/Grid/GridItem";
 import face1 from "../../assets/img/faces/card-profile6-square.jpg";
 import face2 from "../../assets/img/faces/christian.jpg";
 import face3 from "../../assets/img/faces/card-profile4-square.jpg";
@@ -14,7 +14,7 @@ import face7 from "../../assets/img/faces/card-profile5-square.jpg";
 import face8 from "../../assets/img/faces/card-profile2-square.jpg";
 import classNames from 'classnames';
 
-import Footer from "../../components/frontoffice/ui/Footer/Footer";
+import Footer from "../ui/Footer/Footer";
 import {makeStyles} from "@material-ui/core/styles";
 import styles from "../../assets/jss/material-kit-pro-react/views/ecommerceStyle";
 
@@ -125,81 +125,7 @@ const FooterPage = () => {
                   </div>
               </GridItem>
               <GridItem xs={12} sm={4} md={4}>
-                  <h5>Instagram Feed</h5>
-                  <div className={classes.galleryFeed}>
-                      <img
-                          src={face1}
-                          className={classNames(
-                              classes.img,
-                              classes.imgRaised,
-                              classes.imgRounded
-                          )}
-                          alt="..."
-                      />
-                      <img
-                          src={face2}
-                          className={classNames(
-                              classes.img,
-                              classes.imgRaised,
-                              classes.imgRounded
-                          )}
-                          alt="..."
-                      />
-                      <img
-                          src={face3}
-                          className={classNames(
-                              classes.img,
-                              classes.imgRaised,
-                              classes.imgRounded
-                          )}
-                          alt="..."
-                      />
-                      <img
-                          src={face4}
-                          className={classNames(
-                              classes.img,
-                              classes.imgRaised,
-                              classes.imgRounded
-                          )}
-                          alt="..."
-                      />
-                      <img
-                          src={face5}
-                          className={classNames(
-                              classes.img,
-                              classes.imgRaised,
-                              classes.imgRounded
-                          )}
-                          alt="..."
-                      />
-                      <img
-                          src={face6}
-                          className={classNames(
-                              classes.img,
-                              classes.imgRaised,
-                              classes.imgRounded
-                          )}
-                          alt="..."
-                      />
-                      <img
-                          src={face7}
-                          className={classNames(
-                              classes.img,
-                              classes.imgRaised,
-                              classes.imgRounded
-                          )}
-                          alt="..."
-                      />
-                      <img
-                          src={face8}
-                          className={classNames(
-                              classes.img,
-                              classes.imgRaised,
-                              classes.imgRounded
-                          )}
-                          alt="..."
-                      />
-                  </div>
+
               </GridItem>
           </GridContainer>
       </Footer>

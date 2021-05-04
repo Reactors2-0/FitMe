@@ -96,7 +96,6 @@ const deleteBrand = asyncHandler(async (req, res, next) => {
 });
 
 const toggleVerify = asyncHandler(async (req, res, next) => {
-  console.log("Toggling "+ req.body.brandId)
   if(!req.body.brandId) throw createError(409, "Please provide brand's id");
   const toToggle = await Brand.findById(req.body.brandId);
   if(!toToggle) throw createError(409, "Brand not found");

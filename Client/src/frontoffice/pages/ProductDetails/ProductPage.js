@@ -21,16 +21,16 @@ import VerifiedUser from "@material-ui/icons/VerifiedUser";
 import Favorite from "@material-ui/icons/Favorite";
 // core components
 
-import Parallax from "../../components/frontoffice/ui/Parallax/Parallax.js";
-import GridContainer from "../../components/frontoffice/ui/Grid/GridContainer.js";
-import GridItem from "../../components/frontoffice/ui/Grid/GridItem.js";
-import Button from "../../components/frontoffice/ui/CustomButtons/Button.js";
-import Accordion from "../../components/frontoffice/ui/Accordion/Accordion.js";
-import InfoArea from "../../components/frontoffice/ui/InfoArea/InfoArea.js";
-import Card from "../../components/frontoffice/ui/Card/Card.js";
-import CardHeader from "../../components/frontoffice/ui/Card/CardHeader.js";
-import CardBody from "../../components/frontoffice/ui/Card/CardBody.js";
-import CardFooter from "../../components/frontoffice/ui/Card/CardFooter.js";
+import Parallax from "../../components/ui/Parallax/Parallax.js";
+import GridContainer from "../../components/ui/Grid/GridContainer.js";
+import GridItem from "../../components/ui/Grid/GridItem.js";
+import Button from "../../components/ui/CustomButtons/Button.js";
+import Accordion from "../../components/ui/Accordion/Accordion.js";
+import InfoArea from "../../components/ui/InfoArea/InfoArea.js";
+import Card from "../../components/ui/Card/Card.js";
+import CardHeader from "../../components/ui/Card/CardHeader.js";
+import CardBody from "../../components/ui/Card/CardBody.js";
+import CardFooter from "../../components/ui/Card/CardFooter.js";
 import Tooltip from "@material-ui/core/Tooltip";
 
 import productStyle from "../../assets/jss/material-kit-pro-react/views/productStyle.js";
