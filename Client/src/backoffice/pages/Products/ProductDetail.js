@@ -29,7 +29,7 @@ import StarRatings from "react-star-ratings"
 import Breadcrumbs from "@BackOfficeComponents/Common/Breadcrumb";
 
 //Import actions
-import Reviews from "../Ecommerce/EcommerceProducts/Reviews"
+import Reviews from "../Products/Reviews";
 import {useState} from "react";
 import * as productAction from "../../../actions/productAction";
 import ProductDetailsComponent from "./ProductDetailsComponent";

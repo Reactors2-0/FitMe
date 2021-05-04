@@ -2,7 +2,7 @@ import {Card, CardBody, Col, Nav, NavItem, NavLink, Row, TabContent, Table, TabP
 import classnames from "classnames";
 import {Link} from "react-router-dom";
 import StarRatings from "react-star-ratings";
-import Reviews from "../Ecommerce/EcommerceProducts/Reviews";
+import Reviews from "../Products/Reviews";
 import React, {useState} from "react";
 
 export default function ProductDetailsComponent (props){

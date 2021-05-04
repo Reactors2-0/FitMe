@@ -18,7 +18,6 @@ import ContactUsPage from "../frontoffice/pages/contact/contact"
 
 
 // User profile
-import UserProfile from "../backoffice/pages/Authentication/UserProfile"
 
 import ProductDetail from "../backoffice/pages/Products/ProductDetail"
 

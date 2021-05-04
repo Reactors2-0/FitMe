@@ -15,7 +15,7 @@ import {
 import classnames from "classnames";
 import {Link} from "react-router-dom";
 import StarRatings from "react-star-ratings";
-import Reviews from "../Ecommerce/EcommerceProducts/Reviews";
+import Reviews from "../Products/Reviews";
 import React, {useEffect, useState} from "react";
 import {Input} from "@material-ui/core";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
