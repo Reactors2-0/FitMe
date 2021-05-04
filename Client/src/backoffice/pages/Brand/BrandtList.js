@@ -36,7 +36,7 @@ const BrandList = ({ history }) => {
     dispatch(brandAction.listBrandsForAdmin(brandInfo.initialLoading));
 
   }, [dispatch, history]);
-
+  const [searchTerm, setSearchTerm] = useState("");
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure want to delete ? ")) {
       dispatch(brandAction.deleteBrand(id));
@@ -56,7 +56,6 @@ const BrandList = ({ history }) => {
       prevBrand.verify = !prevBrand.verify;
       prevBrands[key] = prevBrand;
       if(prevBrand.verify){
-          console.log(prevBrand)
           dispatch(brandAction.toggleVerify(prevBrand._id));
           setBrandsList(prevBrands);
       } else {
@@ -90,6 +89,20 @@ const BrandList = ({ history }) => {
               <Message variant="danger">{error}</Message>
             ) : (
               <Card>
+                  <TextField
+                      variant="outlined"
+                      type="text"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="brandName"
+                      label="Brand Name"
+                      name="brandName"
+                      autoComplete="email"
+                      autoFocus
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                  />
                 <CardBody>
                   <div className="table-responsive">
                     <Table className="table align-middle table-nowrap mb-0" striped bordered hover size="sm" responsive>
@@ -104,7 +117,20 @@ const BrandList = ({ history }) => {
                         </tr>
                       </thead>
                       <tbody>
-                        {brandsList.map((brand,key) => (
+                        {brandsList.sort((function(a, b) {
+                            var nameA = a.brandName.toUpperCase(); // ignore upper and lowercase
+                            var nameB = b.brandName.toUpperCase(); // ignore upper and lowercase
+                            if (nameA < nameB) {
+                                return -1;
+                            }
+                            if (nameA > nameB) {
+                                return 1;
+                            }
+                            return 0;
+                        })).filter(brand => {
+                            if (searchTerm.trim() === "") return true
+                            else return brand.brandName.toLowerCase().startsWith(searchTerm.toLowerCase())
+                        }).map((brand,key) => (
                           <tr key={"_tr_" + brand._id}>
                             <td>{brand.brandName}</td>
                             <td>
@@ -175,13 +201,10 @@ const BrandList = ({ history }) => {
                               </Link>
                             </td>
                               <td>
-                                  <Button
-                                      variant="light"
-                                      className="btn-lg"
-                                      onClick={() => deleteHandler(brand._id)}
-                                  >
+                                  <Link to={`/dashboard/admin/brand/${brand._id}`} className=" waves-effect">
                                       <i className="fas fa-edit"/>
-                                  </Button>
+                                      <span>Edit</span>
+                                  </Link>
                               </td>
                               <td>
                               <Button

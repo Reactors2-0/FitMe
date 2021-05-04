@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
+import Image from 'react-bootstrap/Image'
 import { useDispatch, useSelector } from "react-redux";
 import * as brandAction from "@Actions/brandAction";
 import * as brandConstants from "@Constants/brandConstants";
@@ -19,6 +20,7 @@ import { Link, Redirect } from "react-router-dom";
 import confirmationImg from "@FrontOfficeAssets/confirmation.png";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css";
+import Container from "react-bootstrap/Container";
 
 const useStyles = makeStyles((theme) => ({
     typography: {
@@ -39,62 +41,44 @@ const useStyles = makeStyles((theme) => ({
 const EditBrand = ({ match }) => {
     const brandId = match.params.brandId;
     const brandData = useSelector((state) => state.Brand);
-    const { loading, product, error, success } = brandData;
+    const { loading, brand, error, success } = brandData;
 
     const updateBrandDetails = useSelector(
-        (state) => state.updateProductDetails
+        (state) => state.editBrand
     );
     const {
-        loading: EditProductLoading,
-        error: EditProductError,
-        success: EditProductSuccess,
-    } = updateProductDetails;
+        loading: EditBrandLoading,
+        error: EditBrandError,
+        success: EditBrandSuccess,
+    } = updateBrandDetails;
 
     const [name, setName] = useState("");
-    const [brand, setBrand] = useState("");
-    const [price, setPrice] = useState(0);
-    const [category, setCategory] = useState("");
-    const [countInStock, setCountInStock] = useState(0);
-    const [description, setDescription] = useState("");
+    const [image, setImage] = useState("");
+    const [proof, setProof] = useState("");
     const [Success, setSuccess] = useState(false);
-
     const classes = useStyles();
-
     const dispatch = useDispatch();
-
     useEffect(() => {
         dispatch(brandAction.brand(brandId));
-
-        // eslint-disable-next-line
     }, [dispatch, brandId]);
 
     useEffect(() => {
         if (success) {
-            setName(product.name);
-            setPrice(product.price);
-            setBrand(product.brand);
-            setCategory(product.category);
-            setCountInStock(product.countInStock);
-            setDescription(product.description);
+            setName(brand.brandName);
+            setImage(brand.brandImage);
+            setProof(brand.brandProof);
         }
-
-        // eslint-disable-next-line
     }, [dispatch, success]);
     const submitHandler = (e) => {
         e.preventDefault();
-        const UpdateData = {
-            name,
-            brand,
-            price,
-            category,
-            countInStock,
-            description,
-        };
-        dispatch(brandAction.editBrand(brandId, UpdateData));
+        brand.name = name;
+        brand.brandImage = image;
+        brand.brandProof = proof;
+        dispatch(brandAction.editBrand(brandId, brand));
     };
 
     const ConfirmedAlert = () => {
-        if (EditProductSuccess) {
+        if (EditBrandSuccess) {
             return confirmAlert({
                 customUI: ({ onClose }) => {
                     return (
@@ -103,7 +87,7 @@ const EditBrand = ({ match }) => {
                                 <img src={confirmationImg} alt="confirmationImg" />
                             </div>
                             <h3 className="font-weight-bold text">
-                                Product updated successfully
+                                Brand updated successfully
                             </h3>
                             <Button
                                 type="submit"
@@ -111,7 +95,7 @@ const EditBrand = ({ match }) => {
                                 color="primary"
                                 onClick={() => {
                                     onClose();
-                                    dispatch({ type: productConstants.EDIT_PRODUCT_RESET });
+                                    dispatch({ type: brandConstants.EDIT_BRAND_RESET });
                                     setSuccess(true);
                                 }}
                             >
@@ -124,16 +108,17 @@ const EditBrand = ({ match }) => {
         }
     };
     return (
+        <Container fluid className="verticalHeight">
         <>
-            {Success && <Redirect to="/admin/productList" />}
-            {EditProductError && (
+            {Success && <Redirect to="/dashboard/admin/brands" />}
+            {EditBrandError && (
                 <ErrorMessage
                     header="Something went wrong"
-                    message={EditProductError}
-                    reset={productConstants.EDIT_PRODUCT_RESET}
+                    message={EditBrandError}
+                    reset={brandConstants.EDIT_BRAND_RESET}
                 />
             )}
-            <Link to="/admin/productlist" className="btn btn-light my-3">
+            <Link to="/dashboard/admin/brands" className="btn btn-light my-3">
                 Go Back
             </Link>
             {loading ? (
@@ -143,7 +128,8 @@ const EditBrand = ({ match }) => {
             ) : (
                 <>
                     <FormContainer>
-                        <h1>Edit Product</h1>
+                        <h1>Edit Brand:</h1>
+                        <Image src={brand.brandImage} fluid  />
                         <Form onSubmit={submitHandler}>
                             <TextField
                                 variant="outlined"
@@ -159,94 +145,40 @@ const EditBrand = ({ match }) => {
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                             />
-
+                            Change image
                             <TextField
                                 variant="outlined"
-                                type="text"
+                                type="file"
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="brand"
-                                label="Brand"
-                                name="brand"
-                                autoComplete="brand"
+                                id="file"
+                                name="file"
+                                autoComplete="file"
                                 autoFocus
-                                value={brand}
-                                onChange={(e) => setBrand(e.target.value)}
+                                onChange={(e) => setBrandImage(e.target.files[0])}
                             />
-
+                            Change proof
                             <TextField
                                 variant="outlined"
-                                type="number"
+                                type="file"
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="price"
-                                label="Price"
-                                name="price"
-                                autoComplete="price"
+                                id="proof"
+                                name="proof"
+                                autoComplete="proof"
                                 autoFocus
-                                value={price}
-                                onChange={(e) => setPrice(Number(e.target.value))}
+                                onChange={(e) => setProof(e.target.files[0])}
                             />
-                            <TextField
-                                variant="outlined"
-                                type="number"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="countInStock"
-                                label="CountInStock"
-                                name="countInStock"
-                                autoComplete="countInStock"
-                                autoFocus
-                                value={countInStock}
-                                onChange={(e) => setCountInStock(Number(e.target.value))}
-                            />
-                            <TextField
-                                variant="outlined"
-                                type="text"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="description"
-                                label="Description"
-                                name="description"
-                                autoComplete="description"
-                                autoFocus
-                                value={description}
-                                multiline
-                                rows={5}
-                                onChange={(e) => setDescription(e.target.value)}
-                            />
-                            <FormControl variant="outlined" className={classes.formControl}>
-                                <InputLabel id="demo-simple-select-outlined-label">
-                                    Category
-                                </InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-outlined-label"
-                                    id="demo-simple-select-outlined"
-                                    onChange={(e) => setCategory(e.target.value)}
-                                    label="Category"
-                                    value={category}
-                                >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
-                                    <MenuItem value="Shirt">T-shirt</MenuItem>
-                                    <MenuItem value="Pants">Pant</MenuItem>
-                                    <MenuItem value="Vest">Vest</MenuItem>
-                                </Select>
-                            </FormControl>
-
                             <Button
                                 type="submit"
                                 variant="contained"
                                 color="primary"
                                 fullWidth
-                                disabled={EditProductLoading}
+                                disabled={EditBrandLoading}
                             >
-                                {EditProductLoading ? (
+                                {EditBrandLoading ? (
                                     <CircularProgress
                                         color="inherit"
                                         className={classes.prgressColor}
@@ -261,6 +193,7 @@ const EditBrand = ({ match }) => {
                 </>
             )}
         </>
+        </Container>
     );
 };
 

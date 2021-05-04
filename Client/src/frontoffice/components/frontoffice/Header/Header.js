@@ -67,7 +67,11 @@ const Header = () => {
                                         Wardrobe
                                     </NavLink>
                                 </NavItem>
-
+                                <NavItem>
+                                    <NavLink active href="/brands">
+                                        Brands
+                                    </NavLink>
+                                </NavItem>
                             </Nav>
                         </Collapse>
 

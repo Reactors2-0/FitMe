@@ -39,13 +39,13 @@ import Profile from '../frontoffice/pages/Order/Profile';
 import BrandSignup from '../frontoffice/pages/BrandSignup/BrandSignup';
 import BrandList from "../backoffice/pages/Brand/BrandtList"
 import EditBrand from "../backoffice/pages/Brand/EditBrand"
+import Brands from "../frontoffice/pages/Brands/Brands";
+import BrandPage from "../frontoffice/pages/Brands/BrandPage";
 
 // * Med Imports *
-
 import Home from "../frontoffice/pages/Home/Home";
 import ProductPage from "../frontoffice/pages/ProductDetails/ProductPage";
 import ShoppingCart from "../frontoffice/pages/ProductShoppingCart/ShoppingCart";
-
 
 const authProtectedBackRoutes = [
     { path: "/dashboard", component: Dashboard },
@@ -61,7 +61,7 @@ const authProtectedBackRoutes = [
     { path: "/dashboard/admin/Products", component: ProductsList },
     { path: "/dashboard/admin/Order", component: OrderAdmin },
     { path: "/dashboard/admin/brands", component: BrandList },
-    { path: "/dashboard/admin/brand:brandId", component: EditBrand },
+    { path: "/dashboard/admin/brand/:brandId", component: EditBrand },
     //profile
     { path: "/product-detail/:id", component: ProductDetail },
     { path: "/add-product", component: AddProduct },
@@ -71,7 +71,8 @@ const authProtectedBackRoutes = [
 
 const publicFrontRoutes = [
     { path: "/contact", component: ContactUsPage },
-
+    { path: "/brands" , component: Brands},
+    { path: "/brand/:brandId" , component: BrandPage},
     { path: "/brandSignup", component: BrandSignup },
     { path: "/", component: Home },
     // Moetaz Paths
