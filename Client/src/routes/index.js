@@ -18,7 +18,6 @@ import ContactUsPage from "../frontoffice/pages/contact/contact"
 
 
 // User profile
-import UserProfile from "../backoffice/pages/Authentication/UserProfile"
 
 import ProductDetail from "../backoffice/pages/Products/ProductDetail"
 
@@ -46,6 +45,7 @@ import BrandPage from "../frontoffice/pages/Brands/BrandPage";
 import Home from "../frontoffice/pages/Home/Home";
 import ProductPage from "../frontoffice/pages/ProductDetails/ProductPage";
 import ShoppingCart from "../frontoffice/pages/ProductShoppingCart/ShoppingCart";
+import EcommerceCheckout from "../frontoffice/pages/Order/Order";
 
 const authProtectedBackRoutes = [
     { path: "/dashboard", component: Dashboard },
@@ -85,13 +85,13 @@ const publicFrontRoutes = [
     { path: "/Profile", component: Profile },
     // Authentication Inner
 
-
     //Product path
     { path: "/product/:id", component: ProductPage },
     { path: "/shoppingCart", component: ShoppingCart },
 
 ]
 const authProtectedFrontRoutes = [
+    { path: "/ecommerce-checkout", component: EcommerceCheckout },
 
 
 ]

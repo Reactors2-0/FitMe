@@ -10,7 +10,7 @@ export const listBrands = (state = { brands: [] }, action) => {
     case brandConstants.BRANDLIST_FETCH_SUCCESS:
       return {
         brands: action.payload.brandList,
-        count: action.payload.totalBrands,
+        totalBrands: action.payload.totalBrands,
         success: true,
       };
     case brandConstants.BRANDLIST_FETCH_ERROR:

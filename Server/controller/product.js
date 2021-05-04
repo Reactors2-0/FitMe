@@ -12,9 +12,10 @@ cloudinary.config({
     api_secret: process.env.API_SECRET,
 });
 const getProducts = asyncHandler(async (req,res,next)=>{
+
+
     const keyWord = req.query.keyWord;
     const ltORgt = req.query;
-
     if(keyWord || ltORgt ){
         const searchItem = keyWord ?
             {name : {$regex: keyWord , $options: "i"}}:
@@ -22,18 +23,24 @@ const getProducts = asyncHandler(async (req,res,next)=>{
         const priceRange = (!isNaN(Number(ltORgt.priceMin)) && !isNaN(Number(ltORgt.priceMax))) ?
             {price: {$gt: Number(ltORgt.priceMin), $lt: Number(ltORgt.priceMax)}}:
             {};
+        let BrandQuery =  req.query.Brand.split(",")
+        let CategoryQuery =  req.query.Category.split(",")
 
-        const searchProduct = await Product.find(priceRange).populate('Category').populate('brand');
+        const BrandSearch = req.query.Brand ? {brand : {$in : BrandQuery }}  : {}
+        const CategorySearch = req.query.Category ? {category : {$in : CategoryQuery }}  : {}
+
+           const searchProduct = await Product.find({$and :[ priceRange , BrandSearch,CategorySearch ]}).populate('Category').populate('brand');
+
         res.status(200).send({
             status: "success",
-            data: { results : searchProduct , count: searchProduct.length }
+            data: { results : searchProduct.reverse() , count: searchProduct.length }
         })
     }else{
         const products = await Product.find().populate('brand').populate('Category');
 
         res.status(200).send({
             status: "success",
-            data: { results : products , count: products.length }
+            data: { results : products.reverse() , count: products.length }
         })
     }
 
@@ -72,7 +79,7 @@ const createProduct = asyncHandler(async (req,res,next)=>{
     console.log(file.preview)
 
     cloudinary.uploader.upload(
-        "C:\\"+file.path,
+        "C:\\Users\\Med\\Pictures\\"+file.path,
         {use_filename: true, folder: "products"},
         async function (error, result) {
             console.log(error)
@@ -83,7 +90,6 @@ const createProduct = asyncHandler(async (req,res,next)=>{
                 size : JSON.parse(req.body.size),
                 productImage: result.url,
             });
-            console.log("hi !!!!!!!!")
             res.status(200).send({status: "success", data: product});
         }
     );
@@ -94,9 +100,14 @@ const createProduct = asyncHandler(async (req,res,next)=>{
 
 
 const updateProduct = asyncHandler(async (req,res,next)=>{
+  const  productToUpdate =req.body;
+    productToUpdate.color = JSON.parse(req.body.color);
+    // productToUpdate.size = JSON.parse(req.body.size);
+    // console.log(productToUpdate.color)
+
     const editProduct = await Product.findByIdAndUpdate(
         req.params.productId,
-        req.body,
+        productToUpdate,
         {
             new : true,
             runValidators : true

@@ -34,7 +34,7 @@ export const categoryList = (state = { categorys: [] }, action) => {
     case CategoryConstants.Category_SUCCESS:
       return {
         categorys: action.payload.categoryList,
-        count: action.payload.totalcategory,
+        countcat: action.payload.totalcategory,
         success: true,
       };
     case CategoryConstants.Category_FAIL:

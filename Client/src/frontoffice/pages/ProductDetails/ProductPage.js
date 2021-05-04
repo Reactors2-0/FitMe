@@ -58,7 +58,7 @@ export default function ProductPage({ match }) {
         document.body.scrollTop = 0;
     });
 
-    const [colorSelect, setColorSelect] = React.useState("0");
+    const [colorSelect, setColorSelect] = React.useState("#FFFFFF");
     const [sizeSelect, setSizeSelect] = React.useState("0");
     const productData = useSelector((state) => state.Product);
     const { loading, product, error } = productData;
@@ -140,6 +140,7 @@ export default function ProductPage({ match }) {
                             <GridItem md={6} sm={6}>
                                 <h2 className={classes.title}>{product.name}</h2>
                                 <h3 className={classes.mainPrice}>{product.price} TND</h3>
+
                                 <Accordion
                                     active={0}
                                     activeColor="rose"
@@ -197,40 +198,39 @@ export default function ProductPage({ match }) {
                                                 classes={{
                                                     select: classes.select
                                                 }}
+                                                style={(colorSelect ==="#FFFFFF")?{backgroundColor : "transparent"}:{backgroundColor : colorSelect}}
                                                 value={colorSelect}
-                                                onChange={event => setColorSelect(event.target.value)}
+                                                onChange={event => {
+                                                    setColorSelect(event.target.value);
+                                                    console.log(colorSelect)
+                                                }}
                                                 inputProps={{
                                                     name: "colorSelect",
                                                     id: "color-select"
                                                 }}
                                             >
-                                                <MenuItem
-                                                    classes={{
-                                                        root: classes.selectMenuItem,
-                                                        selected: classes.selectMenuItemSelected
-                                                    }}
-                                                    value="0"
+                                                {product.color ? product.color.map((value,key)=>{
+                                                    return(
+                                                    <MenuItem
+                                                        classes={{
+                                                            root: classes.selectMenuItem,
+                                                        }}
+                                                              style={{backgroundColor : value.color}}
+                                                        value={value.color}
+                                                    >
+                                                    </MenuItem>
+                                                    )
+                                                }) : <MenuItem
+                                                               classes={{
+                                                                   root: classes.selectMenuItem,
+                                                               }}
+                                                               value="0"
                                                 >
-                                                    Rose
-                                                </MenuItem>
-                                                <MenuItem
-                                                    classes={{
-                                                        root: classes.selectMenuItem,
-                                                        selected: classes.selectMenuItemSelected
-                                                    }}
-                                                    value="1"
-                                                >
-                                                    Gray
-                                                </MenuItem>
-                                                <MenuItem
-                                                    classes={{
-                                                        root: classes.selectMenuItem,
-                                                        selected: classes.selectMenuItemSelected
-                                                    }}
-                                                    value="2"
-                                                >
-                                                    White
-                                                </MenuItem>
+                                                    No value !
+                                                </MenuItem>}
+
+
+
                                             </Select>
                                         </FormControl>
                                     </GridItem>
@@ -254,33 +254,25 @@ export default function ProductPage({ match }) {
                                                     id: "size-select"
                                                 }}
                                             >
-                                                <MenuItem
+                                                {product.size ? product.size.map((value,key)=>{
+                                                    return(
+                                                        <MenuItem
+                                                            classes={{
+                                                                root: classes.selectMenuItem,
+                                                            }}
+                                                            value={value.value}
+                                                        >
+                                                            {value.value}
+                                                        </MenuItem>
+                                                    )
+                                                }) : <MenuItem
                                                     classes={{
                                                         root: classes.selectMenuItem,
-                                                        selected: classes.selectMenuItemSelected
                                                     }}
                                                     value="0"
                                                 >
-                                                    Small
-                                                </MenuItem>
-                                                <MenuItem
-                                                    classes={{
-                                                        root: classes.selectMenuItem,
-                                                        selected: classes.selectMenuItemSelected
-                                                    }}
-                                                    value="1"
-                                                >
-                                                    Medium
-                                                </MenuItem>
-                                                <MenuItem
-                                                    classes={{
-                                                        root: classes.selectMenuItem,
-                                                        selected: classes.selectMenuItemSelected
-                                                    }}
-                                                    value="2"
-                                                >
-                                                    Large
-                                                </MenuItem>
+                                                    No value !
+                                                </MenuItem>}
                                             </Select>
                                         </FormControl>
                                     </GridItem>
@@ -291,7 +283,7 @@ export default function ProductPage({ match }) {
                                         } reviews`}
                                 />
                                 <GridContainer className={classes.pullRight}>
-                                    <Button round color="rose" onClick={() => addToCartHandler(product.id, 1)}>
+                                    <Button round color="rose" onClick={() => addToCartHandler(product.id, 1,colorSelect,sizeSelect)}>
                                         Add to Cart &nbsp; <ShoppingCart />
                                     </Button>
                                 </GridContainer>
@@ -337,7 +329,15 @@ export default function ProductPage({ match }) {
                             <GridItem sm={6} md={3}>
                                 <Card product>
                                     <CardHeader image>
+                                        {product.isDiscounted ? (
+                                            <div className="avatar-sm product-ribbon pull-left">
+                                    <span className="avatar-title rounded-circle  bg-primary fitMe-color">
+                                      {`-${product.discount}%`}
+                                    </span>
+                                            </div>
+                                        ) : null}
                                         <a href="#pablo">
+
                                             <img src={cardProduct1} alt="cardProduct" />
                                         </a>
                                     </CardHeader>

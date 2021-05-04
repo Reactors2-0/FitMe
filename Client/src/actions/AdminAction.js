@@ -132,9 +132,9 @@ export const categoryid = (id) => async (dispatch) => {
   try {
       dispatch({ type: categoryConstants.Category_START });
 
-      await axios.get(`/api/category/${id}`).then((resp) => {
+      await axios.get(`/api/Category/${id}`).then((resp) => {
           const categoryi = resp.data.data;
-        
+
           dispatch({
               type: categoryConstants.Category_SUCCESS,
               payload: categoryi,

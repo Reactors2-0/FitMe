@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Link } from "react-router-dom"
+import  { Link,Redirect } from "react-router-dom"
 import MetaTags from 'react-meta-tags';
 import {
   Button,
@@ -36,16 +36,15 @@ class AddProduct extends Component {
       isDiscount : false,
       VerificationMessage :""
     }
-    const { dispatch } = props;
   }
 
   handleAcceptedFiles = files => {
     console.log(files)
     files.map(file =>
-      Object.assign(file, {
-        preview: URL.createObjectURL(file),
-        formattedSize: this.formatBytes(file.size),
-      })
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+          formattedSize: this.formatBytes(file.size),
+        })
     )
 
     this.setState({ selectedFiles: files })
@@ -70,64 +69,48 @@ class AddProduct extends Component {
     { value: "XXXL", label: "XXXL" },
   ];
 
-    componentWillMount() {
+  componentWillMount() {
 
-      fetch("http://localhost:5000/api/category/")
-          .then(res => res.json())
-          .then(
-              (result) => {
-                this.setState({
-                  categories: result.data.results
-                });
-              },
-              (error) => {
-               console.log(error)
-              })
+    fetch("http://localhost:5000/api/category/")
+        .then(res => res.json())
+        .then(
+            (result) => {
+              this.setState({
+                categories: result.data.results
+              });
+            },
+            (error) => {
+              console.log(error)
+            })
 
 
-      fetch("http://localhost:5000/api/brands")
-          .then(res => res.json())
-          .then(
-              (result) => {
-                this.setState({
-                  brands: result.data.results
-                });
-              },
-              (error) => {
-                console.log(error)
-              })
-      this.setState({
-        connectedUser : JSON.parse(localStorage.getItem("userInfo"))
-      })
-    }
+    fetch("http://localhost:5000/api/brands")
+        .then(res => res.json())
+        .then(
+            (result) => {
+              this.setState({
+                brands: result.data.results
+              });
+            },
+            (error) => {
+              console.log(error)
+            })
+    this.setState({
+      connectedUser : JSON.parse(localStorage.getItem("userInfo"))
+    })
+  }
 
-   handlerColorChange(value) {
-     this.state.formProduct.color=value;
+  handlerColorChange(value) {
+    this.state.formProduct.color=value;
   }
   handlerSizeChange(value) {
     this.state.formProduct.size=value;
   }
 
-   handleSubmit = () => {
-      console.log(this.state.selectedFiles[0])
-     const formData = new FormData();
-     formData.append("name", this.state.formProduct.name);
-     formData.append("price", this.state.formProduct.price);
-     formData.append("countInStock", this.state.formProduct.countInStock);
-     formData.append("description", this.state.formProduct.description);
-     formData.append("color", JSON.stringify(this.state.formProduct.color));
-     formData.append("category", this.state.formProduct.category);
-     formData.append("size", JSON.stringify(this.state.formProduct.size));
-     formData.append("brand", this.state.formProduct.brand);
-     formData.append("isDiscounted", this.state.formProduct.isDiscounted);
-     formData.append("productImage", JSON.stringify(this.state.selectedFiles[0]));
-      if(this.state.isDiscount && this.state.formProduct.discount) {
-        formData.append("discount", this.state.formProduct.discount);
-      }
+  handleSubmit = () => {
 
-     this.props.dispatch(productAction.createProduct(formData))
 
-     // e.preventDefault();
+    // e.preventDefault();
     // this.setState({VerificationMessage : ""});
     // if (!this.state.formProduct.name) return this.setState({VerificationMessage :"Please provide your product's name"});
     // if (!this.state.formProduct.price) return this.setState({VerificationMessage :"Please provide your product's price"});
@@ -139,253 +122,271 @@ class AddProduct extends Component {
     // if (!this.state.formProduct.brand) return this.setState({VerificationMessage :"Please provide your product's brand"});
     // if(this.state.isDiscount && !this.state.formProduct.discount) return this.setState({VerificationMessage :"Please provide your product's discount"});
     //  this.setState({VerificationMessage: ""});
-    //  this.props.createProductDetails(this.state.formProduct);
 
+
+
+    console.log(this.state.selectedFiles[0])
+    const formData = new FormData();
+    formData.append("name", this.state.formProduct.name);
+    formData.append("price", this.state.formProduct.price);
+    formData.append("countInStock", this.state.formProduct.countInStock);
+    formData.append("description", this.state.formProduct.description);
+    formData.append("color", JSON.stringify(this.state.formProduct.color));
+    formData.append("category", this.state.formProduct.category);
+    formData.append("size", JSON.stringify(this.state.formProduct.size));
+    formData.append("brand", this.state.formProduct.brand);
+    formData.append("isDiscounted", this.state.formProduct.isDiscounted);
+    formData.append("productImage", JSON.stringify(this.state.selectedFiles[0]));
+    if(this.state.isDiscount && this.state.formProduct.discount) {
+      formData.append("discount", this.state.formProduct.discount);
+    }
+    this.props.dispatch(productAction.createProduct(formData))
+    this.props.history.push('/dashboard/admin/Products')
 
   };
   render() {
 
 
     return (
-      <React.Fragment>
-        <div className="page-content">
-        <MetaTags>
-            <title>Add Product | FitMe!</title>
-          </MetaTags>
-          <Container fluid>
-            {/* Render Breadcrumb */}
-            <Breadcrumbs title="Dashborad" breadcrumbItem="Add Product" />
+        <React.Fragment>
+          <div className="page-content">
+            <MetaTags>
+              <title>Add Product | FitMe!</title>
+            </MetaTags>
+            <Container fluid>
+              {/* Render Breadcrumb */}
+              <Breadcrumbs title="Dashborad" breadcrumbItem="Add Product" />
 
-            <Row>
-              <Col xs="12">
-                <Card>
-                  <CardBody>
-                    <CardTitle className="h4">Basic Information</CardTitle>
-                    <p className="card-title-desc">Fill all information below</p>
-                    {this.state.VerificationMessage !== "" && (
-                        <ErrorMessage header="Auth Error" message={this.state.VerificationMessage} />
-                    )}
-                    <Form>
-                      <Row>
-                        <Col sm="6">
-                          <FormGroup className="mb-3">
-                            <Label htmlFor="productname">Product Name</Label>
-                            <Input
-                              id="productname"
-                              name="productname"
-                              type="text"
-                              className="form-control"
-                              onChange={(e)=>{this.state.formProduct.name= e.target.value}}
-                            />
-                          </FormGroup>
-                          <FormGroup className="mb-3">
-                            <Label htmlFor="productprice">
-                              Product Price
-                            </Label>
-                            <Input
-                              id="productprice"
-                              name="productprice"
-                              type="number"
-                              className="form-control"
-                              onChange={(e)=>{this.state.formProduct.price= parseFloat(e.target.value)}}
+              <Row>
+                <Col xs="12">
+                  <Card>
+                    <CardBody>
+                      <CardTitle className="h4">Basic Information</CardTitle>
+                      <p className="card-title-desc">Fill all information below</p>
+                      {this.state.VerificationMessage !== "" && (
+                          <ErrorMessage header="Auth Error" message={this.state.VerificationMessage} />
+                      )}
+                      <Form>
+                        <Row>
+                          <Col sm="6">
+                            <FormGroup className="mb-3">
+                              <Label htmlFor="productname">Product Name</Label>
+                              <Input
+                                  id="productname"
+                                  name="productname"
+                                  type="text"
+                                  className="form-control"
+                                  onChange={(e)=>{this.state.formProduct.name= e.target.value}}
+                              />
+                            </FormGroup>
+                            <FormGroup className="mb-3">
+                              <Label htmlFor="productprice">
+                                Product Price
+                              </Label>
+                              <Input
+                                  id="productprice"
+                                  name="productprice"
+                                  type="number"
+                                  className="form-control"
+                                  onChange={(e)=>{this.state.formProduct.price= parseFloat(e.target.value)}}
 
-                            />
-                          </FormGroup>
-                          <FormGroup className="mb-3">
-                            <Label htmlFor="productqty">
-                              Product QTY
-                            </Label>
-                            <Input
-                              id="productqty"
-                              name="productqty"
-                              type="number"
-                              className="form-control"
-                              onChange={(e)=>{this.state.formProduct.countInStock= parseInt(e.target.value)}}
+                              />
+                            </FormGroup>
+                            <FormGroup className="mb-3">
+                              <Label htmlFor="productqty">
+                                Product QTY
+                              </Label>
+                              <Input
+                                  id="productqty"
+                                  name="productqty"
+                                  type="number"
+                                  className="form-control"
+                                  onChange={(e)=>{this.state.formProduct.countInStock= parseInt(e.target.value)}}
 
-                            />
-                          </FormGroup>
-                          <FormGroup className="mb-3 d-flex ">
-                            <Label>Discount : &nbsp; &nbsp;</Label>
-                            <Input
-                              id="isDiscount"
-                              name="isDiscount"
-                              type="checkbox"
-                              className="form-control"
-                              onChange={()=>this.setState({isDiscount : !this.state.isDiscount})}
+                              />
+                            </FormGroup>
+                            <FormGroup className="mb-3 d-flex ">
+                              <Label>Discount : &nbsp; &nbsp;</Label>
+                              <Input
+                                  id="isDiscount"
+                                  name="isDiscount"
+                                  type="checkbox"
+                                  className="form-control"
+                                  onChange={()=>this.setState({isDiscount : !this.state.isDiscount})}
 
-                            />
-                            {this.state.isDiscount ? (
-                                <Input
-                                style={{width : 120 , marginLeft : 30}}
-                                id="discount"
-                                name="discount"
-                                type="number"
-                                placeholder="Discount %"
-                                className="form-control"
-                                onChange={(e)=>{this.state.formProduct.discount=  parseInt(e.target.value)}}
+                              />
+                              {this.state.isDiscount ? (
+                                  <Input
+                                      style={{width : 120 , marginLeft : 30}}
+                                      id="discount"
+                                      name="discount"
+                                      type="number"
+                                      placeholder="Discount %"
+                                      className="form-control"
+                                      onChange={(e)=>{this.state.formProduct.discount=  parseInt(e.target.value)}}
 
-                                />) : <></>}
-                          </FormGroup>
-                          <FormGroup className="select2-container mb-3">
-                            <Label className="control-label">Available Size</Label>
-                            <Select
-                                closeMenuOnSelect={false}
-                                classNamePrefix="form-control"
-                                placeholder="Choose ..."
-                                title="Country"
-                                options={this.sizeOptions}
-                                isMulti
-                                onChange={(e)=>{this.handlerSizeChange(e)}}
+                                  />) : <></>}
+                            </FormGroup>
+                            <FormGroup className="select2-container mb-3">
+                              <Label className="control-label">Available Size</Label>
+                              <Select
+                                  closeMenuOnSelect={false}
+                                  classNamePrefix="form-control"
+                                  placeholder="Choose ..."
+                                  title="Country"
+                                  options={this.sizeOptions}
+                                  isMulti
+                                  onChange={(e)=>{this.handlerSizeChange(e)}}
 
-                            />
-                          </FormGroup>
-                        </Col>
+                              />
+                            </FormGroup>
+                          </Col>
 
-                        <Col sm="6">
-                          <FormGroup className="mb-3">
-                            <Label className="control-label">Category</Label>
-                            <select className="form-control select2"
-                            onChange={(e)=>{this.state.formProduct.category= e.target.value}}
-                            >
-                              <option>Select</option>
-                              {this.state.categories ? this.state.categories.map((val,index)=>
-                                  <option value={val._id} key={index}>{val.categoryName}</option>
-                              ) : ""}
-
-
-                            </select>
-                          </FormGroup>
-                          <FormGroup className="select2-container mb-3">
-                            <Label className="control-label">Colors </Label>
-                           <ColorSelector handlerColorChangeProps={(e)=>this.handlerColorChange(e)}/>
-                          </FormGroup>
-                          <FormGroup className="mb-3">
-                            <Label htmlFor="productdesc">
-                              Product Description
-                            </Label>
-                            <textarea
-                              className="form-control"
-                              id="productdesc"
-                              rows="5"
-                              onChange={(e)=>{this.state.formProduct.description= e.target.value}}
-
-                            />
-                          </FormGroup>
-                          <FormGroup className="mb-3">
-                            {this.state.brands && this.state.connectedUser.role === "admin" ?
-                                (<>
-                                <Label className="control-label">Brand</Label>
-                            <select className="form-control select2"
-                                    onChange={(e)=>{this.state.formProduct.brand= e.target.value}}
-                            >
-                              <option>Select</option>
-                              { this.state.brands.map((val,index)=>
-                                  <option value={val._id} key={index}>{val.brandName}</option>
-                              ) }
+                          <Col sm="6">
+                            <FormGroup className="mb-3">
+                              <Label className="control-label">Category</Label>
+                              <select className="form-control select2"
+                                      onChange={(e)=>{this.state.formProduct.category= e.target.value}}
+                              >
+                                <option>Select</option>
+                                {this.state.categories ? this.state.categories.map((val,index)=>
+                                    <option value={val._id} key={index}>{val.categoryName}</option>
+                                ) : ""}
 
 
-                            </select></>): this.state.formProduct.brand=this.state.connectedUser.id}
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <div className="d-flex flex-wrap gap-2">
-                      <Button
-                        type="button"
-                        color="primary"
-                        className="waves-effect waves-light"
-                        onClick={(e)=>{
-                          this.state.formProduct.isDiscounted = this.state.isDiscount;
-                          this.handleSubmit();
-                        }}
-                      >
-                        Save Changes
-                      </Button>
-                      <Button
-                        type="submit"
-                        color="secondary"
-                        className="waves-effect waves-light"
-                      >
-                        Cancel
-                      </Button>
-                      </div>
-                    </Form>
-                  </CardBody>
-                </Card>
+                              </select>
+                            </FormGroup>
+                            <FormGroup className="select2-container mb-3">
+                              <Label className="control-label">Colors </Label>
+                              <ColorSelector handlerColorChangeProps={(e)=>this.handlerColorChange(e)}/>
+                            </FormGroup>
+                            <FormGroup className="mb-3">
+                              <Label htmlFor="productdesc">
+                                Product Description
+                              </Label>
+                              <textarea
+                                  className="form-control"
+                                  id="productdesc"
+                                  rows="5"
+                                  onChange={(e)=>{this.state.formProduct.description= e.target.value}}
 
-                <Card>
-                  <CardBody>
-                    <CardTitle className="mb-3 h4">Product Images</CardTitle>
-                    <Form className="dropzone">
-                      <Dropzone
-                        onDrop={acceptedFiles =>
-                          this.handleAcceptedFiles(acceptedFiles)
-                        }
-                      >
-                        {({ getRootProps, getInputProps }) => (
-                          <div>
-                            <div
-                              className="dz-message needsclick"
-                              {...getRootProps()}
-                            >
-                              <input {...getInputProps()} />
-                              <div className="dz-message needsclick">
-                                <div className="mb-3">
-                                  <i className="display-4 text-muted bx bxs-cloud-upload" />
-                                </div>
-                                <h4>Drop files here or click to upload.</h4>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      </Dropzone>
-                      <div
-                        className="dropzone-previews mt-3"
-                        id="file-previews"
-                      >
-                        {this.state.selectedFiles.map((f, i) => {
-                          return (
-                            <Card
-                              className="mt-1 mb-0 shadow-none border dz-processing dz-image-preview dz-success dz-complete"
-                              key={i + "-file"}
-                            >
-                              <div className="p-2">
-                                <Row className="align-items-center">
-                                  <Col className="col-auto">
-                                    <img
-                                      data-dz-thumbnail=""
-                                      height="80"
-                                      className="avatar-sm rounded bg-light"
-                                      alt={f.name}
-                                      src={f.preview}
-                                    />
-                                  </Col>
-                                  <Col>
-                                    <Link
-                                      to="#"
-                                      className="text-muted font-weight-bold"
+                              />
+                            </FormGroup>
+                            <FormGroup className="mb-3">
+                              {this.state.brands && this.state.connectedUser.role === "admin" ?
+                                  (<>
+                                    <Label className="control-label">Brand</Label>
+                                    <select className="form-control select2"
+                                            onChange={(e)=>{this.state.formProduct.brand= e.target.value}}
                                     >
-                                      {f.name}
-                                    </Link>
-                                    <p className="mb-0">
-                                      <strong>{f.formattedSize}</strong>
-                                    </p>
-                                  </Col>
-                                </Row>
+                                      <option>Select</option>
+                                      { this.state.brands.map((val,index)=>
+                                          <option value={val._id} key={index}>{val.brandName}</option>
+                                      ) }
+
+
+                                    </select></>): this.state.formProduct.brand=this.state.connectedUser.id}
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                        <div className="d-flex flex-wrap gap-2">
+                          <Button
+                              type="button"
+                              color="primary"
+                              className="waves-effect waves-light"
+                              onClick={(e)=>{
+                                this.state.formProduct.isDiscounted = this.state.isDiscount;
+                                this.handleSubmit();
+                              }}
+                          >
+                            Save Changes
+                          </Button>
+                          <Button
+                              type="submit"
+                              color="secondary"
+                              className="waves-effect waves-light"
+                          >
+                            Cancel
+                          </Button>
+                        </div>
+                      </Form>
+                    </CardBody>
+                  </Card>
+
+                  <Card>
+                    <CardBody>
+                      <CardTitle className="mb-3 h4">Product Images</CardTitle>
+                      <Form className="dropzone">
+                        <Dropzone
+                            onDrop={acceptedFiles =>
+                                this.handleAcceptedFiles(acceptedFiles)
+                            }
+                        >
+                          {({ getRootProps, getInputProps }) => (
+                              <div>
+                                <div
+                                    className="dz-message needsclick"
+                                    {...getRootProps()}
+                                >
+                                  <input {...getInputProps()} />
+                                  <div className="dz-message needsclick">
+                                    <div className="mb-3">
+                                      <i className="display-4 text-muted bx bxs-cloud-upload" />
+                                    </div>
+                                    <h4>Drop files here or click to upload.</h4>
+                                  </div>
+                                </div>
                               </div>
-                            </Card>
-                          )
-                        })}
-                      </div>
-                    </Form>
-                  </CardBody>
-                </Card>
+                          )}
+                        </Dropzone>
+                        <div
+                            className="dropzone-previews mt-3"
+                            id="file-previews"
+                        >
+                          {this.state.selectedFiles.map((f, i) => {
+                            return (
+                                <Card
+                                    className="mt-1 mb-0 shadow-none border dz-processing dz-image-preview dz-success dz-complete"
+                                    key={i + "-file"}
+                                >
+                                  <div className="p-2">
+                                    <Row className="align-items-center">
+                                      <Col className="col-auto">
+                                        <img
+                                            data-dz-thumbnail=""
+                                            height="80"
+                                            className="avatar-sm rounded bg-light"
+                                            alt={f.name}
+                                            src={f.preview}
+                                        />
+                                      </Col>
+                                      <Col>
+                                        <Link
+                                            to="#"
+                                            className="text-muted font-weight-bold"
+                                        >
+                                          {f.name}
+                                        </Link>
+                                        <p className="mb-0">
+                                          <strong>{f.formattedSize}</strong>
+                                        </p>
+                                      </Col>
+                                    </Row>
+                                  </div>
+                                </Card>
+                            )
+                          })}
+                        </div>
+                      </Form>
+                    </CardBody>
+                  </Card>
 
 
-              </Col>
-            </Row>
-          </Container>
-        </div>
-      </React.Fragment>
+                </Col>
+              </Row>
+            </Container>
+          </div>
+        </React.Fragment>
     )
   }
 }

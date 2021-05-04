@@ -29,6 +29,10 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import * as cartConstants from "../../../constants/cartConstants";
 import ShoppingCart from "@material-ui/icons/ShoppingCart";
+import Select from "react-select";
+import {FormGroup} from "reactstrap";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
 const useStyles = makeStyles(shoppingCartStyle);
 
 const styles = theme => ({
@@ -52,7 +56,7 @@ export default function ShoppingCartPage() {
     const dispatch = useDispatch();
     let history = useHistory();
 
-    const {cartItems,addToCartHandler,removeFromCartHandler,totCartItems,priceRow,invoiceSubtotal,invoiceTaxes,invoiceTotal,TAX_RATE} = useCart();
+    const {cartItems,addToCartHandler,removeFromCartHandler,totCartItems,priceRow,invoiceSubtotal,invoiceTaxes,invoiceTotal,TAX_RATE,ColorFormProductId} = useCart();
 
 
     function ccyFormat(num) {
@@ -122,12 +126,12 @@ export default function ShoppingCartPage() {
                                 <Table className={classes.table} >
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell>&nbsp;</TableCell>
-                                            <TableCell>Product</TableCell>
-                                            <TableCell align="right">Color</TableCell>
-                                            <TableCell align="right">Size</TableCell>
-                                            <TableCell align="right">QTY.</TableCell>
-                                            <TableCell align="right">Price</TableCell>
+                                            <TableCell align="center">&nbsp;</TableCell>
+                                            <TableCell align="center">Product</TableCell>
+                                            <TableCell align="center">Color</TableCell>
+                                            <TableCell align="center">Size</TableCell>
+                                            <TableCell align="center">QTY.</TableCell>
+                                            <TableCell align="center">Price</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody >
@@ -141,9 +145,57 @@ export default function ShoppingCartPage() {
                                                 <TableCell>  <Link to={`/product/${row.productId}`} style={{color : "black"}}>  {row.productName}</Link>
                                                    </TableCell>
 
-                                                <TableCell align="right">red</TableCell>
-                                                <TableCell align="right">M</TableCell>
-                                                <TableCell align="right">
+                                                <TableCell align="center">
+                                                    <div className="product-color-item border rounded" style={{backgroundColor : row.selectedColor,width : 50,height :50,marginLeft : 100}} >
+                                                        {row.selectedColor ? row.selectedColor : (
+
+                                                            <Select
+                                                                MenuProps={{
+                                                                    className: classes.selectMenu
+                                                                }}
+                                                                classes={{
+                                                                    select: classes.select
+                                                                }}
+                                                                style={(!row.selectedColor)?{backgroundColor : "transparent"}:{backgroundColor : row.selectedColor}}
+                                                                value={row.selectedColor}
+                                                                onChange={event => {
+                                                                    row.selectedColor=event.target.value;
+                                                                }}
+                                                                inputProps={{
+                                                                    name: "colorSelect",
+                                                                    id: "color-select"
+                                                                }}
+                                                            >
+                                                                { ColorFormProductId(row.id)? ColorFormProductId(row.id).map((value,key)=>{
+                                                                    return(
+                                                                        <MenuItem
+                                                                            classes={{
+                                                                                root: classes.selectMenuItem,
+                                                                            }}
+                                                                            style={{backgroundColor : value.color}}
+                                                                            value={value.color}
+                                                                        >
+                                                                        </MenuItem>
+                                                                    )
+                                                                }) : <MenuItem
+                                                                    classes={{
+                                                                        root: classes.selectMenuItem,
+                                                                    }}
+                                                                    value="0"
+                                                                >
+                                                                    No value !
+                                                                </MenuItem>}
+
+
+
+                                                            </Select>
+                                                        )}
+                                                </div></TableCell>
+                                                <TableCell >
+                                                    {row.selectedSize}
+
+                                                </TableCell>
+                                                <TableCell >
                                         <span key={row.id}  className="d-flex justify-content-center">
                                             {` `}
                                           <div className={classes.buttonGroup} >
