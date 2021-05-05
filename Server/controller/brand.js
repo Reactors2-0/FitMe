@@ -11,7 +11,6 @@ cloudinary.config({
 });
 
 const getBrands = asyncHandler(async (req, res, next) => {
-  console.log("Fetching brands");
   const keyWord = req.query.keyWord;
   const pageOptions = {
     page: parseInt(req.query.page, 10) || 0,
@@ -27,7 +26,6 @@ const getBrands = asyncHandler(async (req, res, next) => {
   }
 });
 const getBrandByUserId = asyncHandler(async (req, res, next) => {
-  console.log("Fetching brand by user id = "+req.params.userId);
   const brand = await Brand.findOne({userId:req.params.userId});
   if (!brand)
     throw createError(404,`brand is not found with user id of ${req.params.userId}`);
@@ -35,7 +33,6 @@ const getBrandByUserId = asyncHandler(async (req, res, next) => {
 });
 
 const getBrand = asyncHandler(async (req, res, next) => {
-  console.log("Fetching brand with id "+ req.params.brandId);
   const brand = await Brand.findById(req.params.brandId);
   if (!brand)
     throw createError(404,`brand is not found with id of ${req.params.brandId}`);
@@ -43,7 +40,6 @@ const getBrand = asyncHandler(async (req, res, next) => {
 });
 
 const createBrand = asyncHandler(async (req, res, next) => {
-  console.log("Creating brand");
   if (!req.files) throw createError(400, "Please add a photo & Proof");
   const image = req.files.brandImage;
   const proof = req.files.brandProof;
@@ -80,27 +76,50 @@ const createBrand = asyncHandler(async (req, res, next) => {
 });
 
 const updateBrand = asyncHandler(async (req, res, next) => {
-  console.log("Updating brand");
-  const editBrand = await Brand.findByIdAndUpdate(req.params.brandId,req.body,{ new: true, runValidators: true, });
-  if (!editBrand) throw createError(404,`Brand is not found with id of ${req.params.brandId}`);
-  const updatedBrand = await Brand.findById(req.params.brandId);
-  res.status(201).send({ status: "success", data: updatedBrand });
+  if (!req.files) throw createError(400, "Please add a photo & Proof");
+  const image = req.files.brandImage;
+  const proof = req.files.brandProof;
+  if (!image.mimetype.startsWith("image"))
+    throw createError(400, "This file is not supported");
+  if (image.size > process.env.FILE_UPLOAD_SIZE || proof.size > process.env.FILE_UPLOAD_SIZE)
+    throw createError(400,`Please upload a image or proof of size less than ${process.env.FILE_UPLOAD_SIZE}`);
+  await cloudinary.uploader.upload(
+      proof.tempFilePath,
+      {use_filename: true, folder: "brands/" + req.body.brandName},
+      async function (proofError, proofResult) {
+        if (proofError) throw createError(409, `failed to upload brand proof`);
+        await cloudinary.uploader.upload(
+            image.tempFilePath,
+            {use_filename: true, folder: "brands/" + req.body.brandName},
+            async function (imageError, imageResult) {
+              if (imageError) throw createError(409, `failed to upload brand image`);
+              const brand = {
+                brandName : req.body.brandName,
+                brandImage: imageResult.url,
+                brandProof: proofResult.url,
+              }
+              const editBrand = await Brand.findByIdAndUpdate(req.params.brandId,brand,{ new: true, runValidators: true, });
+              if (!editBrand) throw createError(404,`Brand is not found with id of ${req.params.brandId}`);
+              const updatedBrand = await Brand.findById(req.params.brandId);
+              res.status(201).send({ status: "success", data: updatedBrand });
+            }
+        );
+      });
 });
 
 const deleteBrand = asyncHandler(async (req, res, next) => {
   const deleteBrand = await Brand.findById(req.params.brandId);
-  console.log("Deleting "+ deleteBrand.brandName);
   if (!deleteBrand) throw createError(404, `Brand is not found with id of ${req.params.brandId}`);
   await deleteBrand.remove();
   res.status(204).send({ status: "success", message: "Brand Deleted Successfully" });
 });
 
 const toggleVerify = asyncHandler(async (req, res, next) => {
+
   if(!req.body.brandId) throw createError(409, "Please provide brand's id");
   const toToggle = await Brand.findById(req.body.brandId);
   if(!toToggle) throw createError(409, "Brand not found");
   const user = await User.findById(toToggle.userId);
-
   toToggle.verify = !toToggle.verify;
   await toToggle.save();
   if(toToggle.verify){

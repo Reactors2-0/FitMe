@@ -15,7 +15,6 @@ import Toast from 'react-bootstrap/Toast'
 import Modal from 'react-bootstrap/Modal';
 import fileDownload from "js-file-download";
 import axios from "axios";
-import Form from "react-bootstrap/Form";
 import Select from 'react-select'
 import ("./BrandList.css");
 const BrandList = ({ history }) => {
@@ -30,7 +29,7 @@ const BrandList = ({ history }) => {
     const [brandsList, setBrandsList] = useState(brands);
     const [showModal, setShowModal] = useState(false);
     const [message, setMessage] = useState("");
-    const [sort, setSort] = useState(options[1]);
+    const [sort, setSort] = useState(options[0]);
     const handleClose = () => setShowModal(false);
 
     useEffect(() => {
@@ -73,7 +72,7 @@ const BrandList = ({ history }) => {
         }
         setMessage("");
     }
-    function toggleVerify(event,key) {
+    function toggleVerify() {
         setShowModal(true);
     }
 

@@ -75,6 +75,14 @@ const FooterPage = () => {
                                   Contact us
                               </a>
                           </ListItem>
+                          <ListItem className={classes.inlineBlock}>
+                              <a
+                                  href="/brandSignup"
+                                  className={classes.block}
+                              >
+                                  Become a registered brand
+                              </a>
+                          </ListItem>
                       </List>
                   </div>
                   <div className={classes.right}>

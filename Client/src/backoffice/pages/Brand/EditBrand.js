@@ -71,12 +71,16 @@ const EditBrand = ({ match }) => {
     }, [dispatch, success]);
     const submitHandler = (e) => {
         e.preventDefault();
+        const data = new FormData();
+        data.append('brandImage', image);
+        data.append('brandProof', image);
+        data.append('brandName', name);
+
         brand.name = name;
         brand.brandImage = image;
         brand.brandProof = proof;
-        dispatch(brandAction.editBrand(brandId, brand));
+        dispatch(brandAction.editBrand(brandId, data));
     };
-
     const ConfirmedAlert = () => {
         if (EditBrandSuccess) {
             return confirmAlert({
@@ -129,7 +133,7 @@ const EditBrand = ({ match }) => {
                     <>
                         <FormContainer>
                             <h1>Edit Brand:</h1>
-                            <Image src={brand.brandImage} fluid  />
+                            <Image src={image} fluid  />
                             <Form onSubmit={submitHandler}>
                                 <TextField
                                     variant="outlined"
@@ -156,7 +160,7 @@ const EditBrand = ({ match }) => {
                                     name="file"
                                     autoComplete="file"
                                     autoFocus
-                                    onChange={(e) => setBrandImage(e.target.files[0])}
+                                    onChange={(e) => setImage(e.target.files[0])}
                                 />
                                 Change proof
                                 <TextField
