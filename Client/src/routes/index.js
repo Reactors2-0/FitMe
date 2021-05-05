@@ -39,6 +39,7 @@ import Profile from '../frontoffice/pages/Order/Profile';
 import BrandSignup from '../frontoffice/pages/BrandSignup/BrandSignup';
 import BrandList from "../backoffice/pages/Brand/BrandtList"
 import EditBrand from "../backoffice/pages/Brand/EditBrand"
+import EditOwnBrand from "../backoffice/pages/Brand/EditOwnBrand"
 import Brands from "../frontoffice/pages/Brands/Brands";
 import BrandPage from "../frontoffice/pages/Brands/BrandPage";
 
@@ -62,6 +63,8 @@ const authProtectedBackRoutes = [
     { path: "/dashboard/admin/Order", component: OrderAdmin },
     { path: "/dashboard/admin/brands", component: BrandList },
     { path: "/dashboard/admin/brand/:brandId", component: EditBrand },
+
+    { path: "/dashboard/seller/brand", component: EditOwnBrand },
     //profile
     { path: "/product-detail/:id", component: ProductDetail },
     { path: "/add-product", component: AddProduct },
